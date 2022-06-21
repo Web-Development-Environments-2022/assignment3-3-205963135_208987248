@@ -1,5 +1,3 @@
-<script>src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</script>
-
 import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";

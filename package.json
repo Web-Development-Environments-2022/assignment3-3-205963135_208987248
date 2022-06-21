@@ -6,10 +6,15 @@
     "build": "vue-cli-service build src/main.js"
   },
   "dependencies": {
+    "aws-sdk": "^2.1159.0",
     "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.0",
-    "bootstrap-vue": "^2.15.0",
+    "bootstrap-vue": "^2.22.0",
     "core-js": "^3.6.5",
+    "mock-aws-s3": "^4.0.2",
+    "nock": "^13.2.7",
     "sass": "^1.50.0",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
