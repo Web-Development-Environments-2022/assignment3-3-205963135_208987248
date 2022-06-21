@@ -91,12 +91,44 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
+    async hash_password(password){
+      const bcrypt = require('bcrypt');
+      // bcrypt.hashSync(password, 13, (err, hash) => {
+      // if (err) {
+      //   console.error(err)
+      //   return
+      // }
+      // console.log(hash)
+      // })
+      let hash = await bcrypt.hash(
+        password, 13
+        // parseInt(process.env.bcrypt_saltRounds) todo change
+        );
+      console.log(hash)
+      return hash
+    },
     async Login() {
       try {
-        
+        this.$root.store.server_domain = "http://localhost:3000";
+        console.log(this.form.password);
+        let hash_password = this.hash_password(this.form.password);
+        console.log(hash_password);
+      }
+      catch (err) {
+        console.log(err);
+        // this.form.submitError = err.response.data.message;
+      }
+      try {
+        // this.$root.store.server_domain = "http://localhost:3000";
+        // const bcrypt = require('bcrypt')
+        // let hash_password = await bcrypt.hashSync(
+        // this.form.password, 13
+        // // parseInt(process.env.bcrypt_saltRounds) todo change
+        // );
+        // console.log(hash_password);
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/Login",
+          this.$root.store.server_domain +"/login",
           // "http://132.72.65.211:80/Login",
           // "http://132.73.84.100:80/Login",
 
@@ -105,13 +137,16 @@ export default {
             password: this.form.password
           }
         );
+        console.log("Here");
+        console.log(response);
+        
         // console.log(response);
         // this.$root.loggedIn = true;
         console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {
-        console.log(err.response);
+        console.log(err);
         this.form.submitError = err.response.data.message;
       }
     },
