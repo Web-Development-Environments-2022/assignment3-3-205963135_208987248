@@ -54,12 +54,23 @@ export default {
       // response = this.$route.params.response;
 
       try {
+        this.$root.store.server_domain = "http://localhost:3000";
+        let userName;
+        // let cookie = Vue.cookie.get('session');
+        // console.log(cookie);
+        // if(!){
+
+        // }
         response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",
           {
-            params: { id: this.$route.params.recipeId }
+            userName: "guest", // todo change to cookie or guest
+            recipeId: this.$route.params.recipeId
           }
+          // {
+          //   params: { id: this.$route.params.recipeId }
+          // }
         );
 
         // console.log("response.status", response.status);
@@ -78,8 +89,7 @@ export default {
         readyInMinutes,
         image,
         title
-      } = response.data.recipe;
-
+      } = response.data;
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;
