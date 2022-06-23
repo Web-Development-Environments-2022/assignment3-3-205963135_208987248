@@ -55,17 +55,15 @@ export default {
 
       try {
         this.$root.store.server_domain = "http://localhost:3000";
-        let userName;
-        // let cookie = Vue.cookie.get('session');
-        // console.log(cookie);
-        // if(!){
-
-        // }
+        let userName = this.$root.store.username;
+        if( userName == undefined){
+          userName = "guest";
+        }
         response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",
           {
-            userName: "guest", // todo change to cookie or guest
+            userName: userName,
             recipeId: this.$route.params.recipeId
           }
           // {
