@@ -1,70 +1,118 @@
 <template>
-  <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
-    <div class="recipe-body">
+
+    <div class="recipe-container">
+       <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="recipe-preview">
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        </router-link>
+      <div class="recipe-footer">
+        <h5 :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </h5>
+        <ul class="recipe-overview">
+          <li>{{ recipe.readyInMinutes }} minutes</li>
+          <!-- <li>vegan <img v-if={{ recipe.vegan }} :src="recipe.image" class="src/images/v.png" /></li> -->
+          <li>{{ recipe.vegetarian }} vegetarian</li>
+          <li>{{ recipe.aggregateLikes }} likes</li>
+        </ul>
+        <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="recipe-preview">
+        <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
+        </router-link>
+      </div> 
     </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
-      </ul>
-    </div>
-  </router-link>
+
+
 </template>
 
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
+    this.axios.get(this.recipe.image, {headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}}).then((res) => {
       this.image_load = true;
-    });
+    })
+    .catch((err) => console.log(err));
   },
   data() {
     return {
-      image_load: false
+      image_load: true
     };
   },
   props: {
     recipe: {
       type: Object,
       required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    readyInMinutes: {
+      type: Number,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    aggregateLikes: {
+      type: Number,
+      required: false,
+      default() {
+        return undefined;
+      }
     }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
   }
 };
 </script>
 
 <style scoped>
-.recipe-preview {
+.recipe-container {
+  background-color: rgb(255, 253, 249);
+  border-radius: 10px;
+  border-style: ridge ;
+}
+
+
+.recipe-image {
+  width: 100%;
+  border-radius: 10px 10px 0  0;
+}
+
+.recipe-image:hover{
+    opacity: 0.3;
+
+}
+
+.recipe-footer {
+  text-align: left;
+  padding: 20px;
+}
+
+.recipe-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
+.recipe-overview {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#recipe_link{
+  margin-left: 100px;
+}
+
+/* .recipe-preview {
   display: inline-block;
   width: 90%;
   height: 100%;
@@ -137,5 +185,5 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
-}
+} */
 </style>
