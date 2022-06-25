@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
@@ -33,8 +34,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.title{
+  text-align: center;
+}
 .RandomRecipes {
-  margin: 10px 0 10px;
+  margin: 30px 0 30px;
+  text-align: center;
+
+  
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -44,4 +52,5 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+
 </style>

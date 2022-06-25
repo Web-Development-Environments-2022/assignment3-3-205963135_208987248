@@ -1,5 +1,49 @@
 <template>
-  <div id="app">
+<div  id="app">
+  <div id="nav">
+  <b-navbar toggleable="lg" type="light" variant="warning">
+    <b-navbar-brand>
+
+        <b-button pill variant="outline-secondary"><router-link :to="{ name: 'main' }">Vue Recipes</router-link></b-button>
+
+      
+    </b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item >
+          <b-button pill variant="outline-secondary"><router-link :to="{ name: 'search' }">Search</router-link></b-button>
+          
+        </b-nav-item>
+      </b-navbar-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <!-- {{ !$root.store.username }} -->
+      <span v-if="!$root.store.username">
+        <!-- Guest: -->
+        <b-button pill variant="outline-secondary"><router-link :to="{ name: 'register' }">Register</router-link></b-button>
+        <b-button pill variant="outline-secondary"><router-link :to="{ name: 'login' }">Login</router-link></b-button>
+      </span>
+      <span v-else>
+        {{ $root.store.username }}:
+         <b-button pill variant="outline-secondary" @click="Logout">Logout</b-button>
+      </span>
+        
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+  </div>
+  <router-view />
+</div>
+
+
+
+
+
+  <!-- <div id="app">
     <div id="nav">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
@@ -14,7 +58,7 @@
       </span>
     </div>
     <router-view />
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -37,7 +81,7 @@ export default {
 @import "@/scss/form-style.scss";
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
