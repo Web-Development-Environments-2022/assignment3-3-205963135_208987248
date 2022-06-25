@@ -6,6 +6,7 @@
     "build": "vue-cli-service build src/main.js"
   },
   "dependencies": {
+    "@syncfusion/ej2-vue-dropdowns": "^20.1.61",
     "aws-sdk": "^2.1159.0",
     "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
@@ -19,6 +20,7 @@
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-cookies": "^1.8.1",
+    "vue-dropdowns": "^1.1.2",
     "vue-router": "^3.2.0",
     "vuelidate": "^0.7.5"
   },
