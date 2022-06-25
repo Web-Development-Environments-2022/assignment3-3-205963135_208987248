@@ -12,7 +12,11 @@
         </h5>
         <ul class="recipe-overview">
           <li>{{ recipe.readyInMinutes }} minutes</li>
-          <!-- <li>vegan <img v-if={{ recipe.vegan }} :src="recipe.image" class="src/images/v.png" /></li> -->
+          <li>vegan: 
+            <div v-if="recipe.vegan">
+              <img src="src/images/v.png"/>
+            </div>
+          </li>
           <li>{{ recipe.vegetarian }} vegetarian</li>
           <li>{{ recipe.aggregateLikes }} likes</li>
         </ul>
