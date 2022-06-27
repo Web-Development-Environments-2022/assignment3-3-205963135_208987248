@@ -6,7 +6,14 @@
     </h3>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+        <RecipePreview
+          class="recipePreview"
+          :recipe="r"
+          :id="r.id"
+          :title="r.title"
+          :readyInMinutes="r.readyInMinutes"
+          :image="r.image"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -17,17 +24,17 @@ import RecipePreview from "./RecipePreview.vue";
 export default {
   name: "RecipePreviewListWatched",
   components: {
-    RecipePreview
+    RecipePreview,
   },
   props: {
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
     };
   },
   mounted() {
@@ -38,7 +45,7 @@ export default {
       try {
         this.$root.store.server_domain = "http://localhost:3000";
         const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/watch",
+          this.$root.store.server_domain + "/users/watch"
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         const recipes = response.data;
@@ -47,8 +54,8 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

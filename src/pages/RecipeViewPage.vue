@@ -10,12 +10,13 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div>Likes: {{ recipe.popularity }} likes</div>
+              <div>Servings: {{ recipe.servings }} servings</div>
             </div>
             Ingredients:
             <ul>
               <li
-                v-for="(r, index) in recipe.extendedIngredients"
+                v-for="(r, index) in recipe.ingredients"
                 :key="index + '_' + r.id"
               >
                 {{ r.original }}
@@ -45,7 +46,7 @@
 export default {
   data() {
     return {
-      recipe: null
+      recipe: undefined,
     };
   },
   async created() {
@@ -56,7 +57,7 @@ export default {
       try {
         this.$root.store.server_domain = "http://localhost:3000";
         let userName = this.$root.store.username;
-        if( userName == undefined){
+        if (userName == undefined) {
           userName = "guest";
         }
         response = await this.axios.post(
@@ -64,7 +65,7 @@ export default {
           this.$root.store.server_domain + "/recipes/details",
           {
             userName: userName,
-            recipeId: this.$route.params.recipeId
+            recipeId: this.$route.params.recipeId,
           }
           // {
           //   params: { id: this.$route.params.recipeId }
@@ -82,11 +83,12 @@ export default {
       let {
         analyzedInstructions,
         instructions,
-        extendedIngredients,
-        aggregateLikes,
+        ingredients,
+        popularity,
         readyInMinutes,
         image,
-        title
+        title,
+        servings,
       } = response.data;
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -99,18 +101,19 @@ export default {
         instructions,
         _instructions,
         analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
+        ingredients,
+        popularity,
         readyInMinutes,
         image,
-        title
+        title,
+        servings,
       };
 
       this.recipe = _recipe;
     } catch (error) {
       console.log(error);
     }
-  }
+  },
 };
 </script>
 

@@ -3,185 +3,306 @@
     <div class="search-holder">
       <div class="search-holder__banner">
         <div class="col-xs-12 text-center hero-header-container">
-          <h1 class="hero-header">
-            Find the Best Recipes Right Here
-          </h1>
-          <div class="search-bar">
-            <div class="form-holder">
-              <div class="navbarSearch">
-                <input
-                  @change="onChange"
-                  @keyup="onChange"
-                  v-model="searchText"
-                  class="form-control navbar-search-input js-navbar-search-input nav-input js-filter-topics"
-                  type="text"
-                  placeholder="Search for recipes"
+          <h1 class="hero-header">Find the Best Recipes Right Here</h1>
+
+          <div class="filters">
+            <b-form-select
+              class="selector"
+              v-model="form.cuisine"
+              :options="cuisines"
+            ></b-form-select>
+            <b-form-select
+              class="selector"
+              v-model="form.diet"
+              :options="diets"
+            ></b-form-select>
+            <b-form-select
+              class="selector"
+              v-model="form.number"
+              :options="numbers"
+            ></b-form-select>
+            <b-form-select
+              class="selector"
+              v-model="form.intolerance"
+              :options="intolerances"
+            ></b-form-select>
+          </div>
+
+          <div class="search-container">
+            <div class="search-bar">
+              <div class="form-holder">
+                <div class="navbarSearch">
+                  <input
+                    @change="onChange"
+                    @keyup="onChange"
+                    v-model="searchText"
+                    class="
+                      form-control
+                      navbar-search-input
+                      js-navbar-search-input
+                      nav-input
+                      js-filter-topics
+                    "
+                    type="text"
+                    placeholder="Search for recipes"
+                  />
+                </div>
+                <img
+                  class="icon"
+                  src="https://hackr.io/assets/images/header-icons/search-header.svg"
+                  width="17"
+                  height="17"
                 />
               </div>
-              <img
-                class="icon"
-                src="https://hackr.io/assets/images/header-icons/search-header.svg"
-                width="17"
-                height="17"
-              />
             </div>
+            <b-button v-on:click="searchRecipe" variant="outline-info"
+              >Search Recipes</b-button
+            >
           </div>
         </div>
       </div>
-      <b-button v-on:click="searchRecipe" variant="outline-info">Search Recipes</b-button>
     </div>
-    <div class="filters">
-      <b-form-select class="selector" v-model="form.cuisine" :options="cuisines"></b-form-select>
-      <b-form-select class="selector" v-model="form.diet" :options="diets"></b-form-select>
-      <b-form-select class="selector" v-model="form.number" :options="numbers"></b-form-select>
-      <b-form-select class="selector" v-model="form.intolerance" :options="intolerances"></b-form-select>
-    </div>
-    <!-- <RecipePreviewList title="search-results"></RecipePreviewList> -->
-    <div v-if="search_cond">
-      <b-row>
-        <b-col v-for="r in recipes" :key="r.id">
+    <!-- <h1 class="hero-header">Last Search:</h1> -->
+    <!-- <div v-if="this.$root.store.username != undefined">
+      <b-row v-for="recipeList in JSON.parse(sessionStorage.getItem('lastSearch'))" :key="recipeList">
+        <b-col v-for="r in recipeList" :key="r.id">
           <RecipePreview class="recipePreview" :recipe="r" :key="r.id" title="search-results"/>
         </b-col>
       </b-row>
-    </div>
+    </div> -->
+    <b-container v-if="search_cond" :key="rerenderer">
+      <h1 class="hero-header">Most Recent Search:</h1>
+      <div class="sorting-buttons">
+        <b-button
+          v-on:click="
+            () => {
+              this.sortRecipes('Time Asc');
+            }
+          "
+          variant="outline-info"
+          >Sort by Preparation Time Lowest First</b-button
+        >
+        <b-button
+          v-on:click="
+            () => {
+              this.sortRecipes('Time Desc');
+            }
+          "
+          variant="outline-info"
+          >Sort by Preparation Time Highest First</b-button
+        >
+        <b-button
+          v-on:click="
+            () => {
+              this.sortRecipes('Popularity Asc');
+            }
+          "
+          variant="outline-info"
+          >Sort by Popularity Lowest First</b-button
+        >
+        <b-button
+          v-on:click="
+            () => {
+              this.sortRecipes('Popularity Desc');
+            }
+          "
+          variant="outline-info"
+          >Sort by Popularity Highest First</b-button
+        >
+      </div>
+      <h1 class="hero-header" v-if="recipes.length == 0">
+        No results was found please try again
+      </h1>
+      <b-row v-for="(recipeList, index2) in recipes" :key="index2">
+        <b-col v-for="(r, index1) in recipeList" :key="index1">
+          <RecipePreview
+            class="recipePreview"
+            :recipe="r"
+            :id="r.id"
+            :title="r.title"
+            :readyInMinutes="r.readyInMinutes"
+            :image="r.image"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-// import dropdown from 'vue-dropdowns';
-// import RecipePreviewList from "../components/RecipePreviewList.vue";
 import RecipePreview from "../components/RecipePreview.vue";
-import {
-  required,
-  alpha
-} from "vuelidate/lib/validators";
+import { required, alpha } from "vuelidate/lib/validators";
+import { info } from "console";
 export default {
-    name: "SearchPage",
-    components: {
-      // RecipePreviewList,
-      RecipePreview,
-    },
-    // props: {
-    //   title: {
-    //     type: String,
-    //     required: true
-    //   }
+  name: "SearchPage",
+  components: {
+    // RecipePreviewList,
+    RecipePreview,
+  },
+  data() {
+    return {
+      searchText: sessionStorage.getItem("searchText"),
+      search_cond: Boolean(sessionStorage.getItem("searchText")),
+      rerenderer: 0,
+      RecipesList: "",
+      form: {
+        number: 5,
+        cuisine: "",
+        diet: "",
+        intolerance: "",
+        SubmitError: undefined,
+      },
+      cuisines: [
+        { value: "", text: "Choose a Cuisine Filter" },
+        { value: "African", text: "African" },
+        { value: "American", text: "American" },
+        { value: "British", text: "British" },
+        { value: "Cajun", text: "Cajun" },
+        { value: "Caribbean", text: "Caribbean" },
+        { value: "Chinese", text: "Chinese" },
+        { value: "Eastern European", text: "Eastern European" },
+        { value: "European", text: "European" },
+        { value: "French", text: "French" },
+        { value: "German", text: "German" },
+        { value: "Greek", text: "Greek" },
+        { value: "Indian", text: "Indian" },
+        { value: "Irish", text: "Irish" },
+        { value: "Italian", text: "Italian" },
+        { value: "Japanese", text: "Japanese" },
+        { value: "Jewish", text: "Jewish" },
+        { value: "Korean", text: "Korean" },
+        { value: "Latin American", text: "Latin American" },
+        { value: "Mediterranean", text: "Mediterranean" },
+        { value: "Mexican", text: "Mexican" },
+        { value: "Middle Eastern", text: "Middle Eastern" },
+        { value: "Nordic", text: "Nordic" },
+        { value: "Southern", text: "Southern" },
+        { value: "Spanish", text: "Spanish" },
+        { value: "Thai", text: "Thai" },
+        { value: "Vietnamese", text: "Vietnamese" },
+      ],
+      numbers: [
+        { value: 5, text: "Choose Number of Recipes Results" },
+        { value: 5, text: "5" },
+        { value: 10, text: "10" },
+        { value: 15, text: "15" },
+      ],
+      diets: [
+        { value: "", text: "Choose Your Diet" },
+        { value: "Gluten Free", text: "Gluten Free" },
+        { value: "Ketogenic", text: "Ketogenic" },
+        { value: "Vegetarian", text: "Vegetarian" },
+        { value: "Lacto-Vegetarian", text: "Lacto-Vegetarian" },
+        { value: "Ovo-Vegetarian", text: "Ovo-Vegetarian" },
+        { value: "Vegan", text: "Vegan" },
+        { value: "Pescetarian", text: "Pescetarian" },
+        { value: "Paleo", text: "Paleo" },
+        { value: "Primal", text: "Primal" },
+        { value: "Low FODMAP", text: "Low FODMAP" },
+        { value: "Whole30", text: "Whole30" },
+      ],
+      intolerances: [
+        { value: "", text: "Choose Your Intolerances" },
+        { value: "Dairy", text: "Dairy" },
+        { value: "Egg", text: "Egg" },
+        { value: "Gluten", text: "Gluten" },
+        { value: "Grain", text: "Grain" },
+        { value: "Peanut", text: "Peanut" },
+        { value: "Seafood", text: "Seafood" },
+        { value: "Sesame", text: "Sesame" },
+        { value: "Shellfish", text: "Shellfish" },
+        { value: "Soy", text: "Soy" },
+        { value: "Sulfite", text: "Sulfite" },
+        { value: "Tree Nut", text: "Tree Nut" },
+        { value: "Wheat", text: "Wheat" },
+      ],
+      recipes: sessionStorage.getItem("searchResults")
+        ? JSON.parse(sessionStorage.getItem("searchResults"))
+        : [],
+      recipesToSort: [],
+    };
+  },
+  methods: {
+    // mounted() {
+    //   sessionStorage.setItem('lastSearch', undefined);
     // },
-    data() {
-        return {
-            searchText: "",
-            search_cond: false,
-            RecipesList: "",
-            form: {
-              number: 5,
-              cuisine: "",
-              diet: "",
-              intolerance: "",
-              SubmitError: undefined,
-            },
-            cuisines: [
-              {value: "", text:"Choose a Cuisine Filter"},
-              {value: "African", text:"African"},
-              {value: "American", text:"American"},
-              {value: "British", text:"British"},
-              {value: "Cajun", text:"Cajun"},
-              {value: "Caribbean", text:"Caribbean"},
-              {value: "Chinese", text:"Chinese"},
-              {value: "Eastern European", text:"Eastern European"},
-              {value: "European", text:"European"},
-              {value: "French", text:"French"},
-              {value: "German", text:"German"},
-              {value: "Greek", text:"Greek"},
-              {value: "Indian", text:"Indian"},
-              {value: "Irish", text:"Irish"},
-              {value: "Italian", text:"Italian"},
-              {value: "Japanese", text:"Japanese"},
-              {value: "Jewish", text:"Jewish"},
-              {value: "Korean", text:"Korean"},
-              {value: "Latin American", text:"Latin American"},
-              {value: "Mediterranean", text:"Mediterranean"},
-              {value: "Mexican", text:"Mexican"},
-              {value: "Middle Eastern", text:"Middle Eastern"},
-              {value: "Nordic", text:"Nordic"},
-              {value: "Southern", text:"Southern"},
-              {value: "Spanish", text:"Spanish"},
-              {value: "Thai", text:"Thai"},
-              {value: "Vietnamese", text:"Vietnamese"},
-            ],
-            numbers: [
-              {value: 5, text:"Choose Number of Recipes Results"},
-              {value: 5, text:"5"},
-              {value: 10, text:"10"},
-              {value: 15, text:"15"},
-            ],
-            diets: [
-              {value: "", text:"Choose Your Diet"},
-              {value: "Gluten Free", text:"Gluten Free"},
-              {value: "Ketogenic", text:"Ketogenic"},
-              {value: "Vegetarian", text:"Vegetarian"},
-              {value: "Lacto-Vegetarian", text:"Lacto-Vegetarian"},
-              {value: "Ovo-Vegetarian", text:"Ovo-Vegetarian"},
-              {value: "Vegan", text:"Vegan"},
-              {value: "Pescetarian", text:"Pescetarian"},
-              {value: "Paleo", text:"Paleo"},
-              {value: "Primal", text:"Primal"},
-              {value: "Low FODMAP", text:"Low FODMAP"},
-              {value: "Whole30", text:"Whole30"},
-            ],
-            intolerances: [
-              {value: "", text:"Choose Your Intolerances"},
-              {value: "Dairy", text:"Dairy"},
-              {value: "Egg", text:"Egg"},
-              {value: "Gluten", text:"Gluten"},
-              {value: "Grain", text:"Grain"},
-              {value: "Peanut", text:"Peanut"},
-              {value: "Seafood", text:"Seafood"},
-              {value: "Sesame", text:"Sesame"},
-              {value: "Shellfish", text:"Shellfish"},
-              {value: "Soy", text:"Soy"},
-              {value: "Sulfite", text:"Sulfite"},
-              {value: "Tree Nut", text:"Tree Nut"},
-              {value: "Wheat", text:"Wheat"},
-            ],
-            recipes: [],
-        };
+    async rerender() {
+      this.rerenderer = 1 - this.rerenderer;
     },
-    methods: {
-        onChange() {
-            this.$emit("search", this.searchText);
-        },
-        async searchRecipe(){
-          try {
-            this.$root.store.server_domain = "http://localhost:3000";
-            const response = await this.axios.post(
-              this.$root.store.server_domain + "/recipes/search",
-              {
-                "querySearch": this.searchText,
-                "numberSearch": this.form.number,
-                "cuisineSearch": this.form.cuisine,
-                "dietSearch": this.form.diet,
-                "intoleranceSearch": this.form.intolerance,
-              }
-              // "https://test-for-3-2.herokuapp.com/recipes/random"
-            );
-            const searchedRecipes = response.data;
-            console.log(searchedRecipes);
-            this.recipes = [];
-            console.log("Here");
-            this.recipes.push(...searchedRecipes);
-            console.log("Here");
-            this.search_cond = true;
-            // this.recipes.forEach((recipe, index) => {
-            //   let col = document.createElement("b-col");
-            //   let RecipePreview = document.createElement("RecipePreview");
-            //   col.appendChild(RecipePreview)
-            //   document.getElementById('row').appendChild(col)
-            // })
-          } catch (error) {
-            console.log(error);
+    onChange() {
+      this.$emit("search", this.searchText);
+    },
+    async chunkArray(myArray, chunk_size) {
+      var index = 0;
+      var arrayLength = myArray.length;
+      var tempArray = [];
+
+      for (index = 0; index < arrayLength; index += chunk_size) {
+        let myChunk = myArray.slice(index, index + chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+      }
+      return tempArray;
+    },
+    async sortRecipes(sortingBy) {
+      if (sortingBy == "Time Asc") {
+        this.recipesToSort.sort((recipe1, recipe2) => {
+          return recipe1.readyInMinutes - recipe2.readyInMinutes;
+        });
+      } else if (sortingBy == "Popularity Asc") {
+        this.recipesToSort.sort((recipe1, recipe2) => {
+          return recipe1.aggregateLikes - recipe2.aggregateLikes;
+        });
+      } else if (sortingBy == "Time Desc") {
+        this.recipesToSort.sort((recipe1, recipe2) => {
+          return recipe2.readyInMinutes - recipe1.readyInMinutes;
+        });
+      } else if (sortingBy == "Popularity Desc") {
+        this.recipesToSort.sort((recipe1, recipe2) => {
+          return recipe2.aggregateLikes - recipe1.aggregateLikes;
+        });
+      }
+      console.log(this.recipesToSort);
+      let searchedRecipes2 = await this.chunkArray(this.recipesToSort, 3);
+      console.log(searchedRecipes2);
+      this.recipes = searchedRecipes2;
+      this.rerender();
+    },
+    async searchRecipe() {
+      try {
+        this.$root.store.server_domain = "http://localhost:3000";
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/recipes/search",
+          {
+            querySearch: this.searchText,
+            numberSearch: this.form.number,
+            cuisineSearch: this.form.cuisine,
+            dietSearch: this.form.diet,
+            intoleranceSearch: this.form.intolerance,
           }
+          // "https://test-for-3-2.herokuapp.com/recipes/random"
+        );
+        const searchedRecipes = response.data;
+        console.log(searchedRecipes);
+        this.recipesToSort = searchedRecipes;
+        let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
+        console.log(searchedRecipes2);
+        // this.recipes = [];
+        // console.log("Here");
+        this.recipes = searchedRecipes2;
+        if (this.$root.store.username != undefined) {
+          sessionStorage.setItem(
+            "searchResults",
+            JSON.stringify(searchedRecipes2)
+          );
+          sessionStorage.setItem("searchText", this.searchText);
         }
+        this.search_cond = true;
+      } catch (error) {
+        console.log(error);
+      }
     },
+  },
 };
 </script>
 <style lang="scss">
@@ -270,4 +391,25 @@ export default {
     color: #c4c4c4;
   }
 }
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.sorting-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+// .navbarSearch{
+//   width: 200%;
+//   left: 0px
+// }
 </style>

@@ -1,78 +1,85 @@
 <template>
-
-    <div class="recipe-container">
-       <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="recipe-preview">
+  <div class="recipe-container">
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-        </router-link>
-      <div class="recipe-footer">
-        <h5 :title="recipe.title" class="recipe-title">
-          {{ recipe.title }}
-        </h5>
-        <ul class="recipe-overview">
-          <li>{{ recipe.readyInMinutes }} minutes</li>
-          <li>vegan: 
-            <div v-if="recipe.vegan">
-              <img src="src/images/v.png"/>
-            </div>
-          </li>
-          <li>{{ recipe.vegetarian }} vegetarian</li>
-          <li>{{ recipe.aggregateLikes }} likes</li>
-        </ul>
-        <router-link
+    </router-link>
+    <div class="recipe-footer">
+      <h5 :title="recipe.title" class="recipe-title">
+        {{ recipe.title }}
+      </h5>
+      <ul class="recipe-overview">
+        <li>{{ recipe.readyInMinutes }} minutes</li>
+        <li>
+          vegan:
+          <div v-if="recipe.vegan">
+            <img src="src\images\v.png" width="20" height="20" />
+          </div>
+          <div v-if="!recipe.vegan">
+            <img src="src\images\x.png" width="20" height="20" />
+          </div>
+        </li>
+        <li>{{ recipe.vegetarian }} vegetarian</li>
+        <li>{{ recipe.aggregateLikes }} likes</li>
+      </ul>
+      <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="recipe-preview">
+        class="recipe-preview"
+      >
         <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
-        </router-link>
-      </div> 
+      </router-link>
     </div>
-
-
+  </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image, {headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}}).then((res) => {
-      this.image_load = true;
-    })
-    .catch((err) => console.log(err));
+    this.axios
+      .get(this.recipe.image, {
+        headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
+      })
+      .then((res) => {
+        this.image_load = true;
+      })
+      .catch((err) => console.log(err));
   },
   data() {
     return {
-      image_load: true
+      image_load: true,
     };
   },
   props: {
     recipe: {
       type: Object,
-      required: true
+      required: true,
     },
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     readyInMinutes: {
       type: Number,
-      required: true
+      required: true,
     },
     image: {
       type: String,
-      required: true
+      required: true,
     },
     aggregateLikes: {
       type: Number,
       required: false,
       default() {
         return undefined;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 
@@ -80,18 +87,18 @@ export default {
 .recipe-container {
   background-color: rgb(255, 253, 249);
   border-radius: 10px;
-  border-style: ridge ;
+  border-style: ridge;
+  width: 20rem;
+  height: 33rem;
 }
-
 
 .recipe-image {
   width: 100%;
-  border-radius: 10px 10px 0  0;
+  border-radius: 10px 10px 0 0;
 }
 
-.recipe-image:hover{
-    opacity: 0.3;
-
+.recipe-image:hover {
+  opacity: 0.3;
 }
 
 .recipe-footer {
@@ -112,7 +119,7 @@ export default {
   margin: 0;
 }
 
-#recipe_link{
+#recipe_link {
   margin-left: 100px;
 }
 
