@@ -43,7 +43,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        this.$root.store.server_domain = "http://localhost:3000";
+        this.$root.store.server_domain = "http://127.0.0.1:3000";
         const response = await this.axios.get(
           this.$root.store.server_domain + "/users/watch"
           // "https://test-for-3-2.herokuapp.com/recipes/random"
