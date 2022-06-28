@@ -4,8 +4,8 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <b-row class="recipes-container">
+      <b-col v-for="r in recipes" :key="r.id" >
         <RecipePreview
           class="recipePreview"
           :recipe="r"
@@ -85,26 +85,26 @@ export default {
             vegetarian: true,
             glutenFree: true,
           },
-          {
-            id: 641308,
-            title: "Decadent Black Forest Cake",
-            image: "https://spoonacular.com/recipeImages/641308-556x370.jpg",
-            readyInMinutes: 45,
-            popularity: 44,
-            vegan: false,
-            vegetarian: false,
-            glutenFree: false,
-          },
-          {
-            id: 716297,
-            title: "Breaded Shrimp and Spicy Mayo Appetizer",
-            image: "https://spoonacular.com/recipeImages/716297-556x370.jpg",
-            readyInMinutes: 20,
-            popularity: 379,
-            vegan: false,
-            vegetarian: false,
-            glutenFree: false,
-          },
+          // {
+          //   id: 641308,
+          //   title: "Decadent Black Forest Cake",
+          //   image: "https://spoonacular.com/recipeImages/641308-556x370.jpg",
+          //   readyInMinutes: 45,
+          //   popularity: 44,
+          //   vegan: false,
+          //   vegetarian: false,
+          //   glutenFree: false,
+          // },
+          // {
+          //   id: 716297,
+          //   title: "Breaded Shrimp and Spicy Mayo Appetizer",
+          //   image: "https://spoonacular.com/recipeImages/716297-556x370.jpg",
+          //   readyInMinutes: 20,
+          //   popularity: 379,
+          //   vegan: false,
+          //   vegetarian: false,
+          //   glutenFree: false,
+          // },
           {
             id: 641308,
             title: "Decadent Black Forest Cake",
@@ -137,5 +137,14 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+  position: flex;
+}
+.recipes-container{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column ;
+  gap:20px;
 }
 </style>
