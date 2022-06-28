@@ -1,5 +1,4 @@
 <template>
-      <v-app>
 
   <div class="recipe-container">
     <router-link
@@ -25,10 +24,10 @@
           <img src= "@/assets/gluten-free.png" width="30" height="30" id="icon" />
         </tamplate>
       </ul>
-
+      <!-- <v-app>
       <v-btn fab depressed small dark color="red">
         <v-icon>favorite</v-icon>
-      </v-btn>
+      </v-btn></v-app> -->
 
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
@@ -36,8 +35,7 @@
       </router-link>
     </div>
   </div>
-        </v-app>
-
+  
 </template>
 
 <script>

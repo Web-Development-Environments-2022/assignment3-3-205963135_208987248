@@ -7,6 +7,9 @@ import routes from "./routes";
 import VueRouter from "vue-router";
 import VueCookies from 'vue-cookies'
 import { BIcon } from 'bootstrap-vue'
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+
 Vue.component('b-icon', BIcon)
 
 Vue.use(VueRouter);
