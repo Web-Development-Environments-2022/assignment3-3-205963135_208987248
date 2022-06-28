@@ -8,7 +8,6 @@
       listType="RandomRecipes"
       class="RandomRecipes center"
     />
-      <b-button class= "more_btn" variant="warning">More Recipe</b-button>
     </div>
     <div class="column">
     <router-link class= "login_first_btn" v-if="!$root.store.username" to="/login" tag="button"
@@ -69,9 +68,7 @@ display: flex;
 .column {
   flex: 50%;
 }
-.more_btn{
-  margin-left: 210px;
-}
+
 .login_first_btn{
   margin-left: 120px;
   margin-top: 50px;

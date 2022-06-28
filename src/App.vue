@@ -1,4 +1,6 @@
 <template>
+
+  <!-- <div id="app" :style="{'background-image': 'url(' + require('./assets/2.png') + ')'}"> -->
   <div id="app">
     <div id="nav">
       <b-navbar toggleable="lg" type="light" variant="warning">
@@ -24,15 +26,14 @@
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
+          <b-navbar-nav class="ml-auto right_btn">
             <!-- {{ !$root.store.username }} -->
             <span v-if="!$root.store.username">
               <!-- Guest: -->
               <b-button pill variant="outline-secondary"
                 ><router-link :to="{ name: 'register' }"
                   >Register</router-link
-                ></b-button
-              >
+                ></b-button>
 
               <b-button pill variant="outline-secondary"
                 ><router-link :to="{ name: 'login' }"
@@ -45,7 +46,7 @@
               <b-dropdown
                 text="Personal"
                 variant="outline-secondary"
-                class="dropdown-recipes"
+                class="m-2"
               >
                 <b-dropdown-item href="#"
                   ><router-link :to="{ name: 'myrecipes' }"
@@ -272,6 +273,9 @@
                   >
                 </b-form>
               </b-modal>
+              <!-- <b-button variant="outline-secondary" @click="Logout" class="mb-2">
+              <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+              </b-button> -->
               <!-- <b-button pill variant="outline-secondary" @click="openModal">Create New Recipe</b-button> -->
               <b-button pill variant="outline-secondary" @click="Logout"
                 >Logout</b-button
@@ -280,8 +284,9 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
+      
+      </div>
       <router-view />
-    </div>
   </div>
 
   <!-- <div id="app">
@@ -307,6 +312,7 @@ export default {
   name: "App",
   data() {
     return {
+      // image: { backgroundImage: url('@/assets/back1.jpg')},
       form: {
         title: undefined,
         image: undefined,
@@ -432,11 +438,13 @@ export default {
 @import "@/scss/form-style.scss";
 
 #app {
-  font-family: cursive;
+  font-family: normal 400 16px/24px "Source Sans Pro",sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  // background-image: "@/assets/back1.jpg"
+
 }
 
 #nav {
@@ -453,6 +461,11 @@ export default {
 }
 .checkbox {
   padding: 10px 10px 10px 25px;
+}
+.right_btn{
+  gap:100px;
+
+
 }
 // .dropdown-recipes {
 //   font-weight: bold;

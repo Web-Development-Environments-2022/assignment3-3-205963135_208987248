@@ -6,6 +6,8 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import VueCookies from 'vue-cookies'
+import { BIcon } from 'bootstrap-vue'
+Vue.component('b-icon', BIcon)
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);

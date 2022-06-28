@@ -1,4 +1,6 @@
 <template>
+      <v-app>
+
   <div class="recipe-container">
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -23,12 +25,19 @@
           <img src= "@/assets/gluten-free.png" width="30" height="30" id="icon" />
         </tamplate>
       </ul>
+
+      <v-btn fab depressed small dark color="red">
+        <v-icon>favorite</v-icon>
+      </v-btn>
+
       <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
         <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
       </router-link>
     </div>
   </div>
+        </v-app>
+
 </template>
 
 <script>
@@ -76,6 +85,7 @@ export default {
         return undefined;
       },
     },
+    
   },
 };
 </script>

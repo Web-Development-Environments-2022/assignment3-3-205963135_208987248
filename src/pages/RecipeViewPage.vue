@@ -3,7 +3,8 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <!-- <b-img :src="recipe.image" class="center" v-bind="mainProps" rounded="circle" alt="Circle image"></b-img> -->
+        <img :src="recipe.image"  class="center" border-radius=50%/>
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -12,8 +13,9 @@
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
               <div>Servings: {{ recipe.servings }} servings</div>
-            </div>
-            Ingredients:
+            </div >
+            <div class="ingredients">
+            <h4>Ingredients:</h4>
             <ul>
               <li
                 v-for="(r, index) in recipe.ingredients"
@@ -22,9 +24,10 @@
                 {{ r.original }}
               </li>
             </ul>
+            </div>
           </div>
-          <div class="wrapped">
-            Instructions:
+          <div class="wrapped instructions">
+            <h4 class="headers">Instructions:</h4>
             <ol>
               <li v-for="s in recipe._instructions" :key="s.number">
                 {{ s.step }}
@@ -47,7 +50,7 @@ export default {
   data() {
     return {
       recipe: undefined,
-    };
+    }
   },
   async created() {
     try {
@@ -130,7 +133,33 @@ export default {
   margin-right: auto;
   width: 50%;
 }
-/* .recipe-header{
+.recipe-header{
+text-align: center;
+}
 
-} */
+.ingredients{
+  background-color: rgba(255, 228, 196, 0.418);
+	padding: 5px;
+	border-radius: 10px;
+    width: 500px;
+      margin-left: 50px;
+
+}
+.instructions{
+	padding: 5px;
+	border-radius: 10px;
+  outline-style:dotted;
+
+}
+.headers{
+  text-align: center;
+}
+.mb-3{
+    background-color: rgba(240, 149, 14, 0.418);
+	padding: 5px;
+	border-radius: 10px;
+  height: 85px;
+  width: 200px;
+  margin-left: 200px;
+}
 </style>
