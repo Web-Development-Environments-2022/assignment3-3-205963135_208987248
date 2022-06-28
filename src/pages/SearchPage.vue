@@ -283,6 +283,7 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         const searchedRecipes = response.data;
+        searchedRecipes.popularity = searchedRecipes.aggregateLikes;
         console.log(searchedRecipes);
         this.recipesToSort = searchedRecipes;
         let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
