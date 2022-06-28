@@ -3,7 +3,7 @@
     <div class="search-holder">
       <div class="search-holder__banner">
         <div class="col-xs-12 text-center hero-header-container">
-          <h1 class="hero-header">Find the Best Recipes Right Here</h1>
+          <h2 class="hero-header">Find the Best Recipes Right Here</h2>
 
           <div class="filters">
             <b-form-select
@@ -55,9 +55,10 @@
                 />
               </div>
             </div>
-            <b-button v-on:click="searchRecipe" variant="outline-info"
-              >Search Recipes</b-button
-            >
+            <b-button class="search_btn" v-on:click="searchRecipe" variant="outline-info"
+              >Search Recipes</b-button>
+            <h2 class="hero-header">Most Recent Search:</h2>
+
           </div>
         </div>
       </div>
@@ -71,7 +72,6 @@
       </b-row>
     </div> -->
     <b-container v-if="search_cond" :key="rerenderer">
-      <h1 class="hero-header">Most Recent Search:</h1>
       <div class="sorting-buttons">
         <b-button
           v-on:click="
@@ -110,11 +110,15 @@
           >Sort by Popularity Highest First</b-button
         >
       </div>
-      <h1 class="hero-header" v-if="recipes.length == 0">
+      <h4 class="hero-header" v-if="recipes.length == 0">
         No results was found please try again
-      </h1>
+      </h4>
+          </b-container>
+
+      <b-container fluid class="p-4 bg-light all_recipes">
+
       <b-row v-for="(recipeList, index2) in recipes" :key="index2">
-        <b-col v-for="(r, index1) in recipeList" :key="index1">
+        <b-col class="col" v-for="(r, index1) in recipeList" :key="index1">
           <RecipePreview
             class="recipePreview"
             :recipe="r"
@@ -324,14 +328,15 @@ export default {
     text-align: center;
   }
   .hero-header {
-    margin: 0 0 25px;
-    line-height: 1;
-    font-size: 34px;
-    text-align: left;
+    // margin: 0 0 25px;
+    // line-height: 1;
+    // font-size: 34px;
+    text-align: center; 
   }
   .search-bar {
     .form-holder {
       position: relative;
+
     }
     .form-control {
       display: block;
@@ -399,7 +404,7 @@ export default {
   padding: 10px;
 }
 .search-container {
-  display: flex;
+  // display: flex;
   flex-direction: row;
   justify-content: center;
 }
@@ -408,6 +413,19 @@ export default {
   flex-direction: row;
   justify-content: center;
   padding: 10px;
+  margin-bottom: 20px;
+}
+.search_btn{
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+.all_recipes{
+  display: contents;
+  flex-direction: row;
+  justify-content: center;
+}
+.col{
+  margin-bottom: 30px;
 }
 // .navbarSearch{
 //   width: 200%;

@@ -40,9 +40,9 @@
           <v-icon>favorite</v-icon>
         </v-btn></v-app
       > -->
-      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
+      <!-- <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
         <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
-      </router-link>
+      </router-link> -->
     </div>
   </div>
 </template>
@@ -103,12 +103,15 @@ export default {
   background-color: rgb(255, 253, 249);
   border-radius: 10px;
   border-style: ridge;
-  width: 20rem;
-  height: 27rem;
+  width: 24rem;
+  height: 26rem;
 }
 
 .recipe-image {
-  width: 100%;
+  width: 23.80rem;
+  height: 14rem;
+
+  /* width: 100%; */
   border-radius: 10px 10px 0 0;
 }
 
@@ -122,10 +125,16 @@ export default {
 }
 
 .recipe-title {
-  white-space: nowrap;
+  /* white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 250px;
+  max-width: 250px; 
+  overflow-wrap: anywhere; */
+    word-wrap: break-word;
+
+
+
+
 }
 
 .recipe-overview {
@@ -134,10 +143,10 @@ export default {
   margin: 0;
 }
 
-#recipe_link {
+/* #recipe_link {
   margin-left: 75px;
-  margin-top: 40px;
-}
+  margin-top: 20px;
+} */
 #icon {
   margin-left: 50px;
 }

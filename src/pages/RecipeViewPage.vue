@@ -12,7 +12,7 @@
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
-              <div>Servings: {{ recipe.servings }} servings</div>
+              <div>{{ recipe.servings }} servings</div>
             </div >
             <div class="ingredients">
             <h4>Ingredients:</h4>
@@ -141,14 +141,17 @@ text-align: center;
   background-color: rgba(255, 228, 196, 0.418);
 	padding: 5px;
 	border-radius: 10px;
-    width: 500px;
-      margin-left: 50px;
+  width: 450px;
+  margin-left: 50px;
 
 }
 .instructions{
 	padding: 5px;
 	border-radius: 10px;
   outline-style:dotted;
+  height: 100%;
+  width: 600px;
+  margin-top: 100px;
 
 }
 .headers{
@@ -160,6 +163,6 @@ text-align: center;
 	border-radius: 10px;
   height: 85px;
   width: 200px;
-  margin-left: 200px;
+  margin-left: 450px;
 }
 </style>
