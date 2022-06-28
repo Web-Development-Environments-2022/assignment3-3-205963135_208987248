@@ -55,7 +55,7 @@ export default {
       // response = this.$route.params.response;
 
       try {
-        this.$root.store.server_domain = "http://localhost:3000";
+        this.$root.store.server_domain = "http://127.0.0.1:3000";
         let userName = this.$root.store.username;
         if (userName == undefined) {
           userName = "guest";

@@ -39,7 +39,7 @@
       <b-button
         type="submit"
         variant="primary"
-        style="width:100px;display:block;"
+        style="width: 100px; display: block"
         class="mx-auto w-100"
         >Login</b-button
       >
@@ -72,19 +72,19 @@ export default {
       form: {
         username: "",
         password: "",
-        submitError: undefined
-      }
+        submitError: undefined,
+      },
     };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
   methods: {
     validateState(param) {
@@ -93,19 +93,19 @@ export default {
     },
     async Login() {
       try {
-        this.$root.store.server_domain = "http://localhost:3000";
+        this.$root.store.server_domain = "http://127.0.0.1:3000";
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
-          this.$root.store.server_domain +"/login",
+          this.$root.store.server_domain + "/login",
           // "http://132.72.65.211:80/Login",
           // "http://132.73.84.100:80/Login",
 
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
           }
         );
-        
+
         // console.log(response);
         // this.$root.loggedIn = true;
         // console.log(this.$root.store.login);
@@ -126,8 +126,8 @@ export default {
       // console.log("login method go");
 
       this.Login();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

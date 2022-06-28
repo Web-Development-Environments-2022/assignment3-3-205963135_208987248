@@ -36,7 +36,7 @@ export default {
   mounted() {
     this.axios
       .get(this.recipe.image, {
-        headers: { "Access-Control-Allow-Origin": "http://localhost:3000" },
+        headers: { "Access-Control-Allow-Origin": "http://127.0.0.1:3000" },
       })
       .then((res) => {
         this.image_load = true;

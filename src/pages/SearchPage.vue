@@ -270,7 +270,7 @@ export default {
     },
     async searchRecipe() {
       try {
-        this.$root.store.server_domain = "http://localhost:3000";
+        this.$root.store.server_domain = "http://127.0.0.1:3000";
         const response = await this.axios.post(
           this.$root.store.server_domain + "/recipes/search",
           {
