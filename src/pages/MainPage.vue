@@ -1,12 +1,17 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
+    <div class="row_container">
+      <div class="column">
     <RecipePreviewList
-      title="Random Recipes"
+      title="Explore this recipes"
       listType="RandomRecipes"
       class="RandomRecipes center"
     />
-    <router-link v-if="!$root.store.username" to="/login" tag="button"
+      <b-button class= "more_btn" variant="warning">More Recipe</b-button>
+    </div>
+    <div class="column">
+    <router-link class= "login_first_btn" v-if="!$root.store.username" to="/login" tag="button"
       >You need to Login to vue this</router-link
     >
     <!-- {{ !$root.store.username }} -->
@@ -19,12 +24,15 @@
       }"
       disabled
     ></RecipePreviewListWatched>
+    </div>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
     </div>-->
   </div>
+  </div>
+
 </template>
 
 <script>
@@ -44,7 +52,8 @@ export default {
 }
 .RandomRecipes {
   margin: 30px 0 30px;
-  text-align: center;
+  // text-align:left;
+  margin-left: 100px;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
@@ -54,4 +63,18 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+.row_container{
+display: flex;
+}
+.column {
+  flex: 50%;
+}
+.more_btn{
+  margin-left: 210px;
+}
+.login_first_btn{
+  margin-left: 120px;
+  margin-top: 50px;
+}
+
 </style>

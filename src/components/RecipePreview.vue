@@ -12,22 +12,19 @@
       </h5>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>
-          vegan:
-          <div v-if="recipe.vegan">
-            <img src="src\images\v.png" width="20" height="20" />
-          </div>
-          <div v-if="!recipe.vegan">
-            <img src="src\images\x.png" width="20" height="20" />
-          </div>
-        </li>
-        <li>{{ recipe.vegetarian }} vegetarian</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+                <li>{{ recipe.popularity }} likes</li>
+        <tamplate v-if="recipe.vegan">
+            <img src= "@/assets/vegan.png" width="30" height="30" id="icon" />
+        </tamplate>
+        <tamplate v-if="recipe.vegetarian">
+          <img src= "@/assets/vegetarian.png" width="30" height="30" id="icon" />
+        </tamplate>
+        <tamplate v-if="recipe.glutenFree">
+          <img src= "@/assets/gluten-free.png" width="30" height="30" id="icon" />
+        </tamplate>
       </ul>
       <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="recipe-preview"
-      >
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
         <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
       </router-link>
     </div>
@@ -89,7 +86,8 @@ export default {
   border-radius: 10px;
   border-style: ridge;
   width: 20rem;
-  height: 33rem;
+  height: 27rem;
+
 }
 
 .recipe-image {
@@ -120,7 +118,11 @@ export default {
 }
 
 #recipe_link {
-  margin-left: 100px;
+  margin-left: 75px;
+  margin-top: 40px;
+}
+#icon{
+margin-left: 50px;
 }
 
 /* .recipe-preview {
