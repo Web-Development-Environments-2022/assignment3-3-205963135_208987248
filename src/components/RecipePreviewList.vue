@@ -5,7 +5,7 @@
       <slot></slot>
     </h3>
     <b-row class="recipes-container">
-      <b-col v-for="r in recipes" :key="r.id" >
+      <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview
           class="recipePreview"
           :recipe="r"
@@ -13,6 +13,7 @@
           :title="r.title"
           :readyInMinutes="r.readyInMinutes"
           :image="r.image"
+          :aggregateLikes="r.aggregateLikes"
         />
       </b-col>
     </b-row>
@@ -141,13 +142,13 @@ export default {
   min-height: 400px;
   position: flex;
 }
-.recipes-container{
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column ;
-  gap:20px;
+.recipes-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .more_btn{

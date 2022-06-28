@@ -13,7 +13,9 @@
       </h5>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-                <li>{{ recipe.popularity }} likes</li>
+                <li>{{ this.recipe.aggregateLikes == undefined
+                ? this.recipe.popularity
+                : this.recipe.aggregateLikes }} likes</li>
         <tamplate v-if="recipe.vegan">
             <img src= "@/assets/vegan.png" width="30" height="30" id="icon" />
         </tamplate>
@@ -30,8 +32,10 @@
       </v-btn></v-app> -->
 
       <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
-        <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="recipe-preview"
+      >
+        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
       </router-link>
     </div>
   </div>
@@ -40,6 +44,7 @@
 
 <script>
 export default {
+  name: "RecipePreview",
   mounted() {
     this.axios
       .get(this.recipe.image, {
@@ -49,6 +54,7 @@ export default {
         this.image_load = true;
       })
       .catch((err) => console.log(err));
+    console.log(this.recipe);
   },
   data() {
     return {
@@ -80,10 +86,9 @@ export default {
       type: Number,
       required: false,
       default() {
-        return undefined;
+        return 0;
       },
     },
-    
   },
 };
 </script>
@@ -95,7 +100,6 @@ export default {
   border-style: ridge;
   width: 20rem;
   height: 27rem;
-
 }
 
 .recipe-image {
@@ -129,8 +133,8 @@ export default {
   margin-left: 75px;
   margin-top: 40px;
 }
-#icon{
-margin-left: 50px;
+#icon {
+  margin-left: 50px;
 }
 
 /* .recipe-preview {
