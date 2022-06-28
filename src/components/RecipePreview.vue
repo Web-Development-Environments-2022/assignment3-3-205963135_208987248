@@ -1,5 +1,4 @@
 <template>
-
   <div class="recipe-container">
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -12,34 +11,40 @@
         {{ recipe.title }}
       </h5>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-                <li>{{ this.recipe.aggregateLikes == undefined
-                ? this.recipe.popularity
-                : this.recipe.aggregateLikes }} likes</li>
+        <li>{{ this.recipe.readyInMinutes }} minutes</li>
+        <li>
+          {{
+            this.recipe.aggregateLikes == undefined
+              ? this.recipe.popularity
+              : this.recipe.aggregateLikes
+          }}
+          likes
+        </li>
         <tamplate v-if="recipe.vegan">
-            <img src= "@/assets/vegan.png" width="30" height="30" id="icon" />
+          <img src="@/assets/vegan.png" width="30" height="30" id="icon" />
         </tamplate>
         <tamplate v-if="recipe.vegetarian">
-          <img src= "@/assets/vegetarian.png" width="30" height="30" id="icon" />
+          <img src="@/assets/vegetarian.png" width="30" height="30" id="icon" />
         </tamplate>
         <tamplate v-if="recipe.glutenFree">
-          <img src= "@/assets/gluten-free.png" width="30" height="30" id="icon" />
+          <img
+            src="@/assets/gluten-free.png"
+            width="30"
+            height="30"
+            id="icon"
+          />
         </tamplate>
       </ul>
       <!-- <v-app>
-      <v-btn fab depressed small dark color="red">
-        <v-icon>favorite</v-icon>
-      </v-btn></v-app> -->
-
-      <router-link
-        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-        class="recipe-preview"
-      >
-        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+        <v-btn fab depressed small dark color="red">
+          <v-icon>favorite</v-icon>
+        </v-btn></v-app
+      > -->
+      <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
+        <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
       </router-link>
     </div>
   </div>
-  
 </template>
 
 <script>
