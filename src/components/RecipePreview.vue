@@ -12,7 +12,14 @@
       </h5>
       <ul class="recipe-overview">
         <li>{{ this.recipe.readyInMinutes }} minutes</li>
-        <li>{{ this.recipe.aggregateLikes }} likes</li>
+        <li>
+          {{
+            this.recipe.aggregateLikes == undefined
+              ? this.recipe.popularity
+              : this.recipe.aggregateLikes
+          }}
+          likes
+        </li>
         <tamplate v-if="recipe.vegan">
           <img src="@/assets/vegan.png" width="30" height="30" id="icon" />
         </tamplate>
