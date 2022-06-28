@@ -17,6 +17,8 @@
         />
       </b-col>
     </b-row>
+  <b-button class= "more_btn" @click="updateRecipes" variant="warning">More Recipe</b-button>
+
   </b-container>
 </template>
 
@@ -147,5 +149,10 @@ export default {
   align-items: center;
   flex-direction: column;
   gap: 20px;
+}
+
+.more_btn{
+  margin-left: 100px;
+  margin-top: 50px;
 }
 </style>
