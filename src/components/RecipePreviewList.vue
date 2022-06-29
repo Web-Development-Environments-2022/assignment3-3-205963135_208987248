@@ -14,11 +14,14 @@
           :readyInMinutes="r.readyInMinutes"
           :image="r.image"
           :aggregateLikes="r.aggregateLikes"
+          :isFavorite="r.isFavorite"
+          :isLastseen="r.isLastseen"
         />
       </b-col>
     </b-row>
-  <b-button class= "more_btn" @click="updateRecipes" variant="warning">More Recipe</b-button>
-
+    <b-button class="more_btn" @click="updateRecipes" variant="warning"
+      >More Recipe</b-button
+    >
   </b-container>
 </template>
 
@@ -50,6 +53,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
+        console.log("Here");
         this.$root.store.server_domain = "http://127.0.0.1:3000";
         // let response;
         // if (this.listType == "RandomRecipes") {
@@ -129,6 +133,17 @@ export default {
             glutenFree: false,
           },
         ];
+        let lastSeen = sessionStorage.getItem("watchedRecipes");
+        let favorites = sessionStorage.getItem("favorites");
+        let newRecipes = [];
+        this.recipes.forEach((recipe) => {
+          let newRecipe = JSON.parse(JSON.stringify(recipe));
+          newRecipe.isFavorite = favorites.includes(newRecipe.id);
+          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          newRecipes.push(newRecipe);
+        });
+        this.recipes = newRecipes;
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -151,7 +166,7 @@ export default {
   gap: 20px;
 }
 
-.more_btn{
+.more_btn {
   margin-left: 100px;
   margin-top: 50px;
 }

@@ -12,6 +12,7 @@
 <script>
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 export default {
+  name: "FavoriteRecipe",
   components: {
     RecipePreviewList,
   },
