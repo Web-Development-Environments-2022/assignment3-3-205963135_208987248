@@ -55,10 +55,13 @@
                 />
               </div>
             </div>
-            <b-button class="search_btn" v-on:click="searchRecipe" variant="outline-info"
-              >Search Recipes</b-button>
+            <b-button
+              class="search_btn"
+              v-on:click="searchRecipe"
+              variant="outline-info"
+              >Search Recipes</b-button
+            >
             <h2 class="hero-header">Most Recent Search:</h2>
-
           </div>
         </div>
       </div>
@@ -113,10 +116,9 @@
       <h4 class="hero-header" v-if="recipes.length == 0">
         No results was found please try again
       </h4>
-          </b-container>
+    </b-container>
 
-      <b-container fluid class="p-4 bg-light all_recipes">
-
+    <b-container fluid class="p-4 bg-light all_recipes">
       <b-row v-for="(recipeList, index2) in recipes" :key="index2">
         <b-col class="col" v-for="(r, index1) in recipeList" :key="index1">
           <RecipePreview
@@ -126,6 +128,9 @@
             :title="r.title"
             :readyInMinutes="r.readyInMinutes"
             :image="r.image"
+            :aggregateLikes="r.aggregateLikes"
+            :isFavorite="r.isFavorite"
+            :isLastseen="r.isLastseen"
           />
         </b-col>
       </b-row>
@@ -331,12 +336,11 @@ export default {
     // margin: 0 0 25px;
     // line-height: 1;
     // font-size: 34px;
-    text-align: center; 
+    text-align: center;
   }
   .search-bar {
     .form-holder {
       position: relative;
-
     }
     .form-control {
       display: block;
@@ -415,16 +419,16 @@ export default {
   padding: 10px;
   margin-bottom: 20px;
 }
-.search_btn{
+.search_btn {
   margin-top: 20px;
   margin-bottom: 50px;
 }
-.all_recipes{
+.all_recipes {
   display: contents;
   flex-direction: row;
   justify-content: center;
 }
-.col{
+.col {
   margin-bottom: 30px;
 }
 // .navbarSearch{
