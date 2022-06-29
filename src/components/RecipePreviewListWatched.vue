@@ -13,6 +13,9 @@
           :title="r.title"
           :readyInMinutes="r.readyInMinutes"
           :image="r.image"
+          :aggregateLikes="r.aggregateLikes"
+          :isFavorite="r.isFavorite"
+          :isLastseen="true"
         />
       </b-col>
     </b-row>
@@ -49,8 +52,18 @@ export default {
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
         const recipes = response.data;
-        this.recipes = [];
-        this.recipes.push(...recipes);
+        this.recipes = recipes;
+
+        let lastSeen = sessionStorage.getItem("watchedRecipes");
+        let favorites = sessionStorage.getItem("favorites");
+        let newRecipes = [];
+        this.recipes.forEach((recipe) => {
+          let newRecipe = JSON.parse(JSON.stringify(recipe));
+          newRecipe.isFavorite = favorites.includes(newRecipe.id);
+          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          newRecipes.push(newRecipe);
+        });
+        this.recipes = newRecipes;
       } catch (error) {
         console.log(error);
       }

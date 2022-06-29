@@ -32,6 +32,7 @@
 
 import RecipePreviewList from "../components/RecipePreviewList.vue";
 export default {
+  name: "MyRecipes",
   components: {
     // RecipePreview,
     RecipePreviewList,

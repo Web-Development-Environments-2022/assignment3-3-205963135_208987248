@@ -110,6 +110,21 @@ export default {
         // this.$root.loggedIn = true;
         // console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
+        let lastSeen = await this.axios.get(
+          this.$root.store.server_domain + "/users/allwatched"
+        );
+        let favorites = await this.axios.get(
+          this.$root.store.server_domain + "/users/favorites"
+        );
+        let favoritesIds = [];
+        favorites.data.forEach((recipe) => {
+          favoritesIds.push(recipe.id.toString());
+        });
+        sessionStorage.setItem(
+          "watchedRecipes",
+          JSON.stringify(lastSeen.data.watched)
+        );
+        sessionStorage.setItem("favorites", JSON.stringify(favoritesIds));
         this.$router.push("/");
       } catch (err) {
         console.log(err);

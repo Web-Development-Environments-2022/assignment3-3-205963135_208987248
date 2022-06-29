@@ -35,6 +35,11 @@
           />
         </tamplate>
       </ul>
+      <iconBar
+        :isFavorite="isFavorite"
+        :isLastseen="isLastseen"
+        :recipe="recipe"
+      ></iconBar>
       <!-- <v-app>
         <v-btn fab depressed small dark color="red">
           <v-icon>favorite</v-icon>
@@ -48,8 +53,12 @@
 </template>
 
 <script>
+import iconBar from "../components/iconBar.vue";
 export default {
   name: "RecipePreview",
+  components: {
+    iconBar,
+  },
   mounted() {
     this.axios
       .get(this.recipe.image, {
@@ -94,6 +103,14 @@ export default {
         return 0;
       },
     },
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
+    isLastseen: {
+      type: Boolean,
+      required: true,
+    },
   },
 };
 </script>
@@ -108,7 +125,7 @@ export default {
 }
 
 .recipe-image {
-  width: 23.80rem;
+  width: 23.8rem;
   height: 14rem;
 
   /* width: 100%; */
@@ -130,11 +147,7 @@ export default {
   text-overflow: ellipsis;
   max-width: 250px; 
   overflow-wrap: anywhere; */
-    word-wrap: break-word;
-
-
-
-
+  word-wrap: break-word;
 }
 
 .recipe-overview {
