@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <h1 class="title">Login</h1>
-    <b-form @submit.prevent="onLogin">
+    <img class="welcome" src="@/assets/welcome.png" width="500" height="250" />
+    <!-- <h1 class="title">Login</h1> -->
+    
+    <b-form class="my_form" @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"
         label-cols-sm="3"
@@ -38,12 +40,12 @@
 
       <b-button
         type="submit"
-        variant="primary"
+        variant="dark"
         style="width: 100px; display: block"
-        class="mx-auto w-100"
+        class="mx-auto w-100 login_btn"
         >Login</b-button
       >
-      <div class="mt-2">
+      <div class="mt-2 reg_here" >
         Do not have an account yet?
         <router-link to="register"> Register in here</router-link>
       </div>
@@ -147,6 +149,26 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  max-width: 400px;
+  max-width: 500px;
+  // margin-top: 100px;
+  border-radius: 10px;
+  // outline-style: dotted;
+}
+.title{
+  text-align: center;
+}
+.welcome{
+  // display: flex;
+  margin-bottom: 40px;
+  left: 0%;
+  // right: 80px;
+  // left:80px;
+}
+.login_btn{
+  margin-top: 40px;
+  text-align: center;
+}
+.reg_here{
+  text-align: center;
 }
 </style>
