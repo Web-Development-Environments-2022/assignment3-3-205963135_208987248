@@ -1,4 +1,5 @@
 <template>
+<b-container>
   <div class="recipe-container">
     <router-link
       :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
@@ -50,6 +51,7 @@
       </router-link> -->
     </div>
   </div>
+  </b-container>
 </template>
 
 <script>
@@ -120,12 +122,12 @@ export default {
   background-color: rgb(255, 253, 249);
   border-radius: 10px;
   border-style: ridge;
-  width: 24rem;
-  height: 26rem;
+  width: 26rem;
+  height: 29rem;
 }
 
 .recipe-image {
-  width: 23.8rem;
+  width: 25.8rem;
   height: 14rem;
 
   /* width: 100%; */

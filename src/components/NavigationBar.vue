@@ -29,7 +29,7 @@
             <div>If you like our work, you can see more of our projects</div>
             <div><a href="https://github.com/Web-Development-Environments-2022/208987248_205963135">Pacman Game</a></div>
             <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Sara's Website</a></div>
-            <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Encanto's Website</a></div>
+            <div><a href="https://github.com/Web-Development-Environments-2022/205963135">Encanto's Website</a></div>
         </div>
         <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
       </b-modal>
@@ -54,7 +54,7 @@
             <h7 class="hello">{{ $root.store.username }}:</h7>
             <b-dropdown
               text="Personal"
-              pill variant="outline-secondary"
+              variant="dark bold"
               class="dropdown-recipes"
             >
               <b-dropdown-item href="#"
@@ -124,6 +124,7 @@
                   id="title"
                   label="Recipe Name:"
                   label-for="recipeTitle"
+                  class="recipe_name"
                 >
                   <b-form-input
                     id="recipeTitle"
@@ -133,7 +134,8 @@
                   ></b-form-input>
                 </b-form-group>
 
-                <b-form-group id="image" label="Image URL:" label-for="url">
+                <b-form-group id="image" label="Image URL:" label-for="url" class="bold_text"
+>
                   <b-form-input
                     id="url"
                     v-model="form.image"
@@ -146,6 +148,7 @@
                 <b-form-group
                   id="readyInMinutes"
                   label="Preparation Time:"
+                  class="bold_text"
                   label-for="recipeReadyInMinutes"
                 >
                   <b-form-input
@@ -162,6 +165,7 @@
                   id="servings"
                   label="Number of Servings:"
                   label-for="recipeServings"
+                  class="bold_text"
                 >
                   <b-form-input
                     id="recipeServings"
@@ -178,7 +182,6 @@
 
               <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                 <strong>Ingredients:</strong>
-                <br /><br />
                 <b-form-group
                   :state="Boolean(form.ingredients)"
                   v-for="ingredient in form.ingredients"
@@ -194,19 +197,17 @@
                     class="mb-2 mr-sm-2 mb-sm-0"
                   ></b-form-input>
                 </b-form-group>
-                <br />
+                <div class="two_btn">
                 <b-button
-                  pill
-                  variant="outline-secondary"
+                  pill variant="outline-secondary"
                   @click="addIngredient"
                   >Add Ingredient</b-button
                 >
                 <b-button
-                  pill
-                  variant="outline-secondary"
+                  pill variant="outline-secondary"
                   @click="removeIngredient"
                   >Remove Ingredient</b-button
-                >
+                ></div>
                 <!-- <b-avatar
                     button
                     @click="addIngredient"
@@ -225,9 +226,8 @@
                   ></b-avatar> -->
               </b-form>
 
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <b-form class="Instructions" @submit="onSubmit" @reset="onReset" v-if="show">
                 <strong>Instructions:</strong>
-                <br /><br />
                 <b-form-group
                   :state="Boolean(form.instructions)"
                   v-for="instruction in form.instructions"
@@ -243,7 +243,7 @@
                     class="mb-2 mr-sm-2 mb-sm-0"
                   ></b-form-input>
                 </b-form-group>
-                <br />
+                <div class="two_btn">
                 <b-button
                   pill
                   variant="outline-secondary"
@@ -255,7 +255,7 @@
                   variant="outline-secondary"
                   @click="removeInstruction"
                   >Remove Instruction</b-button
-                >
+                ></div>
                 <!-- <b-avatar
                     button
                     @click="addInstruction"
@@ -275,9 +275,9 @@
 
                 <b-button
                   type="submit"
-                  variant="primary"
+                  pill variant="dark"
                   style="width: 100px; display: block"
-                  class="mx-auto w-100"
+                  class="mx-auto w-100 submit"
                   >Submit</b-button
                 >
               </b-form>
@@ -453,8 +453,9 @@ a:hover {
 #nav a.router-link-exact-active {
   color:aliceblue;
 }
-::v-deep .hello{
+.hello{
   margin-right: 20px;
+  margin-top: 10px!important;
   color: aliceblue;
 }
 ::v-deep .reg_btn{
@@ -482,4 +483,42 @@ a:hover {
 ::v-deep .all_btn{
   color:aliceblue
 }
+::v-deep .my_modal{
+  text-align: center !important
+}
+.checkbox{
+  display: inline-block;
+  margin-right: 280px;
+}
+.recipe_name{
+  margin-top: 30px;
+  font-weight: bold;
+}
+.bold_text{
+  font-weight: bold;
+}
+.Instructions{
+  margin-top: 20px;
+}
+.two_btn{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 15px;
+  list-style-type: none;
+}
+.submit{
+  margin-top: 20px;
+}
+/* ::v-deep .b-navbar .b-navbar-nav .b-dropdown .text {
+  color: azure!important;
+  font-weight: bold;
+
+} */
+
+
+
+
 </style>

@@ -8,6 +8,8 @@ import VueRouter from "vue-router";
 import VueCookies from 'vue-cookies'
 import { BIcon } from 'bootstrap-vue'
 import Vuetify from 'vuetify'
+import { BootstrapVue} from 'bootstrap-vue';
+Vue.use(BootstrapVue);
 Vue.use(Vuetify)
 
 Vue.component('b-icon', BIcon)
@@ -19,6 +21,8 @@ const router = new VueRouter({
 });
 axios.defaults.withCredentials = true;
 import Vuelidate from "vuelidate";
+Vue.use(Vuelidate)
+
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
