@@ -2,7 +2,8 @@
   <b-container class="icon-container">
     <b-row>
       <b-col>
-        <b-col v-if="this.recipe.isFavorite">
+        <b-col v-if="!this.$root.store.username"> </b-col>
+        <b-col v-else-if="this.recipe.isFavorite">
           <img
             id="logoFavorite"
             src="../assets/heart-full.png"
@@ -35,7 +36,7 @@
           <span v-if="hover">Click to add as Favorite! </span>
         </b-col>
       </b-col>
-      <b-col v-if="this.isLastseen">
+      <b-col v-if="this.isLastseen && this.$root.store.username">
         <img
           id="watched-image"
           src="../assets/watched.png"
