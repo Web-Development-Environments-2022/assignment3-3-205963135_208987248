@@ -171,4 +171,5 @@ export default {
 .reg_here{
   text-align: center;
 }
+
 </style>

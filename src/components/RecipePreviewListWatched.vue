@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h3>
+    <h3 class="title">
       {{ title }}:
       <slot></slot>
     </h3>
@@ -75,5 +75,9 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+
+}
+.title{
+  margin-left: 100px;
 }
 </style>

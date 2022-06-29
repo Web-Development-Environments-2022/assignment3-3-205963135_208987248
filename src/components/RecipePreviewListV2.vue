@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <h3 class="title">
-      {{ title }}:
+    <!-- <h3>
+      {{ title }}
       <slot></slot>
-    </h3>
+    </h3> -->
     <b-row class="recipes-container">
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview
@@ -19,15 +19,13 @@
         />
       </b-col>
     </b-row>
-  <b-button class= "more_btn" @click="updateRecipes" variant="dark">More Recipe</b-button>
-
   </b-container>
 </template>
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
-  name: "RecipePreviewList",
+  name: "RecipePreviewListV2",
   components: {
     RecipePreview,
   },
@@ -161,15 +159,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
 }
-.title{
-  margin-left: 100px;
-}
 
-.more_btn {
-  margin-left: 170px;
-  margin-top: 50px;
-}
+
 </style>

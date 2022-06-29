@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1 class="title">My Favorite Recipes Page</h1>
-    <RecipePreviewList
-      title="My Favorite Recipes"
+    <h1 class="title">My Favorite Recipes</h1>
+    <RecipePreviewListV2
       listType="MyFavoriteRecipes"
       class="RandomRecipes center"
     />
@@ -10,11 +9,11 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList.vue";
+import RecipePreviewListV2 from "../components/RecipePreviewListV2.vue";
 export default {
   name: "FavoriteRecipe",
   components: {
-    RecipePreviewList,
+    RecipePreviewListV2,
   },
 };
 </script>
@@ -22,6 +21,8 @@ export default {
 <style lang="scss" scoped>
 .title {
   text-align: center;
+  margin-bottom: 10px;
+  margin-top: 25px;
 }
 .RandomRecipes {
   margin: 30px 0 30px;

@@ -9,8 +9,8 @@
             src="../assets/heart-full.png"
             alt="Not favorite"
             style="
-              width: 40px;
-              height: 40px;
+              width: 35px;
+              height: 35px;
               margin-bottom: -1px;
               margin-top: 1px;
             "
@@ -26,8 +26,8 @@
             v-on:click="addToFavorite"
             alt="Not favorite"
             style="
-              width: 40px;
-              height: 40px;
+              width: 25px;
+              height: 25px;
               margin-bottom: -1px;
               margin-top: 1px;
             "
@@ -42,8 +42,8 @@
           src="../assets/watched.png"
           alt="Watched"
           style="
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             margin-bottom: -1px;
             margin-top: 1px;
           "
