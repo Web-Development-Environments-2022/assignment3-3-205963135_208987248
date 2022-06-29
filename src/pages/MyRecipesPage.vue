@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="title">My Recipes Page</h1>
-    <RecipePreviewList
+    <RecipePreviewListV2
       title="My Recipes"
       listType="MyRecipes"
       class="RandomRecipes center"
@@ -30,12 +30,12 @@
 <script>
 // import RecipePreview from "../components/RecipePreview.vue";
 
-import RecipePreviewList from "../components/RecipePreviewList.vue";
+import RecipePreviewListV2 from "../components/RecipePreviewListV2.vue";
 export default {
   name: "MyRecipes",
   components: {
     // RecipePreview,
-    RecipePreviewList,
+    RecipePreviewListV2,
   },
 };
 </script>

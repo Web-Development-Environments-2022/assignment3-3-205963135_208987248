@@ -52,11 +52,13 @@ export default {
 <style lang="scss" scoped>
 .title {
   text-align: center;
+  margin-top: 20px;
 }
 .RandomRecipes {
   margin: 30px 0 30px;
   // text-align:left;
   margin-left: 100px;
+
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */

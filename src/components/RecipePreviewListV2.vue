@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <h3 class="title">
-      {{ title }}:
+    <!-- <h3>
+      {{ title }}
       <slot></slot>
-    </h3>
+    </h3> -->
     <b-row class="recipes-container">
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview
@@ -19,16 +19,13 @@
         />
       </b-col>
     </b-row>
-    <b-button class="more_btn" @click="updateRecipes" variant="dark"
-      >More Recipe</b-button
-    >
   </b-container>
 </template>
 
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
-  name: "RecipePreviewList",
+  name: "RecipePreviewListV2",
   components: {
     RecipePreview,
   },
@@ -53,7 +50,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        // console.log("Here");
+        console.log("Here");
         this.$root.store.server_domain = "http://127.0.0.1:3000";
         // let response;
         // if (this.listType == "RandomRecipes") {
@@ -133,38 +130,8 @@ export default {
             glutenFree: false,
           },
         ];
-        // let lastSeen = sessionStorage.getItem("watchedRecipes");
-        let lastSeen = await this.axios.get(
-          this.$root.store.server_domain + "/users/allwatched"
-        );
-        sessionStorage.setItem(
-          "watchedRecipes",
-          JSON.stringify(lastSeen.data.watched)
-        );
+        let lastSeen = sessionStorage.getItem("watchedRecipes");
         let favorites = sessionStorage.getItem("favorites");
-        if (this.$root.store.username != undefined) {
-          let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
-          console.log(lastSearch);
-          let newSearchRecipesLists = [];
-          lastSearch.forEach((recipes) => {
-            let newSearchRecipes = [];
-            recipes.forEach((recipe) => {
-              let newRecipe = JSON.parse(JSON.stringify(recipe));
-              console.log(newRecipe);
-              newRecipe.isFavorite = favorites.includes(newRecipe.id);
-              newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
-              newSearchRecipes.push(JSON.parse(JSON.stringify(newRecipe)));
-            });
-            newSearchRecipesLists.push(
-              JSON.parse(JSON.stringify(newSearchRecipes))
-            );
-          });
-          console.log(newSearchRecipesLists);
-          sessionStorage.setItem(
-            "searchResults",
-            JSON.stringify(newSearchRecipes)
-          );
-        }
         let newRecipes = [];
         this.recipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
@@ -173,7 +140,7 @@ export default {
           newRecipes.push(newRecipe);
         });
         this.recipes = newRecipes;
-        // console.log(this.recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -192,15 +159,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
 }
-.title{
-  margin-left: 100px;
-}
 
-.more_btn {
-  margin-left: 170px;
-  margin-top: 50px;
-}
+
 </style>
