@@ -162,6 +162,6 @@ export default {
   border-radius: 10px;
   height: 85px;
   width: 200px;
-  margin-left: 450px;
+  margin-left: 50px;
 }
 </style>
