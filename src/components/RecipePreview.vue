@@ -68,7 +68,7 @@ export default {
         this.image_load = true;
       })
       .catch((err) => console.log(err));
-    console.log(this.recipe);
+    // console.log(this.recipe);
   },
   data() {
     return {

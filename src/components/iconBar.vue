@@ -94,7 +94,7 @@ export default {
           favoritesIds.push(recipe.id.toString());
         });
         sessionStorage.setItem("favorites", JSON.stringify(favoritesIds));
-        console.log(response);
+        // console.log(response);
       } catch (err) {
         console.log("error.response.status", error.response.status);
       }

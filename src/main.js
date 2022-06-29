@@ -8,7 +8,11 @@ import VueRouter from "vue-router";
 import VueCookies from 'vue-cookies'
 import { BIcon } from 'bootstrap-vue'
 import Vuetify from 'vuetify'
+import { BFormTags } from 'bootstrap-vue'
+Vue.component('b-form-tags', BFormTags)
 Vue.use(Vuetify)
+import { BootstrapVue} from 'bootstrap-vue';
+Vue.use(BootstrapVue);
 
 Vue.component('b-icon', BIcon)
 

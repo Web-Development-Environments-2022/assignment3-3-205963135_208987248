@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <h1 class="title">My Recipes Page</h1>
     <RecipePreviewList
       title="My Recipes"
@@ -56,5 +56,4 @@ export default {
   pointer-events: none;
   cursor: default;
 }
-
 </style>

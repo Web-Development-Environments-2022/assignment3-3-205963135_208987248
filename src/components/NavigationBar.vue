@@ -2,212 +2,251 @@
   <div id="nav">
     <b-navbar type="dark" variant="dark">
       <div class="left_container">
-      <b-nav-item>
-        <b-button class="all_btn" pill variant="outline-secondary"
-          ><router-link :to="{ name: 'main' }"
-            >Recipes</router-link></b-button>
-      </b-nav-item>
-    <b-nav-item>
-      <b-button  pill variant="outline-secondary"
-        ><router-link :to="{ name: 'search' }"
-          >Search</router-link
-        ></b-button>
-    </b-nav-item>
-    <b-nav-item>
-      <b-button pill variant="outline-secondary" @click="$bvModal.show('bv-modal-example')"><a>About</a></b-button>
-      <b-modal class="modal_class" id="bv-modal-example" hide-footer>
-        <template #modal-title>
-          Welcome to Maor and Dana recipes!
-        </template>
-        <div class="d-block text-center">
-          <h3>Recipes world</h3>
-          <span>You can find any recipe you can imagine on our website.
-            You can upload your own recipes as well as family recipes.</span>
-            <div>The team behind the website:</div>
-            <img class="maor" src="@/assets/maor.jpg" width="150" height="200" id="icon" />
-            <img  class="dana" src="@/assets/dana.jpg" width="150" height="200" id="icon" />
-            <div>If you like our work, you can see more of our projects</div>
-            <div><a href="https://github.com/Web-Development-Environments-2022/208987248_205963135">Pacman Game</a></div>
-            <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Sara's Website</a></div>
-            <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Encanto's Website</a></div>
-        </div>
-        <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
-      </b-modal>
-    </b-nav-item>
-    </div>
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <!-- {{ !$root.store.username }} -->
-          <span v-if="!$root.store.username">
-            <h7 class="hello">Hello Guest</h7>
-            <b-button class="reg_btn" pill variant="outline-secondary"
-              ><router-link :to="{ name: 'register' }"
-                >Register</router-link
-              ></b-button>
-
-            <b-button pill variant="outline-secondary"
-              ><router-link :to="{ name: 'login' }"
-                >Login</router-link
-              ></b-button>
-          </span>
-          <span  v-else>
-            <h7 class="hello">{{ $root.store.username }}:</h7>
-            <b-dropdown
-              text="Personal"
-              pill variant="outline-secondary"
-              class="dropdown-recipes"
-            >
-              <b-dropdown-item href="#"
-                ><router-link :to="{ name: 'myrecipes' }"
-                  ><p>My Recipes</p></router-link
-                ></b-dropdown-item
+        <b-nav-item>
+          <b-button class="all_btn" pill variant="outline-secondary"
+            ><router-link :to="{ name: 'main' }">Recipes</router-link></b-button
+          >
+        </b-nav-item>
+        <b-nav-item>
+          <b-button pill variant="outline-secondary"
+            ><router-link :to="{ name: 'search' }"
+              >Search</router-link
+            ></b-button
+          >
+        </b-nav-item>
+        <b-nav-item>
+          <b-button
+            pill
+            variant="outline-secondary"
+            @click="$bvModal.show('bv-modal-example')"
+            ><a>About</a></b-button
+          >
+          <b-modal class="modal_class" id="bv-modal-example" hide-footer>
+            <template #modal-title>
+              Welcome to Maor and Dana recipes!
+            </template>
+            <div class="d-block text-center">
+              <h3>Recipes world</h3>
+              <span
+                >You can find any recipe you can imagine on our website. You can
+                upload your own recipes as well as family recipes.</span
               >
-              <b-dropdown-item href="#"
-                ><router-link :to="{ name: 'myfavoriterecipes' }"
-                  ><p>My Favorite Recipes</p></router-link
-                ></b-dropdown-item
-              >
-              <b-dropdown-item href="#"
-                ><router-link :to="{ name: 'myfamilyrecipes' }"
-                  ><p>My Family Recipes</p></router-link
-                ></b-dropdown-item
-              >
-            </b-dropdown>
-            <b-button class="create_btn"
-              pill
-              variant="outline-secondary"
-              v-b-modal.create-recipe-modal
-              ><a>Create New Recipe</a></b-button
+              <div>The team behind the website:</div>
+              <img
+                class="maor"
+                src="@/assets/maor.jpg"
+                width="150"
+                height="200"
+                id="icon"
+              />
+              <img
+                class="dana"
+                src="@/assets/dana.jpg"
+                width="150"
+                height="200"
+                id="icon"
+              />
+              <div>If you like our work, you can see more of our projects</div>
+              <div>
+                <a
+                  href="https://github.com/Web-Development-Environments-2022/208987248_205963135"
+                  >Pacman Game</a
+                >
+              </div>
+              <div>
+                <a
+                  href="https://github.com/Web-Development-Environments-2022/208987248"
+                  >Sara's Website</a
+                >
+              </div>
+              <div>
+                <a
+                  href="https://github.com/Web-Development-Environments-2022/208987248"
+                  >Encanto's Website</a
+                >
+              </div>
+            </div>
+            <b-button
+              class="mt-3"
+              block
+              @click="$bvModal.hide('bv-modal-example')"
+              >Close Me</b-button
             >
-            <b-modal
-              modal-class="modal-design"
-              id="create-recipe-modal"
-              ref="modal"
-              title="Create Recipe"
-              size="xl"
+          </b-modal>
+        </b-nav-item>
+      </div>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <!-- {{ !$root.store.username }} -->
+        <span v-if="!$root.store.username">
+          <h7 class="hello">Hello Guest</h7>
+          <b-button class="reg_btn" pill variant="outline-secondary"
+            ><router-link :to="{ name: 'register' }"
+              >Register</router-link
+            ></b-button
+          >
+
+          <b-button pill variant="outline-secondary"
+            ><router-link :to="{ name: 'login' }">Login</router-link></b-button
+          >
+        </span>
+        <span v-else>
+          <h7 class="hello">{{ $root.store.username }}:</h7>
+          <b-dropdown
+            text="Personal"
+            pill
+            variant="outline-secondary"
+            class="dropdown-recipes"
+          >
+            <b-dropdown-item href="#"
+              ><router-link :to="{ name: 'myrecipes' }"
+                ><p>My Recipes</p></router-link
+              ></b-dropdown-item
             >
-              <b-form @submit="onSubmit" @reset="onReset" inline v-if="show">
-                <b-form-checkbox
-                  id="vegetarian"
-                  v-model="form.vegetarian"
-                  name="vegetarian"
-                  :value="true"
-                  :unchecked-value="false"
-                  class="checkbox"
-                >
-                  Vegetarian
-                </b-form-checkbox>
-                <b-form-checkbox
-                  id="vegan"
-                  v-model="form.vegan"
-                  name="vegan"
-                  :value="true"
-                  :unchecked-value="false"
-                  class="checkbox"
-                >
-                  vegan
-                </b-form-checkbox>
-                <b-form-checkbox
-                  id="glutenFree"
-                  v-model="form.glutenFree"
-                  name="glutenFree"
-                  :value="true"
-                  :unchecked-value="false"
-                  class="checkbox"
-                >
-                  glutenFree
-                </b-form-checkbox>
-              </b-form>
+            <b-dropdown-item href="#"
+              ><router-link :to="{ name: 'myfavoriterecipes' }"
+                ><p>My Favorite Recipes</p></router-link
+              ></b-dropdown-item
+            >
+            <b-dropdown-item href="#"
+              ><router-link :to="{ name: 'myfamilyrecipes' }"
+                ><p>My Family Recipes</p></router-link
+              ></b-dropdown-item
+            >
+          </b-dropdown>
+          <b-button
+            class="create_btn"
+            pill
+            variant="outline-secondary"
+            v-b-modal.create-recipe-modal
+            ><a>Create New Recipe</a></b-button
+          >
+          <b-modal
+            modal-class="modal-design"
+            id="create-recipe-modal"
+            ref="modal"
+            title="Create Recipe"
+            size="xl"
+          >
+            <b-form @submit="onSubmit" @reset="onReset" inline v-if="show">
+              <b-form-checkbox
+                id="vegetarian"
+                v-model="form.vegetarian"
+                name="vegetarian"
+                :value="true"
+                :unchecked-value="false"
+                class="checkbox"
+              >
+                Vegetarian
+              </b-form-checkbox>
+              <b-form-checkbox
+                id="vegan"
+                v-model="form.vegan"
+                name="vegan"
+                :value="true"
+                :unchecked-value="false"
+                class="checkbox"
+              >
+                vegan
+              </b-form-checkbox>
+              <b-form-checkbox
+                id="glutenFree"
+                v-model="form.glutenFree"
+                name="glutenFree"
+                :value="true"
+                :unchecked-value="false"
+                class="checkbox"
+              >
+                glutenFree
+              </b-form-checkbox>
+            </b-form>
 
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <b-form-group
-                  id="title"
-                  label="Recipe Name:"
-                  label-for="recipeTitle"
-                >
-                  <b-form-input
-                    id="recipeTitle"
-                    v-model="form.title"
-                    placeholder="Enter Recipe Name"
-                    required
-                  ></b-form-input>
-                </b-form-group>
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <b-form-group
+                id="title"
+                label="Recipe Name:"
+                label-for="recipeTitle"
+              >
+                <b-form-input
+                  id="recipeTitle"
+                  v-model="form.title"
+                  placeholder="Enter Recipe Name"
+                  required
+                ></b-form-input>
+              </b-form-group>
 
-                <b-form-group id="image" label="Image URL:" label-for="url">
-                  <b-form-input
-                    id="url"
-                    v-model="form.image"
-                    type="string"
-                    placeholder="Enter URL to image"
-                    required
-                  ></b-form-input>
-                </b-form-group>
+              <b-form-group id="image" label="Image URL:" label-for="url">
+                <b-form-input
+                  id="url"
+                  v-model="form.image"
+                  type="string"
+                  placeholder="Enter URL to image"
+                  required
+                ></b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="readyInMinutes"
-                  label="Preparation Time:"
-                  label-for="recipeReadyInMinutes"
-                >
-                  <b-form-input
-                    id="recipeReadyInMinutes"
-                    v-model="form.readyInMinutes"
-                    type="integer"
-                    placeholder="Enter Preparation Time in Minutes"
-                    :state="Boolean(parseInt(form.readyInMinutes))"
-                    required
-                  ></b-form-input>
-                </b-form-group>
+              <b-form-group
+                id="readyInMinutes"
+                label="Preparation Time:"
+                label-for="recipeReadyInMinutes"
+              >
+                <b-form-input
+                  id="recipeReadyInMinutes"
+                  v-model="form.readyInMinutes"
+                  type="integer"
+                  placeholder="Enter Preparation Time in Minutes"
+                  :state="Boolean(parseInt(form.readyInMinutes))"
+                  required
+                ></b-form-input>
+              </b-form-group>
 
-                <b-form-group
-                  id="servings"
-                  label="Number of Servings:"
-                  label-for="recipeServings"
-                >
-                  <b-form-input
-                    id="recipeServings"
-                    v-model="form.servings"
-                    type="integer"
-                    placeholder="Enter The Number of Servings"
-                    :state="Boolean(parseInt(form.servings))"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-                <!-- <b-button type="submit" variant="primary">Submit</b-button>
+              <b-form-group
+                id="servings"
+                label="Number of Servings:"
+                label-for="recipeServings"
+              >
+                <b-form-input
+                  id="recipeServings"
+                  v-model="form.servings"
+                  type="integer"
+                  placeholder="Enter The Number of Servings"
+                  :state="Boolean(parseInt(form.servings))"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <!-- <b-button type="submit" variant="primary">Submit</b-button>
                   <b-button type="reset" variant="danger">Reset</b-button> -->
-              </b-form>
+            </b-form>
 
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <strong>Ingredients:</strong>
-                <br /><br />
-                <b-form-group
-                  :state="Boolean(form.ingredients)"
-                  v-for="ingredient in form.ingredients"
-                  :key="ingredient.key"
-                  invalid-feedback="*"
-                >
-                  <b-form-input
-                    :state="Boolean(ingredient.value)"
-                    v-model="ingredient.value"
-                    required
-                    placeholder="Ingredient"
-                    type="string"
-                    class="mb-2 mr-sm-2 mb-sm-0"
-                  ></b-form-input>
-                </b-form-group>
-                <br />
-                <b-button
-                  pill
-                  variant="outline-secondary"
-                  @click="addIngredient"
-                  >Add Ingredient</b-button
-                >
-                <b-button
-                  pill
-                  variant="outline-secondary"
-                  @click="removeIngredient"
-                  >Remove Ingredient</b-button
-                >
-                <!-- <b-avatar
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <strong>Ingredients:</strong>
+              <br /><br />
+              <b-form-group
+                :state="Boolean(form.ingredients)"
+                v-for="ingredient in form.ingredients"
+                :key="ingredient.key"
+                invalid-feedback="*"
+              >
+                <b-form-input
+                  :state="Boolean(ingredient.value)"
+                  v-model="ingredient.value"
+                  required
+                  placeholder="Ingredient"
+                  type="string"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                ></b-form-input>
+              </b-form-group>
+              <br />
+              <b-button pill variant="outline-secondary" @click="addIngredient"
+                >Add Ingredient</b-button
+              >
+              <b-button
+                pill
+                variant="outline-secondary"
+                @click="removeIngredient"
+                >Remove Ingredient</b-button
+              >
+              <!-- <b-avatar
                     button
                     @click="addIngredient"
                     variant="info"
@@ -223,40 +262,37 @@
                     size="5em"
                     style="text-align: center"
                   ></b-avatar> -->
-              </b-form>
+            </b-form>
 
-              <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                <strong>Instructions:</strong>
-                <br /><br />
-                <b-form-group
-                  :state="Boolean(form.instructions)"
-                  v-for="instruction in form.instructions"
-                  :key="instruction.key"
-                  invalid-feedback="*"
-                >
-                  <b-form-input
-                    :state="Boolean(instruction.value)"
-                    v-model="instruction.value"
-                    required
-                    placeholder="Instruction"
-                    type="string"
-                    class="mb-2 mr-sm-2 mb-sm-0"
-                  ></b-form-input>
-                </b-form-group>
-                <br />
-                <b-button
-                  pill
-                  variant="outline-secondary"
-                  @click="addInstruction"
-                  >Add Instruction</b-button
-                >
-                <b-button
-                  pill
-                  variant="outline-secondary"
-                  @click="removeInstruction"
-                  >Remove Instruction</b-button
-                >
-                <!-- <b-avatar
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <strong>Instructions:</strong>
+              <br /><br />
+              <b-form-group
+                :state="Boolean(form.instructions)"
+                v-for="instruction in form.instructions"
+                :key="instruction.key"
+                invalid-feedback="*"
+              >
+                <b-form-input
+                  :state="Boolean(instruction.value)"
+                  v-model="instruction.value"
+                  required
+                  placeholder="Instruction"
+                  type="string"
+                  class="mb-2 mr-sm-2 mb-sm-0"
+                ></b-form-input>
+              </b-form-group>
+              <br />
+              <b-button pill variant="outline-secondary" @click="addInstruction"
+                >Add Instruction</b-button
+              >
+              <b-button
+                pill
+                variant="outline-secondary"
+                @click="removeInstruction"
+                >Remove Instruction</b-button
+              >
+              <!-- <b-avatar
                     button
                     @click="addInstruction"
                     variant="info"
@@ -273,21 +309,21 @@
                     style="text-align: center"
                   ></b-avatar> -->
 
-                <b-button
-                  type="submit"
-                  variant="primary"
-                  style="width: 100px; display: block"
-                  class="mx-auto w-100"
-                  >Submit</b-button
-                >
-              </b-form>
-            </b-modal>
-            <!-- <b-button pill variant="outline-secondary" @click="openModal">Create New Recipe</b-button> -->
-            <b-button pill variant="outline-secondary" @click="Logout"
-              ><a>Logout</a></b-button
-            >
-          </span>
-        </b-navbar-nav>
+              <b-button
+                type="submit"
+                variant="primary"
+                style="width: 100px; display: block"
+                class="mx-auto w-100"
+                >Submit</b-button
+              >
+            </b-form>
+          </b-modal>
+          <!-- <b-button pill variant="outline-secondary" @click="openModal">Create New Recipe</b-button> -->
+          <b-button pill variant="outline-secondary" @click="Logout"
+            ><a>Logout</a></b-button
+          >
+        </span>
+      </b-navbar-nav>
       <!-- </b-collapse> -->
     </b-navbar>
     <router-view />
@@ -421,14 +457,14 @@ export default {
 
 <style scoped>
 /* @import "@/scss/form-style.scss"; */
-#nav p{
+#nav p {
   color: black;
 }
 
 #nav {
   padding: 30px;
 }
-.left_container{
+.left_container {
   position: relative;
   display: flex;
   justify-content: center;
@@ -436,7 +472,6 @@ export default {
   flex-direction: row;
   gap: 15px;
   list-style-type: none;
-
 }
 #nav a {
   font-weight: bold;
@@ -448,38 +483,37 @@ a:link {
 }
 a:hover {
   text-decoration: none;
-  }
+}
 
 #nav a.router-link-exact-active {
-  color:aliceblue;
+  color: aliceblue;
 }
-::v-deep .hello{
+::v-deep .hello {
   margin-right: 20px;
   color: aliceblue;
 }
-::v-deep .reg_btn{
+::v-deep .reg_btn {
   margin-right: 20px;
 }
-::v-deep .dropdown-recipes{
+::v-deep .dropdown-recipes {
   margin-right: 20px;
-  
 }
-::v-deep .create_btn{
-    margin-right: 20px;
+::v-deep .create_btn {
+  margin-right: 20px;
 }
-.maor{
+.maor {
   margin-right: 40px;
   margin-top: 20px;
 }
-.dana{
-    margin-top: 20px;
+.dana {
+  margin-top: 20px;
 }
-::v-deep .modal_class{
+::v-deep .modal_class {
   background: rgb(177, 51, 51);
   background-color: rgb(177, 51, 51);
 }
 
-::v-deep .all_btn{
-  color:aliceblue
+::v-deep .all_btn {
+  color: aliceblue;
 }
 </style>

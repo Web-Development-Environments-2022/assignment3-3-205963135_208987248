@@ -6,26 +6,263 @@
           <h2 class="hero-header">Find the Best Recipes Right Here</h2>
 
           <div class="filters">
-            <b-form-select
+            <div class="multiple-choice-container">
+              <b-form-select
+                class="selector"
+                v-model="form.number"
+                :options="numbers"
+              ></b-form-select>
+            </div>
+
+            <div class="multiple-choice-container">
+              <b-form-group label-for="tags-with-dropdown">
+                <b-form-tags
+                  id="tags-with-dropdown"
+                  v-model="valueCuisine"
+                  no-outer-focus
+                  class="mb-2"
+                >
+                  <template v-slot="{ tags, disabled, addTag, removeTag }">
+                    <ul
+                      v-if="tags.length > 0"
+                      class="list-inline d-inline-block mb-2"
+                    >
+                      <li
+                        v-for="tag in tags"
+                        :key="tag"
+                        class="list-inline-item"
+                      >
+                        <b-form-tag
+                          @remove="removeTag(tag)"
+                          :title="tag"
+                          :disabled="disabled"
+                          variant="info"
+                          >{{ tag }}</b-form-tag
+                        >
+                      </li>
+                    </ul>
+
+                    <b-dropdown
+                      size="sm"
+                      variant="outline-secondary"
+                      block
+                      menu-class="w-100"
+                    >
+                      <template #button-content>
+                        <b-icon icon="tag-fill"></b-icon> Please choose cuisine
+                        to filter by
+                      </template>
+                      <b-dropdown-form @submit.stop.prevent="() => {}">
+                        <b-form-group
+                          label="Search tags"
+                          label-for="tag-search-input"
+                          label-cols-md="auto"
+                          class="mb-0"
+                          label-size="sm"
+                          :description="searchDescCuisines"
+                          :disabled="disabled"
+                        >
+                          <b-form-input
+                            v-model="search"
+                            id="tag-search-input"
+                            type="search"
+                            size="sm"
+                            autocomplete="off"
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-dropdown-form>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item-button
+                        v-for="cuisine in availableCuisines"
+                        :key="cuisine"
+                        @click="onCuisineClick({ cuisine, addTag })"
+                      >
+                        {{ cuisine }}
+                      </b-dropdown-item-button>
+                      <b-dropdown-text v-if="availableCuisines.length === 0">
+                        There are no tags available to select
+                      </b-dropdown-text>
+                    </b-dropdown>
+                  </template>
+                </b-form-tags>
+              </b-form-group>
+            </div>
+
+            <!-- ================================================================ -->
+            <div class="multiple-choice-container">
+              <b-form-group label-for="tags-with-dropdown">
+                <b-form-tags
+                  id="tags-with-dropdown"
+                  v-model="valueDiet"
+                  no-outer-focus
+                  class="mb-2"
+                >
+                  <template v-slot="{ tags, disabled, addTag, removeTag }">
+                    <ul
+                      v-if="tags.length > 0"
+                      class="list-inline d-inline-block mb-2"
+                    >
+                      <li
+                        v-for="tag in tags"
+                        :key="tag"
+                        class="list-inline-item"
+                      >
+                        <b-form-tag
+                          @remove="removeTag(tag)"
+                          :title="tag"
+                          :disabled="disabled"
+                          variant="info"
+                          >{{ tag }}</b-form-tag
+                        >
+                      </li>
+                    </ul>
+
+                    <b-dropdown
+                      size="sm"
+                      variant="outline-secondary"
+                      block
+                      menu-class="w-100"
+                    >
+                      <template #button-content>
+                        <b-icon icon="tag-fill"></b-icon> Please choose diet to
+                        filter by
+                      </template>
+                      <b-dropdown-form @submit.stop.prevent="() => {}">
+                        <b-form-group
+                          label="Search tags"
+                          label-for="tag-search-input"
+                          label-cols-md="auto"
+                          class="mb-0"
+                          label-size="sm"
+                          :description="searchDescDiets"
+                          :disabled="disabled"
+                        >
+                          <b-form-input
+                            v-model="search"
+                            id="tag-search-input"
+                            type="search"
+                            size="sm"
+                            autocomplete="off"
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-dropdown-form>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item-button
+                        v-for="diet in availableDiets"
+                        :key="diet"
+                        @click="onDietClick({ diet, addTag })"
+                      >
+                        {{ diet }}
+                      </b-dropdown-item-button>
+                      <b-dropdown-text v-if="availableDiets.length === 0">
+                        There are no tags available to select
+                      </b-dropdown-text>
+                    </b-dropdown>
+                  </template>
+                </b-form-tags>
+              </b-form-group>
+            </div>
+
+            <!-- ================================================================ -->
+            <div class="multiple-choice-container">
+              <b-form-group label-for="tags-with-dropdown">
+                <b-form-tags
+                  id="tags-with-dropdown"
+                  v-model="valueIntolerance"
+                  no-outer-focus
+                  class="mb-2"
+                >
+                  <template v-slot="{ tags, disabled, addTag, removeTag }">
+                    <ul
+                      v-if="tags.length > 0"
+                      class="list-inline d-inline-block mb-2"
+                    >
+                      <li
+                        v-for="tag in tags"
+                        :key="tag"
+                        class="list-inline-item"
+                      >
+                        <b-form-tag
+                          @remove="removeTag(tag)"
+                          :title="tag"
+                          :disabled="disabled"
+                          variant="info"
+                          >{{ tag }}</b-form-tag
+                        >
+                      </li>
+                    </ul>
+
+                    <b-dropdown
+                      size="sm"
+                      variant="outline-secondary"
+                      block
+                      menu-class="w-100"
+                    >
+                      <template #button-content>
+                        <b-icon icon="tag-fill"></b-icon> Please choose
+                        intolerance to filter by
+                      </template>
+                      <b-dropdown-form @submit.stop.prevent="() => {}">
+                        <b-form-group
+                          label="Search tags"
+                          label-for="tag-search-input"
+                          label-cols-md="auto"
+                          class="mb-0"
+                          label-size="sm"
+                          :description="searchDescIntolerances"
+                          :disabled="disabled"
+                        >
+                          <b-form-input
+                            v-model="search"
+                            id="tag-search-input"
+                            type="search"
+                            size="sm"
+                            autocomplete="off"
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-dropdown-form>
+                      <b-dropdown-divider></b-dropdown-divider>
+                      <b-dropdown-item-button
+                        v-for="intolerance in availableIntolerances"
+                        :key="intolerance"
+                        @click="onIntoleranceClick({ intolerance, addTag })"
+                      >
+                        {{ intolerance }}
+                      </b-dropdown-item-button>
+                      <b-dropdown-text
+                        v-if="availableIntolerances.length === 0"
+                      >
+                        There are no tags available to select
+                      </b-dropdown-text>
+                    </b-dropdown>
+                  </template>
+                </b-form-tags>
+              </b-form-group>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- <b-form-select
+              multiple
+              :select-size="100"
               class="selector"
               v-model="form.cuisine"
               :options="cuisines"
             ></b-form-select>
             <b-form-select
+              multiple
+              :select-size="100"
               class="selector"
               v-model="form.diet"
               :options="diets"
             ></b-form-select>
+            
             <b-form-select
-              class="selector"
-              v-model="form.number"
-              :options="numbers"
-            ></b-form-select>
-            <b-form-select
+              multiple
+              :select-size="100"
               class="selector"
               v-model="form.intolerance"
               :options="intolerances"
-            ></b-form-select>
+            ></b-form-select> -->
           </div>
 
           <div class="search-container">
@@ -66,14 +303,6 @@
         </div>
       </div>
     </div>
-    <!-- <h1 class="hero-header">Last Search:</h1> -->
-    <!-- <div v-if="this.$root.store.username != undefined">
-      <b-row v-for="recipeList in JSON.parse(sessionStorage.getItem('lastSearch'))" :key="recipeList">
-        <b-col v-for="r in recipeList" :key="r.id">
-          <RecipePreview class="recipePreview" :recipe="r" :key="r.id" title="search-results"/>
-        </b-col>
-      </b-row>
-    </div> -->
     <b-container v-if="search_cond" :key="rerenderer">
       <div class="sorting-buttons">
         <b-button
@@ -140,12 +369,9 @@
 
 <script>
 import RecipePreview from "../components/RecipePreview.vue";
-import { required, alpha } from "vuelidate/lib/validators";
-import { dark } from "console";
 export default {
   name: "SearchPage",
   components: {
-    // RecipePreviewList,
     RecipePreview,
   },
   data() {
@@ -154,6 +380,9 @@ export default {
       search_cond: Boolean(sessionStorage.getItem("searchText")),
       rerenderer: 0,
       RecipesList: "",
+      valueCuisine: [],
+      valueDiet: [],
+      valueIntolerance: [],
       form: {
         number: 5,
         cuisine: "",
@@ -161,34 +390,62 @@ export default {
         intolerance: "",
         SubmitError: undefined,
       },
+      // cuisines: [
+      //   { value: "", text: "Choose a Cuisine Filter" },
+      //   { value: "African", text: "African" },
+      //   { value: "American", text: "American" },
+      //   { value: "British", text: "British" },
+      //   { value: "Cajun", text: "Cajun" },
+      //   { value: "Caribbean", text: "Caribbean" },
+      //   { value: "Chinese", text: "Chinese" },
+      //   { value: "Eastern European", text: "Eastern European" },
+      //   { value: "European", text: "European" },
+      //   { value: "French", text: "French" },
+      //   { value: "German", text: "German" },
+      //   { value: "Greek", text: "Greek" },
+      //   { value: "Indian", text: "Indian" },
+      //   { value: "Irish", text: "Irish" },
+      //   { value: "Italian", text: "Italian" },
+      //   { value: "Japanese", text: "Japanese" },
+      //   { value: "Jewish", text: "Jewish" },
+      //   { value: "Korean", text: "Korean" },
+      //   { value: "Latin American", text: "Latin American" },
+      //   { value: "Mediterranean", text: "Mediterranean" },
+      //   { value: "Mexican", text: "Mexican" },
+      //   { value: "Middle Eastern", text: "Middle Eastern" },
+      //   { value: "Nordic", text: "Nordic" },
+      //   { value: "Southern", text: "Southern" },
+      //   { value: "Spanish", text: "Spanish" },
+      //   { value: "Thai", text: "Thai" },
+      //   { value: "Vietnamese", text: "Vietnamese" },
+      // ],
       cuisines: [
-        { value: "", text: "Choose a Cuisine Filter" },
-        { value: "African", text: "African" },
-        { value: "American", text: "American" },
-        { value: "British", text: "British" },
-        { value: "Cajun", text: "Cajun" },
-        { value: "Caribbean", text: "Caribbean" },
-        { value: "Chinese", text: "Chinese" },
-        { value: "Eastern European", text: "Eastern European" },
-        { value: "European", text: "European" },
-        { value: "French", text: "French" },
-        { value: "German", text: "German" },
-        { value: "Greek", text: "Greek" },
-        { value: "Indian", text: "Indian" },
-        { value: "Irish", text: "Irish" },
-        { value: "Italian", text: "Italian" },
-        { value: "Japanese", text: "Japanese" },
-        { value: "Jewish", text: "Jewish" },
-        { value: "Korean", text: "Korean" },
-        { value: "Latin American", text: "Latin American" },
-        { value: "Mediterranean", text: "Mediterranean" },
-        { value: "Mexican", text: "Mexican" },
-        { value: "Middle Eastern", text: "Middle Eastern" },
-        { value: "Nordic", text: "Nordic" },
-        { value: "Southern", text: "Southern" },
-        { value: "Spanish", text: "Spanish" },
-        { value: "Thai", text: "Thai" },
-        { value: "Vietnamese", text: "Vietnamese" },
+        "African",
+        "American",
+        "British",
+        "Cajun",
+        "Caribbean",
+        "Chinese",
+        "Eastern European",
+        "European",
+        "French",
+        "German",
+        "Greek",
+        "Indian",
+        "Irish",
+        "Italian",
+        "Japanese",
+        "Jewish",
+        "Korean",
+        "Latin American",
+        "Mediterranean",
+        "Mexican",
+        "Middle Eastern",
+        "Nordic",
+        "Southern",
+        "Spanish",
+        "Thai",
+        "Vietnamese",
       ],
       numbers: [
         { value: 5, text: "Choose Number of Recipes Results" },
@@ -196,45 +453,156 @@ export default {
         { value: 10, text: "10" },
         { value: 15, text: "15" },
       ],
+      // diets: [
+      //   { value: "", text: "Choose Your Diet" },
+      //   { value: "Gluten Free", text: "Gluten Free" },
+      //   { value: "Ketogenic", text: "Ketogenic" },
+      //   { value: "Vegetarian", text: "Vegetarian" },
+      //   { value: "Lacto-Vegetarian", text: "Lacto-Vegetarian" },
+      //   { value: "Ovo-Vegetarian", text: "Ovo-Vegetarian" },
+      //   { value: "Vegan", text: "Vegan" },
+      //   { value: "Pescetarian", text: "Pescetarian" },
+      //   { value: "Paleo", text: "Paleo" },
+      //   { value: "Primal", text: "Primal" },
+      //   { value: "Low FODMAP", text: "Low FODMAP" },
+      //   { value: "Whole30", text: "Whole30" },
+      // ],
       diets: [
-        { value: "", text: "Choose Your Diet" },
-        { value: "Gluten Free", text: "Gluten Free" },
-        { value: "Ketogenic", text: "Ketogenic" },
-        { value: "Vegetarian", text: "Vegetarian" },
-        { value: "Lacto-Vegetarian", text: "Lacto-Vegetarian" },
-        { value: "Ovo-Vegetarian", text: "Ovo-Vegetarian" },
-        { value: "Vegan", text: "Vegan" },
-        { value: "Pescetarian", text: "Pescetarian" },
-        { value: "Paleo", text: "Paleo" },
-        { value: "Primal", text: "Primal" },
-        { value: "Low FODMAP", text: "Low FODMAP" },
-        { value: "Whole30", text: "Whole30" },
+        "Choose Your Diet",
+        "Gluten Free",
+        "Ketogenic",
+        "Vegetarian",
+        "Lacto-Vegetarian",
+        "Ovo-Vegetarian",
+        "Vegan",
+        "Pescetarian",
+        "Paleo",
+        "Primal",
+        "Low FODMAP",
+        "Whole30",
       ],
+      // intolerances: [
+      //   { value: "", text: "Choose Your Intolerances" },
+      //   { value: "Dairy", text: "Dairy" },
+      //   { value: "Egg", text: "Egg" },
+      //   { value: "Gluten", text: "Gluten" },
+      //   { value: "Grain", text: "Grain" },
+      //   { value: "Peanut", text: "Peanut" },
+      //   { value: "Seafood", text: "Seafood" },
+      //   { value: "Sesame", text: "Sesame" },
+      //   { value: "Shellfish", text: "Shellfish" },
+      //   { value: "Soy", text: "Soy" },
+      //   { value: "Sulfite", text: "Sulfite" },
+      //   { value: "Tree Nut", text: "Tree Nut" },
+      //   { value: "Wheat", text: "Wheat" },
+      // ],
       intolerances: [
-        { value: "", text: "Choose Your Intolerances" },
-        { value: "Dairy", text: "Dairy" },
-        { value: "Egg", text: "Egg" },
-        { value: "Gluten", text: "Gluten" },
-        { value: "Grain", text: "Grain" },
-        { value: "Peanut", text: "Peanut" },
-        { value: "Seafood", text: "Seafood" },
-        { value: "Sesame", text: "Sesame" },
-        { value: "Shellfish", text: "Shellfish" },
-        { value: "Soy", text: "Soy" },
-        { value: "Sulfite", text: "Sulfite" },
-        { value: "Tree Nut", text: "Tree Nut" },
-        { value: "Wheat", text: "Wheat" },
+        "Choose Your Intolerances",
+        "Dairy",
+        "Egg",
+        "Gluten",
+        "Grain",
+        "Peanut",
+        "Seafood",
+        "Sesame",
+        "Shellfish",
+        "Soy",
+        "Sulfite",
+        "Tree Nut",
+        "Wheat",
       ],
       recipes: sessionStorage.getItem("searchResults")
         ? JSON.parse(sessionStorage.getItem("searchResults"))
         : [],
       recipesToSort: [],
+      search: "",
     };
   },
+  computed: {
+    criteria() {
+      // Compute the search criteria
+      return this.search.trim().toLowerCase();
+    },
+    availableCuisines() {
+      const criteria = this.criteria;
+      // Filter out already selected options
+      const options = this.cuisines.filter(
+        (opt) => this.valueCuisine.indexOf(opt) === -1
+      );
+      if (criteria) {
+        // Show only options that match criteria
+        return options.filter(
+          (opt) => opt.toLowerCase().indexOf(criteria) > -1
+        );
+      }
+      // Show all options available
+      return options;
+    },
+    availableDiets() {
+      const criteria = this.criteria;
+      // Filter out already selected options
+      const options = this.diets.filter(
+        (opt) => this.valueDiet.indexOf(opt) === -1
+      );
+      if (criteria) {
+        // Show only options that match criteria
+        return options.filter(
+          (opt) => opt.toLowerCase().indexOf(criteria) > -1
+        );
+      }
+      // Show all options available
+      return options;
+    },
+    availableIntolerances() {
+      const criteria = this.criteria;
+      // Filter out already selected options
+      const options = this.intolerances.filter(
+        (opt) => this.valueIntolerance.indexOf(opt) === -1
+      );
+      if (criteria) {
+        // Show only options that match criteria
+        return options.filter(
+          (opt) => opt.toLowerCase().indexOf(criteria) > -1
+        );
+      }
+      // Show all options available
+      return options;
+    },
+    searchDescCuisines() {
+      if (this.criteria && this.availableCuisine.length === 0) {
+        return "There are no tags matching your search criteria";
+      }
+      return "";
+    },
+    searchDescDiets() {
+      if (this.criteria && this.availableDiets.length === 0) {
+        return "There are no tags matching your search criteria";
+      }
+      return "";
+    },
+    searchDescIntolerances() {
+      if (this.criteria && this.availableIntolerances.length === 0) {
+        return "There are no tags matching your search criteria";
+      }
+      return "";
+    },
+  },
   methods: {
-    // mounted() {
-    //   sessionStorage.setItem('lastSearch', undefined);
-    // },
+    onCuisineClick({ cuisine, addTag }) {
+      this.valueCuisine.push(cuisine);
+      addTag(cuisine);
+      this.form.cuisine = "";
+    },
+    onDietClick({ diet, addTag }) {
+      this.valueDiet.push(diet);
+      addTag(diet);
+      this.form.diet = "";
+    },
+    onIntoleranceClick({ intolerance, addTag }) {
+      this.valueIntolerance.push(intolerance);
+      addTag(intolerance);
+      this.form.intolerance = "";
+    },
     async rerender() {
       this.rerenderer = 1 - this.rerenderer;
     },
@@ -271,34 +639,56 @@ export default {
           return recipe2.aggregateLikes - recipe1.aggregateLikes;
         });
       }
-      console.log(this.recipesToSort);
+      // console.log(this.recipesToSort);
       let searchedRecipes2 = await this.chunkArray(this.recipesToSort, 3);
-      console.log(searchedRecipes2);
+      // console.log(searchedRecipes2);
       this.recipes = searchedRecipes2;
       this.rerender();
     },
     async searchRecipe() {
       try {
         this.$root.store.server_domain = "http://127.0.0.1:3000";
+        let cuisinesFilters = JSON.parse(JSON.stringify(this.valueCuisine));
+        let dietFilers = JSON.parse(JSON.stringify(this.valueDiet));
+        let intoleranceFilters = JSON.parse(
+          JSON.stringify(this.valueIntolerance)
+        );
         const response = await this.axios.post(
           this.$root.store.server_domain + "/recipes/search",
           {
             querySearch: this.searchText,
             numberSearch: this.form.number,
-            cuisineSearch: this.form.cuisine,
-            dietSearch: this.form.diet,
-            intoleranceSearch: this.form.intolerance,
+            cuisineSearch:
+              cuisinesFilters.join() != undefined ? cuisinesFilters.join() : "",
+            dietSearch: dietFilers.join() != undefined ? dietFilers.join() : "",
+            intoleranceSearch:
+              intoleranceFilters.join() != undefined
+                ? intoleranceFilters.join()
+                : "",
           }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        const searchedRecipes = response.data;
+        this.valueCuisine = [];
+        this.valueDiet = [];
+        this.valueIntolerance = [];
+        let searchedRecipes = response.data;
+        // console.log(searchedRecipes);
         searchedRecipes.popularity = searchedRecipes.aggregateLikes;
-        console.log(searchedRecipes);
+        let lastSeen = sessionStorage.getItem("watchedRecipes");
+        let favorites = sessionStorage.getItem("favorites");
+        let newRecipes = [];
+        searchedRecipes.forEach((recipe) => {
+          let newRecipe = JSON.parse(JSON.stringify(recipe));
+          newRecipe.isFavorite = favorites.includes(newRecipe.id);
+          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          newRecipes.push(newRecipe);
+        });
+        searchedRecipes = newRecipes;
+        // console.log(searchedRecipes);
         this.recipesToSort = searchedRecipes;
+        // console.log(this.recipesToSort);
         let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
-        console.log(searchedRecipes2);
-        // this.recipes = [];
-        // console.log("Here");
+        // console.log(searchedRecipes2);
         this.recipes = searchedRecipes2;
         if (this.$root.store.username != undefined) {
           sessionStorage.setItem(
@@ -436,4 +826,7 @@ export default {
 //   width: 200%;
 //   left: 0px
 // }
+.multiple-choice-container {
+  width: 25%;
+}
 </style>
