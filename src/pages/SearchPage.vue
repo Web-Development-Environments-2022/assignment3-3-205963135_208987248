@@ -55,7 +55,7 @@
                 />
               </div>
             </div>
-            <b-button class="search_btn" v-on:click="searchRecipe" variant="outline-info"
+            <b-button class="search_btn" v-on:click="searchRecipe" variant="outline-dark"
               >Search Recipes</b-button>
             <h2 class="hero-header">Most Recent Search:</h2>
 
@@ -79,7 +79,7 @@
               this.sortRecipes('Time Asc');
             }
           "
-          variant="outline-info"
+          variant="outline-dark"
           >Sort by Preparation Time Lowest First</b-button
         >
         <b-button
@@ -88,7 +88,7 @@
               this.sortRecipes('Time Desc');
             }
           "
-          variant="outline-info"
+          variant="outline-dark"
           >Sort by Preparation Time Highest First</b-button
         >
         <b-button
@@ -97,7 +97,7 @@
               this.sortRecipes('Popularity Asc');
             }
           "
-          variant="outline-info"
+          variant="outline-dark"
           >Sort by Popularity Lowest First</b-button
         >
         <b-button
@@ -106,7 +106,7 @@
               this.sortRecipes('Popularity Desc');
             }
           "
-          variant="outline-info"
+          variant="outline-dark"
           >Sort by Popularity Highest First</b-button
         >
       </div>
@@ -136,7 +136,7 @@
 <script>
 import RecipePreview from "../components/RecipePreview.vue";
 import { required, alpha } from "vuelidate/lib/validators";
-import { info } from "console";
+import { dark } from "console";
 export default {
   name: "SearchPage",
   components: {
@@ -387,7 +387,7 @@ export default {
 .my-dropdown-toggle {
   border-radius: 5px;
 
-  ::v-deep .dropdown-toggle {
+::v-deep .dropdown-toggle {
     color: tomato;
     font-size: 25px;
     font-weight: 800;
@@ -426,6 +426,7 @@ export default {
 }
 .col{
   margin-bottom: 30px;
+  position: relative;
 }
 // .navbarSearch{
 //   width: 200%;

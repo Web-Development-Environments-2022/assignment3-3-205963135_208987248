@@ -1,6 +1,6 @@
 <template>
-  <!-- <div id="app" :style="{'background-image': 'url(' + require('./assets/2.png') + ')'}"> -->
-  <div id="app">
+  <div id="app" :style="{'background-image': 'url(' + require('./assets/background.png') + ')'}">
+  <!-- <div id="app"> -->
     <NavigationBar></NavigationBar>
   </div>
 </template>
