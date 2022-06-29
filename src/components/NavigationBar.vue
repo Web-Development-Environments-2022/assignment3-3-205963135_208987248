@@ -1,72 +1,83 @@
 <template>
   <div id="nav">
-    <b-navbar toggleable="lg" type="light" variant="warning">
-      <b-navbar-brand>
-        <b-button pill variant="outline-secondary"
+    <b-navbar type="dark" variant="dark">
+      <div class="left_container">
+      <b-nav-item>
+        <b-button class="all_btn" pill variant="outline-secondary"
           ><router-link :to="{ name: 'main' }"
-            >Vue Recipes</router-link
-          ></b-button
-        >
-      </b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item>
-            <b-button pill variant="outline-secondary"
-              ><router-link :to="{ name: 'search' }"
-                >Search</router-link
-              ></b-button
-            >
-          </b-nav-item>
-        </b-navbar-nav>
-
+            >Recipes</router-link></b-button>
+      </b-nav-item>
+    <b-nav-item>
+      <b-button  pill variant="outline-secondary"
+        ><router-link :to="{ name: 'search' }"
+          >Search</router-link
+        ></b-button>
+    </b-nav-item>
+    <b-nav-item>
+      <b-button pill variant="outline-secondary" @click="$bvModal.show('bv-modal-example')"><a>About</a></b-button>
+      <b-modal class="modal_class" id="bv-modal-example" hide-footer>
+        <template #modal-title>
+          Welcome to Maor and Dana recipes!
+        </template>
+        <div class="d-block text-center">
+          <h3>Recipes world</h3>
+          <span>You can find any recipe you can imagine on our website.
+            You can upload your own recipes as well as family recipes.</span>
+            <div>The team behind the website:</div>
+            <img class="maor" src="@/assets/maor.jpg" width="150" height="200" id="icon" />
+            <img  class="dana" src="@/assets/dana.jpg" width="150" height="200" id="icon" />
+            <div>If you like our work, you can see more of our projects</div>
+            <div><a href="https://github.com/Web-Development-Environments-2022/208987248_205963135">Pacman Game</a></div>
+            <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Sara's Website</a></div>
+            <div><a href="https://github.com/Web-Development-Environments-2022/208987248">Encanto's Website</a></div>
+        </div>
+        <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+      </b-modal>
+    </b-nav-item>
+    </div>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <!-- {{ !$root.store.username }} -->
           <span v-if="!$root.store.username">
-            <!-- Guest: -->
-            <b-button pill variant="outline-secondary"
+            <h7 class="hello">Hello Guest</h7>
+            <b-button class="reg_btn" pill variant="outline-secondary"
               ><router-link :to="{ name: 'register' }"
                 >Register</router-link
-              ></b-button
-            >
+              ></b-button>
 
             <b-button pill variant="outline-secondary"
               ><router-link :to="{ name: 'login' }"
                 >Login</router-link
-              ></b-button
-            >
+              ></b-button>
           </span>
-          <span v-else>
-            {{ $root.store.username }}:
+          <span  v-else>
+            <h7 class="hello">{{ $root.store.username }}:</h7>
             <b-dropdown
               text="Personal"
-              variant="outline-secondary"
+              pill variant="outline-secondary"
               class="dropdown-recipes"
             >
               <b-dropdown-item href="#"
                 ><router-link :to="{ name: 'myrecipes' }"
-                  >My Recipes</router-link
+                  ><p>My Recipes</p></router-link
                 ></b-dropdown-item
               >
               <b-dropdown-item href="#"
                 ><router-link :to="{ name: 'myfavoriterecipes' }"
-                  >My Favorite Recipes</router-link
+                  ><p>My Favorite Recipes</p></router-link
                 ></b-dropdown-item
               >
               <b-dropdown-item href="#"
                 ><router-link :to="{ name: 'myfamilyrecipes' }"
-                  >My Family Recipes</router-link
+                  ><p>My Family Recipes</p></router-link
                 ></b-dropdown-item
               >
             </b-dropdown>
-            <b-button
+            <b-button class="create_btn"
               pill
               variant="outline-secondary"
               v-b-modal.create-recipe-modal
-              >Create New Recipe</b-button
+              ><a>Create New Recipe</a></b-button
             >
             <b-modal
               modal-class="modal-design"
@@ -273,11 +284,11 @@
             </b-modal>
             <!-- <b-button pill variant="outline-secondary" @click="openModal">Create New Recipe</b-button> -->
             <b-button pill variant="outline-secondary" @click="Logout"
-              >Logout</b-button
+              ><a>Logout</a></b-button
             >
           </span>
         </b-navbar-nav>
-      </b-collapse>
+      <!-- </b-collapse> -->
     </b-navbar>
     <router-view />
   </div>
@@ -408,18 +419,67 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* @import "@/scss/form-style.scss"; */
+#nav p{
+  color: black;
+}
+
 #nav {
   padding: 30px;
 }
+.left_container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 15px;
+  list-style-type: none;
 
+}
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: aliceblue;
+  margin-bottom: auto;
 }
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color:aliceblue;
+}
+::v-deep .hello{
+  margin-right: 20px;
+  color: aliceblue;
+}
+::v-deep .reg_btn{
+  margin-right: 20px;
+}
+::v-deep .dropdown-recipes{
+  margin-right: 20px;
+  
+}
+::v-deep .create_btn{
+    margin-right: 20px;
+}
+.maor{
+  margin-right: 40px;
+  margin-top: 20px;
+}
+.dana{
+    margin-top: 20px;
+}
+::v-deep .modal_class{
+  background: rgb(177, 51, 51);
+  background-color: rgb(177, 51, 51);
+}
+
+::v-deep .all_btn{
+  color:aliceblue
 }
 </style>

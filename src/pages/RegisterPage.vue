@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Register</h1>
+    <img class="register" src="@/assets/register.png" width="350" height="200" />
+    <!-- <h1 class="title">Register</h1> -->
+    <div class="my_form">
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
       <b-form-group
         id="input-group-username"
@@ -89,20 +91,19 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
-
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button class="btn_reset" type="reset" variant="danger">Reset</b-button>
       <b-button
         type="submit"
-        variant="primary"
+        variant="dark"
         style="width:250px;"
         class="ml-5 w-75"
-        >Register</b-button
-      >
-      <div class="mt-2">
+        >Register</b-button>
+      <div class="mt-2 text_here">
         You have an account already?
         <router-link to="login"> Log in here</router-link>
       </div>
     </b-form>
+  </div>
     <b-alert
       class="mt-2"
       v-if="form.submitError"
@@ -224,7 +225,46 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .container {
   max-width: 500px;
+  // margin-top: 100px;
+  border-radius: 10px;
+  // outline-style: dotted;
 }
+.title{
+  text-align: center;
+}
+.register{
+  display:flex;
+  position: absolute;
+  margin-bottom: 40px;
+  margin-left: 550px;
+  margin-top: 150px;
+  // right: 80px;
+  // left:80px;
+}
+.my_form{
+  max-width: 500px;
+  padding: 50px;
+  margin-top: 100px;
+  border-radius: 10px;
+  border-style:double   ;
+  // outline-style: dotted  ;
+}
+.btn_container{
+  display:contents;
+  flex-direction: row;
+  justify-content: center;
+}
+.text_here{
+  text-align: center;
+}
+.btn_reset{
+  position: relative;
+  display: flex;
+  margin-left: 150px;
+  margin-bottom: 15px;
+}
+
 </style>

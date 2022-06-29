@@ -19,9 +19,8 @@
         />
       </b-col>
     </b-row>
-    <b-button class="more_btn" @click="updateRecipes" variant="warning"
-      >More Recipe</b-button
-    >
+  <b-button class= "more_btn" @click="updateRecipes" variant="dark">More Recipe</b-button>
+
   </b-container>
 </template>
 
