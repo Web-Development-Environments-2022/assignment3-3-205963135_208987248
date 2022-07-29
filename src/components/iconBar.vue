@@ -79,24 +79,46 @@ export default {
     async addToFavorite() {
       this.recipe.isFavorite = true;
       try {
-        // console.log(this.recipe);
-        const response = await this.axios.post(
-          this.$root.store.server_domain + "/users/favorites",
-          {
-            recipeId: this.recipe.id,
-          }
+        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        let lastSeen = await this.axios.get(
+          this.$root.store.server_domain + "/users/allwatched"
         );
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
+        // console.log(favorites);
         let favoritesIds = [];
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
         });
+        // console.log("before if");
+        if (!favoritesIds.includes(this.recipe.id.toString())) {
+          favoritesIds.push(this.recipe.id.toString());
+          // console.log("in the if");
+        }
         sessionStorage.setItem("favorites", JSON.stringify(favoritesIds));
+        let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
+        let newLastSearch = [];
+        lastSearch.forEach((recipeList) => {
+          let newRecipeList = [];
+          recipeList.forEach((recipe) => {
+            if (favoritesIds.includes(recipe.id.toString())) {
+              recipe.isFavorite = true;
+            }
+            if (lastSeen.data.watched.includes(recipe.id.toString())) {
+              recipe.isLastseen = true;
+            }
+            newRecipeList.push(recipe);
+          });
+          newLastSearch.push(newRecipeList);
+        });
+        console.log(newLastSearch);
+        sessionStorage.setItem("searchResults", JSON.stringify(newLastSearch));
+        // console.log("after change favorite list");
         // console.log(response);
       } catch (err) {
-        console.log("error.response.status", error.response.status);
+        // console.log("error.response.status", err.response.status);
+        console.log(err);
       }
     },
   },

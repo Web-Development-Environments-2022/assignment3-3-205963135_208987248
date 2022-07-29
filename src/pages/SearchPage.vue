@@ -674,14 +674,16 @@ export default {
         let searchedRecipes = response.data;
         // console.log(searchedRecipes);
         searchedRecipes.popularity = searchedRecipes.aggregateLikes;
-        let lastSeen = sessionStorage.getItem("watchedRecipes");
-        let favorites = sessionStorage.getItem("favorites");
+        let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
+        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+        console.log(lastSeen);
         let newRecipes = [];
         searchedRecipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id);
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+          newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
           newRecipes.push(newRecipe);
+          // console.log(newRecipe);
         });
         searchedRecipes = newRecipes;
         // console.log(searchedRecipes);

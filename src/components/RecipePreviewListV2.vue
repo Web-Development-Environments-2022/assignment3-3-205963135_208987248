@@ -50,7 +50,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        console.log("Here");
+        // console.log("Here");
         this.$root.store.server_domain = "http://127.0.0.1:3000";
         // let response;
         // if (this.listType == "RandomRecipes") {
@@ -130,17 +130,17 @@ export default {
             glutenFree: false,
           },
         ];
-        let lastSeen = sessionStorage.getItem("watchedRecipes");
-        let favorites = sessionStorage.getItem("favorites");
+        let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
+        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
         let newRecipes = [];
         this.recipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id);
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+          newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
           newRecipes.push(newRecipe);
         });
         this.recipes = newRecipes;
-        console.log(this.recipes);
+        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -162,6 +162,4 @@ export default {
   flex-direction: row;
   gap: 20px;
 }
-
-
 </style>

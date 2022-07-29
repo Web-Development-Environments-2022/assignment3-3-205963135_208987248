@@ -53,7 +53,6 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        // console.log("Here");
         this.$root.store.server_domain = "http://127.0.0.1:3000";
         // let response;
         // if (this.listType == "RandomRecipes") {
@@ -77,10 +76,8 @@ export default {
         //     // "https://test-for-3-2.herokuapp.com/recipes/random"
         //   );
         // }
-        // console.log(response);
         // const resultsRecipes = response.data;
         // this.recipes = resultsRecipes;
-        // console.log(this.recipes);
         this.recipes = [
           {
             id: 661188,
@@ -133,47 +130,26 @@ export default {
             glutenFree: false,
           },
         ];
-        // let lastSeen = sessionStorage.getItem("watchedRecipes");
-        let lastSeen = await this.axios.get(
-          this.$root.store.server_domain + "/users/allwatched"
-        );
-        sessionStorage.setItem(
-          "watchedRecipes",
-          JSON.stringify(lastSeen.data.watched)
-        );
-        let favorites = sessionStorage.getItem("favorites");
         if (this.$root.store.username != undefined) {
-          let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
-          console.log(lastSearch);
-          let newSearchRecipesLists = [];
-          lastSearch.forEach((recipes) => {
-            let newSearchRecipes = [];
-            recipes.forEach((recipe) => {
-              let newRecipe = JSON.parse(JSON.stringify(recipe));
-              console.log(newRecipe);
-              newRecipe.isFavorite = favorites.includes(newRecipe.id);
-              newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
-              newSearchRecipes.push(JSON.parse(JSON.stringify(newRecipe)));
-            });
-            newSearchRecipesLists.push(
-              JSON.parse(JSON.stringify(newSearchRecipes))
-            );
-          });
-          console.log(newSearchRecipesLists);
-          sessionStorage.setItem(
-            "searchResults",
-            JSON.stringify(newSearchRecipes)
+          let lastSeen = await this.axios.get(
+            this.$root.store.server_domain + "/users/allwatched"
           );
+          sessionStorage.setItem(
+            "watchedRecipes",
+            JSON.stringify(lastSeen.data.watched)
+          );
+          let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+          let newRecipes = [];
+          this.recipes.forEach((recipe) => {
+            let newRecipe = JSON.parse(JSON.stringify(recipe));
+            newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+            newRecipe.isLastseen = lastSeen.data.watched.includes(
+              newRecipe.id.toString()
+            );
+            newRecipes.push(newRecipe);
+          });
+          this.recipes = newRecipes;
         }
-        let newRecipes = [];
-        this.recipes.forEach((recipe) => {
-          let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id);
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
-          newRecipes.push(newRecipe);
-        });
-        this.recipes = newRecipes;
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -195,7 +171,7 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-.title{
+.title {
   margin-left: 100px;
 }
 

@@ -51,16 +51,20 @@ export default {
           this.$root.store.server_domain + "/users/watch"
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        const recipes = response.data;
-        this.recipes = recipes;
-
-        let lastSeen = sessionStorage.getItem("watchedRecipes");
-        let favorites = sessionStorage.getItem("favorites");
+        // const recipesResponse = response.data;
+        // console.log(JSON.parse(JSON.stringify(recipesResponse)));
+        this.recipes = JSON.parse(JSON.stringify(response.data));
+        // console.log(this.recipes);
+        // sessionStorage.setItem("watchedRecipes", JSON.stringify(this.recipes));
+        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+        // console.log(favorites);
         let newRecipes = [];
+        console.log(this.recipes);
         this.recipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id);
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id);
+          // console.log(newRecipe);
+          newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+          newRecipe.isLastseen = true;
           newRecipes.push(newRecipe);
         });
         this.recipes = newRecipes;
@@ -75,9 +79,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
-
 }
-.title{
+.title {
   margin-left: 100px;
 }
 </style>

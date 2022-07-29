@@ -2,7 +2,7 @@
   <div class="container">
     <img class="welcome" src="@/assets/welcome.png" width="500" height="250" />
     <!-- <h1 class="title">Login</h1> -->
-    
+
     <b-form class="my_form" @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"
@@ -45,7 +45,7 @@
         class="mx-auto w-100 login_btn"
         >Login</b-button
       >
-      <div class="mt-2 reg_here" >
+      <div class="mt-2 reg_here">
         Do not have an account yet?
         <router-link to="register"> Register in here</router-link>
       </div>
@@ -122,6 +122,7 @@ export default {
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
         });
+        console.log(lastSeen.data.watched);
         sessionStorage.setItem(
           "watchedRecipes",
           JSON.stringify(lastSeen.data.watched)
@@ -154,22 +155,21 @@ export default {
   border-radius: 10px;
   // outline-style: dotted;
 }
-.title{
+.title {
   text-align: center;
 }
-.welcome{
+.welcome {
   // display: flex;
   margin-bottom: 40px;
   left: 0%;
   // right: 80px;
   // left:80px;
 }
-.login_btn{
+.login_btn {
   margin-top: 40px;
   text-align: center;
 }
-.reg_here{
+.reg_here {
   text-align: center;
 }
-
 </style>

@@ -75,7 +75,32 @@ export default {
           //   params: { id: this.$route.params.recipeId }
           // }
         );
-
+        if (this.$root.store.username != undefined) {
+          let lastSeen = await this.axios.get(
+            this.$root.store.server_domain + "/users/allwatched"
+          );
+          sessionStorage.setItem(
+            "watchedRecipes",
+            JSON.stringify(lastSeen.data.watched)
+          );
+          let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
+          let newLastSearch = [];
+          lastSearch.forEach((recipeList) => {
+            let newRecipeList = [];
+            recipeList.forEach((recipe) => {
+              if (lastSeen.data.watched.includes(recipe.id.toString())) {
+                recipe.isLastseen = true;
+              }
+              newRecipeList.push(recipe);
+            });
+            newLastSearch.push(newRecipeList);
+          });
+          console.log(newLastSearch);
+          sessionStorage.setItem(
+            "searchResults",
+            JSON.stringify(newLastSearch)
+          );
+        }
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
