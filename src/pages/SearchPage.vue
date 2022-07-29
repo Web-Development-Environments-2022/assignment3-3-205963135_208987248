@@ -348,7 +348,7 @@
     </b-container>
 
     <b-container fluid class="p-4 bg-light all_recipes">
-      <b-row v-for="(recipeList, index2) in recipes" :key="index2">
+      <b-row class="row" v-for="(recipeList, index2) in recipes" :key="index2">
         <b-col class="col" v-for="(r, index1) in recipeList" :key="index1">
           <RecipePreview
             class="recipePreview"
@@ -823,6 +823,7 @@ export default {
 .col {
   margin-bottom: 30px;
   position: relative;
+  // display: inline-flex;
 }
 // .navbarSearch{
 //   width: 200%;
@@ -830,5 +831,8 @@ export default {
 // }
 .multiple-choice-container {
   width: 25%;
+}
+.row{
+  display: inline-flex !important
 }
 </style>

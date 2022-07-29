@@ -4,7 +4,7 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
+    <b-row class="recipes-container">
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview
           class="recipePreview"
@@ -82,5 +82,13 @@ export default {
 }
 .title {
   margin-left: 100px;
+}
+.recipes-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>
