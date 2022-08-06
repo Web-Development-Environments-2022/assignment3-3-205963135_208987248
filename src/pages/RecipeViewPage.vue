@@ -26,15 +26,36 @@
               </ul>
             </div>
           </div>
-          <div class="wrapped instructions">
+          <!-- <div class="wrapped instructions">
             <h4 class="headers">Instructions:</h4>
             <ol>
               <li v-for="s in recipe._instructions" :key="s.number">
                 {{ s.step }}
               </li>
             </ol>
-          </div>
+          </div> -->
+          <Instructions
+            :Instructions="this.recipe._instructions"
+            :prepared="false"
+          ></Instructions>
         </div>
+        <b-button
+          class="all_btn"
+          pill
+          variant="outline-secondary"
+          @click="setCurRecipe"
+          ><router-link :to="{ name: 'PrepareRecipe' }"
+            >Prepare Recipe</router-link
+          ></b-button
+        >
+        <b-button
+          v-if="this.$root.store.username != undefined"
+          class="all_btn"
+          pill
+          variant="outline-secondary"
+          @click="addToMeal"
+          >Add to Meal</b-button
+        >
       </div>
       <!-- <pre>
       {{ $route.params }}
@@ -46,12 +67,41 @@
 </template>
 
 <script>
+// import Ingredients from "../components/Ingredients.vue";
+import Instructions from "../components/Instructions.vue";
 export default {
   name: "RecipeDetails",
+  components: {
+    // Ingredients,
+    Instructions,
+  },
   data() {
     return {
       recipe: undefined,
     };
+  },
+  methods: {
+    setCurRecipe() {
+      // this.$root.store.curRecipe = this.recipe;
+      sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
+    },
+    async addToMeal() {
+      this.$root.store.server_domain = "http://127.0.0.1:3000";
+      if (this.$root.store.username != undefined) {
+        let userName = this.$root.store.username;
+        let recipeId = this.recipe.id;
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/recipes/addmeal",
+          {
+            recipeId: recipeId,
+            username: userName,
+          }
+        );
+        if (response.data == "This recipe is already in the meal") {
+          //show modal that says this recipe is already in the meal
+        }
+      }
+    },
   },
   async created() {
     try {
@@ -84,26 +134,30 @@ export default {
             JSON.stringify(lastSeen.data.watched)
           );
           let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
-          let newLastSearch = [];
-          lastSearch.forEach((recipeList) => {
-            let newRecipeList = [];
-            recipeList.forEach((recipe) => {
-              if (lastSeen.data.watched.includes(recipe.id.toString())) {
-                recipe.isLastseen = true;
-              }
-              newRecipeList.push(recipe);
+          // console.log(response.data);
+          if (lastSearch != undefined) {
+            let newLastSearch = [];
+            lastSearch.forEach((recipeList) => {
+              let newRecipeList = [];
+              recipeList.forEach((recipe) => {
+                if (lastSeen.data.watched.includes(recipe.id.toString())) {
+                  recipe.isLastseen = true;
+                }
+                newRecipeList.push(recipe);
+              });
+              newLastSearch.push(newRecipeList);
             });
-            newLastSearch.push(newRecipeList);
-          });
-          console.log(newLastSearch);
-          sessionStorage.setItem(
-            "searchResults",
-            JSON.stringify(newLastSearch)
-          );
+            console.log(newLastSearch);
+            sessionStorage.setItem(
+              "searchResults",
+              JSON.stringify(newLastSearch)
+            );
+          }
         }
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
+        console.log(error);
         console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
@@ -139,6 +193,7 @@ export default {
       };
 
       this.recipe = _recipe;
+      // console.log(this.recipe);
     } catch (error) {
       console.log(error);
     }
@@ -170,14 +225,14 @@ export default {
   width: 450px;
   margin-left: 50px;
 }
-.instructions {
+/* .instructions {
   padding: 5px;
   border-radius: 10px;
   outline-style: dotted;
   height: 100%;
   width: 600px;
   margin-top: 100px;
-}
+} */
 .headers {
   text-align: center;
 }

@@ -2,7 +2,13 @@
   <div class="wrapped instructions">
     <h4 class="headers">Instructions:</h4>
     <ol>
-      <li v-for="s in this.instructions" :key="s.number">
+      <li v-for="s in this.Instructions" :key="s.number" class="instruction">
+        <input
+          v-if="prepared"
+          :id="instruction"
+          type="checkbox"
+          @change="onChange"
+        />
         {{ s.step }}
       </li>
     </ol>
@@ -17,6 +23,13 @@ export default {
       type: Array,
       required: true,
     },
+    prepared: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  methods: {
+    onChange() {},
   },
 };
 </script>
@@ -37,5 +50,8 @@ export default {
 
 .wrapped {
   width: 50%;
+}
+.checkbox-form .item:hover input ~ .instruction {
+  background-color: yellow;
 }
 </style>

@@ -7,6 +7,7 @@
       </li>
     </ul>
     <b-button
+      v-if="showButton"
       class="all_btn"
       @click="doubleIngredients"
       pill
