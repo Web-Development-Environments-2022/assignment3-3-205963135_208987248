@@ -40,14 +40,15 @@
           ></Instructions>
         </div>
         <b-button
-          class="all_btn"
+          class="all_btn_recipe"
           pill
-          variant="outline-secondary"
+          variant="warning"
           @click="setCurRecipe"
           ><router-link :to="{ name: 'PrepareRecipe' }"
             >Prepare Recipe</router-link
           ></b-button
         >
+        </div>
         <!-- <b-button
           v-if="this.$root.store.username != undefined"
           class="all_btn"
@@ -56,7 +57,6 @@
           @click="addToMeal"
           >Add to Meal</b-button
         > -->
-      </div>
       <!-- <pre>
       {{ $route.params }}
       {{ recipe }}
@@ -249,5 +249,26 @@ export default {
   height: 85px;
   width: 200px;
   margin-left: 50px;
+}
+
+::v-deep .all_btn_recipe {
+  color: aliceblue !important;
+  margin-left: 900px;
+  position: relative; 
+  top: -125px;
+  
+}
+a {
+    color: #000000;
+    text-decoration: none;
+      font-weight: bold;
+
+    
+}
+a:hover {
+    color: #000000;
+    text-decoration: none;
+      font-weight: bold;
+
 }
 </style>
