@@ -108,6 +108,12 @@
               ></b-dropdown-item
             >
           </b-dropdown>
+
+          <a href="#" class="meal">
+            <img src="../assets/meal.png" alt="">
+            <span class="badge">3</span>
+          </a>
+
           <b-button
             class="create_btn"
             pill
@@ -474,9 +480,8 @@ export default {
 #nav p {
   color: black;
 }
-
-#nav {
-  padding: 30px;
+nav {
+  background-color: black !important;
 }
 .left_container {
   position: relative;
@@ -565,4 +570,31 @@ a:hover {
   font-weight: bold;
 
 } */
+.meal {
+  color: white;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  margin-right: 20px;
+  transition: 0.2s ease;
+}
+
+.meal img {
+  width: 40px;
+}
+
+.meal:hover {
+  opacity: 0.7;
+}
+
+.meal .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
 </style>

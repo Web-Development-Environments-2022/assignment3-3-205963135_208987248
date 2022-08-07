@@ -41,6 +41,7 @@
         :isLastseen="isLastseen"
         :recipe="recipe"
       ></iconBar>
+      <div class="recipe-index">{{index}}</div>
       <!-- <v-app>
         <v-btn fab depressed small dark color="red">
           <v-icon>favorite</v-icon>
@@ -113,6 +114,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    }
   },
 };
 </script>
@@ -156,6 +161,13 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+
+.recipe-index {
+  text-align: center;
+  margin-top: -24px;
+  font-size: larger;
+  font-weight: 400;
 }
 
 /* #recipe_link {

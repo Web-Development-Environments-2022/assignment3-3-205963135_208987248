@@ -48,14 +48,14 @@
             >Prepare Recipe</router-link
           ></b-button
         >
-        <b-button
+        <!-- <b-button
           v-if="this.$root.store.username != undefined"
           class="all_btn"
           pill
           variant="outline-secondary"
           @click="addToMeal"
           >Add to Meal</b-button
-        >
+        > -->
       </div>
       <!-- <pre>
       {{ $route.params }}
@@ -84,6 +84,8 @@ export default {
     setCurRecipe() {
       // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
+      this.$forceUpdate();
+      // this.addToMeal();
     },
     async addToMeal() {
       this.$root.store.server_domain = "http://127.0.0.1:3000";
@@ -96,7 +98,11 @@ export default {
             recipeId: recipeId,
             username: userName,
           }
-        );
+        ).then( res => {
+          if (res.data.status=="success") { 
+            //update DOM
+          }
+        });
         if (response.data == "This recipe is already in the meal") {
           //show modal that says this recipe is already in the meal
         }
