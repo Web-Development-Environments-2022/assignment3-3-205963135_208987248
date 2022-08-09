@@ -25,8 +25,8 @@
                 </li>
               </ul>
             </div>
-          </div>
-          <!-- <div class="wrapped instructions">
+
+            <!-- <div class="wrapped instructions">
             <h4 class="headers">Instructions:</h4>
             <ol>
               <li v-for="s in recipe._instructions" :key="s.number">
@@ -34,29 +34,33 @@
               </li>
             </ol>
           </div> -->
-          <Instructions
-            :Instructions="this.recipe._instructions"
-            :prepared="false"
-          ></Instructions>
+            <Instructions
+              :Instructions="this.recipe._instructions"
+              :prepared="false"
+              :recipeId="recipe.id"
+            ></Instructions>
+          </div>
         </div>
         <b-button
           class="all_btn_recipe"
           pill
           variant="warning"
           @click="setCurRecipe"
+          :disabled="!this.$root.store.username"
           ><router-link :to="{ name: 'PrepareRecipe' }"
             >Prepare Recipe</router-link
           ></b-button
         >
-      </div>
-      <!-- <b-button
-          v-if="this.$root.store.username != undefined"
+        <b-button
           class="all_btn"
           pill
           variant="outline-secondary"
           @click="addToMeal"
+          :disabled="!this.$root.store.username"
           >Add to Meal</b-button
-        > -->
+        >
+      </div>
+
       <!-- <pre>
       {{ $route.params }}
       {{ recipe }}
@@ -87,7 +91,7 @@ export default {
       // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
       this.$forceUpdate();
-      // this.addToMeal();
+      this.addToMeal();
     },
     async addToMeal() {
       this.$root.store.server_domain = "http://127.0.0.1:3000";
@@ -259,6 +263,13 @@ export default {
   margin-left: 900px;
   position: relative;
   top: -125px;
+}
+.all_btn {
+  color: black;
+  margin-left: 900px;
+  position: relative;
+  top: -125px;
+  margin-top: 10px;
 }
 a {
   color: #000000;

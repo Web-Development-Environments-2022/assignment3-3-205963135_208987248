@@ -118,11 +118,15 @@ export default {
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
+        let meal = await this.axios.post(
+          this.$root.store.server_domain + "/users/meal",
+          { userName: this.$root.store.login }
+        );
         let favoritesIds = [];
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
         });
-        console.log(lastSeen.data.watched);
+        // console.log(lastSeen.data.watched);
         sessionStorage.setItem(
           "watchedRecipes",
           JSON.stringify(lastSeen.data.watched)

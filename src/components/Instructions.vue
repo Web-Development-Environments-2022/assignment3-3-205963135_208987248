@@ -129,10 +129,6 @@ export default {
           "transparent";
       }
     },
-    // func() {
-    //   document.getElementById(1).checked = true;
-    //   console.log("clicked");
-    // },
   },
 };
 </script>
@@ -146,8 +142,8 @@ export default {
   padding: 5px;
   border-radius: 10px;
   outline-style: dotted;
-  height: 100%;
-  width: 600px;
+  /* height: 100%; */
+  width: 600px !important;
   margin-top: 100px;
 }
 
