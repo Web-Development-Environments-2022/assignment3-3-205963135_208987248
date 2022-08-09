@@ -35,6 +35,7 @@
             </ol>
           </div> -->
             <Instructions
+            class="instructions"
               :Instructions="this.recipe._instructions"
               :prepared="false"
               :recipeId="recipe.id"
@@ -52,9 +53,9 @@
           ></b-button
         >
         <b-button
-          class="all_btn"
+          class="all_btn_meal"
           pill
-          variant="outline-secondary"
+          variant="warning"
           @click="addToMeal"
           :disabled="!this.$root.store.username"
           >Add to Meal</b-button
@@ -238,14 +239,12 @@ export default {
   width: 450px;
   margin-left: 50px;
 }
-/* .instructions {
-  padding: 5px;
-  border-radius: 10px;
-  outline-style: dotted;
-  height: 100%;
-  width: 600px;
-  margin-top: 100px;
-} */
+.instructions {
+  /* display: flex; */
+  margin-left: 600px;
+  position: relative;
+  top: -500px !important;
+}
 .headers {
   text-align: center;
 }
@@ -260,16 +259,18 @@ export default {
 
 ::v-deep .all_btn_recipe {
   color: aliceblue !important;
-  margin-left: 900px;
+  margin-left: 100px;
   position: relative;
-  top: -125px;
+  top: -225px;
 }
-.all_btn {
-  color: black;
-  margin-left: 900px;
+
+::v-deep .all_btn_meal{
+  color: rgb(0, 0, 0) !important;
+  margin-left: 80px;
   position: relative;
-  top: -125px;
-  margin-top: 10px;
+  top: -225px;
+    font-weight: bold;
+
 }
 a {
   color: #000000;

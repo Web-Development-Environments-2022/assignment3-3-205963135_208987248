@@ -1,6 +1,6 @@
 <template>
   <div class="wrapped instructions">
-    <h4 class="headers">Instructions:</h4>
+    <h4>Instructions:</h4>
     <ol>
       <li v-for="s in this.Instructions" :key="s.number" class="instruction">
         <input
@@ -134,9 +134,9 @@ export default {
 </script>
 
 <style>
-.headers {
+/* .headers {
   text-align: center;
-}
+} */
 
 .instructions {
   padding: 5px;
