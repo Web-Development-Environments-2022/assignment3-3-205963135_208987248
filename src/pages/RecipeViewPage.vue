@@ -56,7 +56,7 @@
         <b-button
           class="all_btn_meal"
           pill
-          variant="outline-secondary"
+          variant="warning"
           @click="() => addToMeal(true)"
           :disabled="!this.$root.store.username"
           >Add to Meal</b-button
