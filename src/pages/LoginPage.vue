@@ -110,7 +110,7 @@ export default {
 
         // console.log(response);
         // this.$root.loggedIn = true;
-        // console.log(this.$root.store.login);
+
         this.$root.store.login(this.form.username);
         let lastSeen = await this.axios.get(
           this.$root.store.server_domain + "/users/allwatched"
@@ -118,9 +118,15 @@ export default {
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
+        console.log(this.$root.store.login);
         let meal = await this.axios.post(
-          this.$root.store.server_domain + "/users/meal",
-          { userName: this.$root.store.login }
+          this.$root.store.server_domain + "/recipes/meal",
+          { userName: this.form.username }
+        );
+        console.log(meal);
+        sessionStorage.setItem(
+          "recipesInMeal",
+          JSON.stringify(meal.data.length)
         );
         let favoritesIds = [];
         favorites.data.forEach((recipe) => {

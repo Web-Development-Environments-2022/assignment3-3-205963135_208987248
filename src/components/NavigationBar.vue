@@ -110,8 +110,10 @@
           </b-dropdown>
 
           <a href="#" class="meal">
-            <img src="../assets/meal.png" alt="">
-            <span class="badge">3</span>
+            <img src="../assets/meal.png" alt="" />
+            <span class="badge" :key="numOfRecipesInMeal">{{
+              numOfRecipesInMeal
+            }}</span>
           </a>
 
           <b-button
@@ -222,8 +224,6 @@
                   required
                 ></b-form-input>
               </b-form-group>
-              <!-- <b-button type="submit" variant="primary">Submit</b-button>
-                  <b-button type="reset" variant="danger">Reset</b-button> -->
             </b-form>
 
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -257,22 +257,6 @@
                   >Remove Ingredient</b-button
                 >
               </div>
-              <!-- <b-avatar
-                    button
-                    @click="addIngredient"
-                    variant="info"
-                    src="https://cdn4.iconfinder.com/data/icons/cooking-technique/32/Artboard_4-512.png"
-                    size="5em"
-                    style="text-align: center"
-                  ></b-avatar>
-                  <b-avatar
-                    button
-                    @click="removeIngredient"
-                    variant="info"
-                    src="https://cdn4.iconfinder.com/data/icons/cooking-technique/32/Artboard_4-512.png"
-                    size="5em"
-                    style="text-align: center"
-                  ></b-avatar> -->
             </b-form>
 
             <b-form
@@ -311,22 +295,6 @@
                   >Remove Instruction</b-button
                 >
               </div>
-              <!-- <b-avatar
-                    button
-                    @click="addInstruction"
-                    variant="info"
-                    src="https://cdn4.iconfinder.com/data/icons/cooking-technique/32/Artboard_4-512.png"
-                    size="5em"
-                    style="text-align: center"
-                  ></b-avatar>
-                  <b-avatar
-                    button
-                    @click="removeInstruction"
-                    variant="info"
-                    src="https://cdn4.iconfinder.com/data/icons/cooking-technique/32/Artboard_4-512.png"
-                    size="5em"
-                    style="text-align: center"
-                  ></b-avatar> -->
 
               <b-button
                 type="submit"
@@ -369,7 +337,23 @@ export default {
       ingredientCounter: 1,
       instructionsCounter: 1,
       show: true,
+      numOfRecipesInMeal: undefined,
     };
+  },
+  created() {
+    this.numOfRecipesInMeal = JSON.parse(
+      sessionStorage.getItem("recipesInMeal")
+    );
+  },
+  mounted() {
+    this.numOfRecipesInMeal = JSON.parse(
+      sessionStorage.getItem("recipesInMeal")
+    );
+  },
+  updated() {
+    this.numOfRecipesInMeal = JSON.parse(
+      sessionStorage.getItem("recipesInMeal")
+    );
   },
   methods: {
     Logout() {

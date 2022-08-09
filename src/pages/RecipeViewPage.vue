@@ -40,6 +40,7 @@
               :recipeId="recipe.id"
             ></Instructions>
           </div>
+          <b-modal id="my-modal" v-model="modalShow">{{ message }}</b-modal>
         </div>
         <b-button
           class="all_btn_recipe"
@@ -55,7 +56,7 @@
           class="all_btn"
           pill
           variant="outline-secondary"
-          @click="addToMeal"
+          @click="() => addToMeal(true)"
           :disabled="!this.$root.store.username"
           >Add to Meal</b-button
         >
@@ -91,25 +92,34 @@ export default {
       // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
       this.$forceUpdate();
-      this.addToMeal();
+      this.addToMeal(false);
     },
-    async addToMeal() {
+    async addToMeal(showResponseModal) {
       this.$root.store.server_domain = "http://127.0.0.1:3000";
       if (this.$root.store.username != undefined) {
         let userName = this.$root.store.username;
         let recipeId = this.recipe.id;
-        const response = await this.axios
-          .post(this.$root.store.server_domain + "/recipes/addmeal", {
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/recipes/addmeal",
+          {
             recipeId: recipeId,
-            username: userName,
-          })
-          .then((res) => {
-            if (res.data.status == "success") {
-              //update DOM
-            }
-          });
-        if (response.data == "This recipe is already in the meal") {
-          //show modal that says this recipe is already in the meal
+            userName: userName,
+          }
+        );
+        if (response.data == "Recipe was added to meal successfully") {
+          let numOfRecipesInMeal = JSON.parse(
+            sessionStorage.getItem("recipesInMeal")
+          );
+          numOfRecipesInMeal += 1;
+          sessionStorage.setItem(
+            "recipesInMeal",
+            JSON.stringify(numOfRecipesInMeal)
+          );
+          this.$forceUpdate();
+        }
+        if (showResponseModal) {
+          this.message = response.data;
+          this.modalShow = true;
         }
       }
     },
