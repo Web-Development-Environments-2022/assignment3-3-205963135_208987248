@@ -347,7 +347,24 @@
       </h4>
     </b-container>
 
-    <b-container fluid class="p-4 bg-light all_recipes">
+      <b-container fluid class="p-4 bg-light all_recipes">
+      <b-row class="row" v-for="(r, index1) in recipes.flat()" :key="index1">
+        <RecipePreview
+          class="recipePreview"
+          :recipe="r"
+          :id="r.id"
+          :title="r.title"
+          :readyInMinutes="r.readyInMinutes"
+          :image="r.image"
+          :aggregateLikes="r.aggregateLikes"
+          :isFavorite="r.isFavorite"
+          :isLastseen="r.isLastseen"
+          :index="index1+1"
+        />
+      </b-row>
+    </b-container>
+
+    <!-- <b-container fluid class="p-4 bg-light all_recipes">
       <b-row class="row" v-for="(recipeList, index2) in recipes" :key="index2">
         <b-col class="col" v-for="(r, index1) in recipeList" :key="index1">
           <RecipePreview
@@ -363,7 +380,7 @@
           />
         </b-col>
       </b-row>
-    </b-container>
+    </b-container> -->
   </div>
 </template>
 
@@ -642,7 +659,11 @@ export default {
       // console.log(this.recipesToSort);
       let searchedRecipes2 = await this.chunkArray(this.recipesToSort, 3);
       // console.log(searchedRecipes2);
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaa', this.recipesToSort)
+      const finalList = [];
+      // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
       this.recipes = searchedRecipes2;
+      console.log('bbbbbbbbbbbbb', finalList)
       this.rerender();
     },
     async searchRecipe() {
@@ -691,7 +712,11 @@ export default {
         // console.log(this.recipesToSort);
         let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
         // console.log(searchedRecipes2);
-        this.recipes = searchedRecipes2;
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaa', this.recipesToSort[0])
+        const finalList = [];
+        // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
+        this.recipes = searchedRecipes;
+        console.log('bbbbbbbbbbbbb', finalList)
         if (this.$root.store.username != undefined) {
           sessionStorage.setItem(
             "searchResults",
@@ -816,9 +841,11 @@ export default {
   margin-bottom: 50px;
 }
 .all_recipes {
-  display: contents;
+  display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .col {
   margin-bottom: 30px;
@@ -834,5 +861,9 @@ export default {
 }
 .row{
   display: inline-flex !important
+}
+.btn-sm {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

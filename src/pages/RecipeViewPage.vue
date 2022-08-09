@@ -25,23 +25,6 @@
                 </li>
               </ul>
             </div>
-            <b-button
-              class="all_btn"
-              pill
-              variant="outline-secondary"
-              @click="setCurRecipe"
-              ><router-link :to="{ name: 'PrepareRecipe' }"
-                >Prepare Recipe</router-link
-              ></b-button
-            >
-            <b-button
-              v-if="this.$root.store.username != undefined"
-              class="all_btn"
-              pill
-              variant="outline-secondary"
-              @click="addToMeal"
-              >Add to Meal</b-button
-            >
           </div>
           <!-- <div class="wrapped instructions">
             <h4 class="headers">Instructions:</h4>
@@ -54,12 +37,26 @@
           <Instructions
             :Instructions="this.recipe._instructions"
             :prepared="false"
-            :recipeId="recipe.id"
           ></Instructions>
         </div>
-
-        <b-modal id="my-modal" v-model="modalShow">{{ message }}</b-modal>
+        <b-button
+          class="all_btn_recipe"
+          pill
+          variant="warning"
+          @click="setCurRecipe"
+          ><router-link :to="{ name: 'PrepareRecipe' }"
+            >Prepare Recipe</router-link
+          ></b-button
+        >
       </div>
+      <!-- <b-button
+          v-if="this.$root.store.username != undefined"
+          class="all_btn"
+          pill
+          variant="outline-secondary"
+          @click="addToMeal"
+          >Add to Meal</b-button
+        > -->
       <!-- <pre>
       {{ $route.params }}
       {{ recipe }}
@@ -89,21 +86,27 @@ export default {
     setCurRecipe() {
       // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
+      this.$forceUpdate();
+      // this.addToMeal();
     },
     async addToMeal() {
       this.$root.store.server_domain = "http://127.0.0.1:3000";
       if (this.$root.store.username != undefined) {
         let userName = this.$root.store.username;
         let recipeId = this.recipe.id;
-        const response = await this.axios.post(
-          this.$root.store.server_domain + "/recipes/addmeal",
-          {
+        const response = await this.axios
+          .post(this.$root.store.server_domain + "/recipes/addmeal", {
             recipeId: recipeId,
             username: userName,
-          }
-        );
-        this.message = response.data;
-        this.modalShow = true;
+          })
+          .then((res) => {
+            if (res.data.status == "success") {
+              //update DOM
+            }
+          });
+        if (response.data == "This recipe is already in the meal") {
+          //show modal that says this recipe is already in the meal
+        }
       }
     },
   },
@@ -129,7 +132,6 @@ export default {
           //   params: { id: this.$route.params.recipeId }
           // }
         );
-        // console.log(response);
         if (this.$root.store.username != undefined) {
           let lastSeen = await this.axios.get(
             this.$root.store.server_domain + "/users/allwatched"
@@ -201,7 +203,6 @@ export default {
 
       this.recipe = _recipe;
       // console.log(this.recipe);
-      sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
     } catch (error) {
       console.log(error);
     }
@@ -252,8 +253,21 @@ export default {
   width: 200px;
   margin-left: 50px;
 }
-.all_btn {
-  color: black !important;
-  margin-top: 20px;
+
+::v-deep .all_btn_recipe {
+  color: aliceblue !important;
+  margin-left: 900px;
+  position: relative;
+  top: -125px;
+}
+a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>

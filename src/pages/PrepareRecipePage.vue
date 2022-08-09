@@ -20,18 +20,19 @@
           </ul>
         </div>
         <b-button
-          class="all_btn"
+          class="all_btn_prapare"
           @click="doubleIngredients"
           pill
-          variant="outline-secondary"
+          variant="outline-dark"
           >Double Ingredients</b-button
         >
+        <Instructions
+          class="instructions"
+          :instructions="recipe._instructions"
+          :prepared="true"
+          :recipeId="recipe.id"
+        ></Instructions>
       </div>
-      <Instructions
-        :instructions="recipe._instructions"
-        :prepared="true"
-        :recipeId="recipe.id"
-      ></Instructions>
     </div>
   </div>
 </template>
@@ -111,9 +112,11 @@ export default {
   text-align: center;
   margin-top: 20px;
 }
-.all_btn {
+.all_btn_prapare {
+  margin-left: 150px;
   color: black !important;
-  margin-top: 20px;
+  margin-top: 25px;
+  font-weight: bold;
 }
 .wrapped {
   width: 50%;
@@ -135,5 +138,21 @@ export default {
 }
 .wrapper {
   display: flex;
+}
+.instructions {
+  display: flex;
+  margin-left: 900px;
+  position: relative;
+  top: -500px;
+}
+a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
