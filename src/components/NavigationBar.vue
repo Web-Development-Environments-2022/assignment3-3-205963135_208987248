@@ -530,6 +530,7 @@ a:hover {
 
 ::v-deep .all_btn {
   color: aliceblue;
+  margin: 0;
 }
 ::v-deep .my_modal {
   text-align: center !important;

@@ -25,6 +25,23 @@
                 </li>
               </ul>
             </div>
+            <b-button
+              class="all_btn"
+              pill
+              variant="outline-secondary"
+              @click="setCurRecipe"
+              ><router-link :to="{ name: 'PrepareRecipe' }"
+                >Prepare Recipe</router-link
+              ></b-button
+            >
+            <b-button
+              v-if="this.$root.store.username != undefined"
+              class="all_btn"
+              pill
+              variant="outline-secondary"
+              @click="addToMeal"
+              >Add to Meal</b-button
+            >
           </div>
           <!-- <div class="wrapped instructions">
             <h4 class="headers">Instructions:</h4>
@@ -37,25 +54,11 @@
           <Instructions
             :Instructions="this.recipe._instructions"
             :prepared="false"
+            :recipeId="recipe.id"
           ></Instructions>
         </div>
-        <b-button
-          class="all_btn"
-          pill
-          variant="outline-secondary"
-          @click="setCurRecipe"
-          ><router-link :to="{ name: 'PrepareRecipe' }"
-            >Prepare Recipe</router-link
-          ></b-button
-        >
-        <b-button
-          v-if="this.$root.store.username != undefined"
-          class="all_btn"
-          pill
-          variant="outline-secondary"
-          @click="addToMeal"
-          >Add to Meal</b-button
-        >
+
+        <b-modal id="my-modal" v-model="modalShow">{{ message }}</b-modal>
       </div>
       <!-- <pre>
       {{ $route.params }}
@@ -78,6 +81,8 @@ export default {
   data() {
     return {
       recipe: undefined,
+      message: "",
+      modalShow: false,
     };
   },
   methods: {
@@ -97,9 +102,8 @@ export default {
             username: userName,
           }
         );
-        if (response.data == "This recipe is already in the meal") {
-          //show modal that says this recipe is already in the meal
-        }
+        this.message = response.data;
+        this.modalShow = true;
       }
     },
   },
@@ -125,6 +129,7 @@ export default {
           //   params: { id: this.$route.params.recipeId }
           // }
         );
+        // console.log(response);
         if (this.$root.store.username != undefined) {
           let lastSeen = await this.axios.get(
             this.$root.store.server_domain + "/users/allwatched"
@@ -147,7 +152,7 @@ export default {
               });
               newLastSearch.push(newRecipeList);
             });
-            console.log(newLastSearch);
+            // console.log(newLastSearch);
             sessionStorage.setItem(
               "searchResults",
               JSON.stringify(newLastSearch)
@@ -172,6 +177,7 @@ export default {
         image,
         title,
         servings,
+        id,
       } = response.data;
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -181,6 +187,7 @@ export default {
         .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
+        id,
         instructions,
         _instructions,
         analyzedInstructions,
@@ -194,6 +201,7 @@ export default {
 
       this.recipe = _recipe;
       // console.log(this.recipe);
+      sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
     } catch (error) {
       console.log(error);
     }
@@ -243,5 +251,9 @@ export default {
   height: 85px;
   width: 200px;
   margin-left: 50px;
+}
+.all_btn {
+  color: black !important;
+  margin-top: 20px;
 }
 </style>
