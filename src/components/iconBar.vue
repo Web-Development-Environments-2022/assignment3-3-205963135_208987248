@@ -79,7 +79,8 @@ export default {
     async addToFavorite() {
       this.recipe.isFavorite = true;
       try {
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
         let lastSeen = await this.axios.get(
           this.$root.store.server_domain + "/users/allwatched"
         );

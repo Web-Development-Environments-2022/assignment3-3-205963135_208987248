@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
+    <h1 class="title_top">Main Page</h1>
     <div class="row_container">
       <div class="column">
         <RecipePreviewList
@@ -51,8 +51,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
+
+.title_top{
   text-align: center;
+
+}
+.title {
+  // text-align: center;
   margin-top: 20px;
 }
 .RandomRecipes {

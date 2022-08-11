@@ -25,6 +25,24 @@
                 </li>
               </ul>
             </div>
+            <b-button
+              class="all_btn_recipe"
+              pill
+              variant="warning"
+              @click="setCurRecipe"
+              :disabled="!this.$root.store.username"
+              ><router-link :to="{ name: 'PrepareRecipe' }"
+                >Prepare Recipe</router-link
+              ></b-button
+            >
+            <b-button
+              class="all_btn_meal"
+              pill
+              variant="warning"
+              @click="() => addToMeal(true)"
+              :disabled="!this.$root.store.username"
+              >Add to Meal</b-button
+            >
 
             <!-- <div class="wrapped instructions">
             <h4 class="headers">Instructions:</h4>
@@ -43,24 +61,6 @@
           </div>
           <b-modal id="my-modal" v-model="modalShow">{{ message }}</b-modal>
         </div>
-        <b-button
-          class="all_btn_recipe"
-          pill
-          variant="warning"
-          @click="setCurRecipe"
-          :disabled="!this.$root.store.username"
-          ><router-link :to="{ name: 'PrepareRecipe' }"
-            >Prepare Recipe</router-link
-          ></b-button
-        >
-        <b-button
-          class="all_btn_meal"
-          pill
-          variant="warning"
-          @click="() => addToMeal(true)"
-          :disabled="!this.$root.store.username"
-          >Add to Meal</b-button
-        >
       </div>
 
       <!-- <pre>
@@ -96,7 +96,8 @@ export default {
       this.addToMeal(false);
     },
     async addToMeal(showResponseModal) {
-      this.$root.store.server_domain = "http://127.0.0.1:3000";
+      // this.$root.store.server_domain = "https://127.0.0.1:3000";
+      this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
       if (this.$root.store.username != undefined) {
         let userName = this.$root.store.username;
         let recipeId = this.recipe.id;
@@ -138,7 +139,8 @@ export default {
       // response = this.$route.params.response;
 
       try {
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "http://dm-recipes.cs.bgu.ac.il:3000";
         let userName = this.$root.store.username;
         if (userName == undefined) {
           userName = "guest";
@@ -245,6 +247,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  margin-top: 50px;
 }
 .recipe-header {
   text-align: center;
@@ -261,7 +264,7 @@ export default {
   /* display: flex; */
   margin-left: 600px;
   position: relative;
-  top: -500px !important;
+  top: -550px !important;
 }
 .headers {
   text-align: center;
@@ -275,19 +278,19 @@ export default {
   margin-left: 50px;
 }
 
-::v-deep .all_btn_recipe {
-  color: aliceblue !important;
+.all_btn_recipe {
   margin-left: 100px;
-  position: relative;
-  top: -225px;
+  /* position: relative; */
+  /* top: -225px; */
+  margin-top: 25px;
 }
 
-::v-deep .all_btn_meal {
-  color: rgb(0, 0, 0) !important;
+.all_btn_meal {
   margin-left: 80px;
-  position: relative;
+  /* position: relative; */
   top: -225px;
   font-weight: bold;
+  margin-top: 25px;
 }
 a {
   color: #000000;

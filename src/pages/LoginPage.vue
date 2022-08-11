@@ -95,7 +95,8 @@ export default {
     },
     async Login() {
       try {
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
           this.$root.store.server_domain + "/login",

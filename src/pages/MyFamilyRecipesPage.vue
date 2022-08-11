@@ -16,6 +16,9 @@ export default {
   components: {
     RecipePreviewListV2,
   },
+  mounted() {
+    
+  }
 };
 </script>
 

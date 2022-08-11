@@ -51,7 +51,8 @@ export default {
     async updateRecipes() {
       try {
         // console.log("Here");
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
         let response;
         if (this.listType == "RandomRecipes") {
           response = await this.axios.get(

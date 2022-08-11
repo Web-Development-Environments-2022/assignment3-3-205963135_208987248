@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">Prepare Recipe Page</h1>
-    <div class="wrapper">
+    <div class="wrapper prepare">
       <div class="wrapped">
         <div class="mb-3">
           <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
@@ -118,7 +118,7 @@ export default {
   margin-bottom: 50px;
 }
 .all_btn_prapare {
-  margin-left: 50px !important;
+  /* margin-left: 50px !important; */
   color: rgb(255, 255, 255) !important;
   font-weight: bold !important;
   margin-top: 25px;
@@ -132,23 +132,24 @@ export default {
   border-radius: 10px;
   height: 85px;
   width: 200px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 .ingredients {
   background-color: rgba(255, 228, 196, 0.418);
   padding: 5px;
   border-radius: 10px;
   width: 450px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
-.wrapper {
+.prepare {
   display: flex;
+  justify-content: center;
 }
 .instructions {
   /* display: flex; */
-  margin-left: 700px;
+  margin-left: 500px;
   position: relative;
-  top: -500px !important;
+  top: -620px !important;
 }
 /* a {
   color: #ffffff;
