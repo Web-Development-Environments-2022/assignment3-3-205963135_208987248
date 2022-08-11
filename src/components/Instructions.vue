@@ -39,62 +39,42 @@ export default {
     },
   },
   mounted() {
-    // this.Instructions[0].checked = true;
-    let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
-    let recipeId = recipe.id;
-    let curInstructions = JSON.parse(sessionStorage.getItem("curInstructions"));
-    let newInstructions = curInstructions.find(
-      (element) => element.recipeId == recipeId
-    );
-    // console.log("here");
-    // console.log(newInstructions);
-    if (newInstructions != undefined) {
-      // console.log("here1");
-      newInstructions = newInstructions.instructions;
-      newInstructions.forEach((instruction) => {
-        if (instruction.checked) {
-          // console.log("here2");
-          document.getElementById(instruction.number).checked = true;
-          document.getElementById(
-            "step" + instruction.number
-          ).style.background = "yellow";
-        } else {
-          document.getElementById(
-            "step" + instruction.number
-          ).style.background = "transparent";
-        }
-      });
-    }
+    updateInstruction();
   },
   updated() {
-    let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
-    let recipeId = recipe.id;
-    let curInstructions = JSON.parse(sessionStorage.getItem("curInstructions"));
-    let newInstructions = curInstructions.find(
-      (element) => element.recipeId == recipeId
-    );
-    // console.log("here");
-    // console.log(newInstructions);
-    if (newInstructions != undefined) {
-      // console.log("here1");
-      newInstructions = newInstructions.instructions;
-      newInstructions.forEach((instruction) => {
-        if (instruction.checked) {
-          // console.log("here2");
-          document.getElementById(instruction.number).checked = true;
-          console.log(document.getElementById("step" + instruction.number));
-          document.getElementById(
-            "step" + instruction.number
-          ).style.background = "yellow";
-        } else {
-          document.getElementById(
-            "step" + instruction.number
-          ).style.background = "transparent";
-        }
-      });
-    }
+    updateInstruction();
   },
   methods: {
+    updateInstruction() {
+      let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
+      let recipeId = recipe.id;
+      let curInstructions = JSON.parse(
+        sessionStorage.getItem("curInstructions")
+      );
+      let newInstructions = curInstructions.find(
+        (element) => element.recipeId == recipeId
+      );
+      // console.log("here");
+      // console.log(newInstructions);
+      if (newInstructions != undefined) {
+        // console.log("here1");
+        newInstructions = newInstructions.instructions;
+        newInstructions.forEach((instruction) => {
+          if (instruction.checked) {
+            // console.log("here2");
+            document.getElementById(instruction.number).checked = true;
+            console.log(document.getElementById("step" + instruction.number));
+            document.getElementById(
+              "step" + instruction.number
+            ).style.background = "yellow";
+          } else {
+            document.getElementById(
+              "step" + instruction.number
+            ).style.background = "transparent";
+          }
+        });
+      }
+    },
     onChange(instruction) {
       // console.log(instruction);
       instruction.checked = !instruction.checked;
@@ -112,6 +92,11 @@ export default {
       const instructionIndex = curInstructions.findIndex(
         (o) => o.recipeId == this.recipeId
       );
+      if (instruction.checked) {
+        oldInstructions.finishedInstructions += 1;
+      } else {
+        oldInstructions.finishedInstructions -= 1;
+      }
       // console.log(instructionIndex);
       if (instructionIndex > -1) {
         curInstructions[instructionIndex] = oldInstructions;

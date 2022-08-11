@@ -107,10 +107,17 @@
                 ><p>My Family Recipes</p></router-link
               ></b-dropdown-item
             >
+            <b-dropdown-item href="#"
+              ><router-link :to="{ name: 'myrecipes' }"
+                ><p>My Recipes</p></router-link
+              ></b-dropdown-item
+            >
           </b-dropdown>
 
           <a href="#" class="meal">
-            <img src="../assets/meal.png" alt="" />
+            <router-link :to="{ name: 'meal' }"
+              ><img src="../assets/meal.png" alt=""
+            /></router-link>
             <span class="badge" :key="numOfRecipesInMeal">{{
               numOfRecipesInMeal
             }}</span>
@@ -340,20 +347,26 @@ export default {
       numOfRecipesInMeal: undefined,
     };
   },
-  created() {
-    this.numOfRecipesInMeal = JSON.parse(
-      sessionStorage.getItem("recipesInMeal")
-    );
-  },
+  // created() {
+  //   if (this.$root.store.username != undefined) {
+  //     this.numOfRecipesInMeal = JSON.parse(
+  //       sessionStorage.getItem("recipesInMeal")
+  //     );
+  //   }
+  // },
   mounted() {
-    this.numOfRecipesInMeal = JSON.parse(
-      sessionStorage.getItem("recipesInMeal")
-    );
+    if (this.$root.store.username != undefined) {
+      this.numOfRecipesInMeal = JSON.parse(
+        sessionStorage.getItem("recipesInMeal")
+      );
+    }
   },
   updated() {
-    this.numOfRecipesInMeal = JSON.parse(
-      sessionStorage.getItem("recipesInMeal")
-    );
+    if (this.$root.store.username != undefined) {
+      this.numOfRecipesInMeal = JSON.parse(
+        sessionStorage.getItem("recipesInMeal")
+      );
+    }
   },
   methods: {
     Logout() {

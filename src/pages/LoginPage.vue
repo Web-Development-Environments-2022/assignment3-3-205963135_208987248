@@ -118,16 +118,21 @@ export default {
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
-        console.log(this.$root.store.login);
+        // console.log(this.$root.store.login);
         let meal = await this.axios.post(
           this.$root.store.server_domain + "/recipes/meal",
           { userName: this.form.username }
         );
-        console.log(meal);
+        // console.log(meal);
         sessionStorage.setItem(
           "recipesInMeal",
           JSON.stringify(meal.data.length)
         );
+        sessionStorage.setItem(
+          "mealRecipesInstructionLength",
+          JSON.stringify(meal.data)
+        );
+
         let favoritesIds = [];
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
@@ -138,6 +143,29 @@ export default {
           JSON.stringify(lastSeen.data.watched)
         );
         sessionStorage.setItem("favorites", JSON.stringify(favoritesIds));
+
+        let recipesList = [];
+        meal.data.forEach(function (object) {
+          recipesList.push(object.recipeId);
+        });
+        let mealRecipes = await this.axios.post(
+          this.$root.store.server_domain + "/recipes/previewDetails",
+          { recipeIdList: recipesList }
+        );
+        let newMealRecipes = [];
+        mealRecipes.data.forEach(function (recipe) {
+          recipe.isFavorite = false;
+          recipe.isLastseen = false;
+          if (favoritesIds.includes(recipe.id.toString())) {
+            recipe.isFavorite = true;
+          }
+          if (lastSeen.data.watched.includes(recipe.id.toString())) {
+            recipe.isLastseen = true;
+          }
+          newMealRecipes.push(recipe);
+        });
+        // console.log(newMealRecipes);
+        sessionStorage.setItem("mealRecipes", JSON.stringify(newMealRecipes));
         this.$router.push("/");
       } catch (err) {
         console.log(err);

@@ -25,8 +25,9 @@
           @click="doubleIngredients"
           pill
           variant="dark"
-          >Double Ingredients</b-button>
-                  <Instructions
+          >Double Ingredients</b-button
+        >
+        <Instructions
           class="instructions"
           :instructions="recipe._instructions"
           :prepared="true"
@@ -53,7 +54,10 @@ export default {
         instruction.checked != undefined ? instruction.checked : false;
       newInstructions.push(instruction);
     });
+    newInstructions.totalInstructions = newInstructions.instructions.length;
+    newInstructions.finishedInstructions = 0;
     this.recipe._instructions = newInstructions;
+
     let curInstructions = JSON.parse(sessionStorage.getItem("curInstructions"));
     // console.log(this.recipe);
     if (curInstructions == undefined) {
@@ -117,7 +121,7 @@ export default {
   margin-left: 50px !important;
   color: rgb(255, 255, 255) !important;
   font-weight: bold !important;
-  margin-top:25px;
+  margin-top: 25px;
 }
 .wrapped {
   width: 50%;

@@ -347,7 +347,7 @@
       </h4>
     </b-container>
 
-      <b-container fluid class="p-4 bg-light all_recipes">
+    <b-container fluid class="p-4 bg-light all_recipes">
       <b-row class="row" v-for="(r, index1) in recipes.flat()" :key="index1">
         <RecipePreview
           class="recipePreview"
@@ -359,7 +359,7 @@
           :aggregateLikes="r.aggregateLikes"
           :isFavorite="r.isFavorite"
           :isLastseen="r.isLastseen"
-          :index="index1+1"
+          :index="index1 + 1"
         />
       </b-row>
     </b-container>
@@ -407,35 +407,6 @@ export default {
         intolerance: "",
         SubmitError: undefined,
       },
-      // cuisines: [
-      //   { value: "", text: "Choose a Cuisine Filter" },
-      //   { value: "African", text: "African" },
-      //   { value: "American", text: "American" },
-      //   { value: "British", text: "British" },
-      //   { value: "Cajun", text: "Cajun" },
-      //   { value: "Caribbean", text: "Caribbean" },
-      //   { value: "Chinese", text: "Chinese" },
-      //   { value: "Eastern European", text: "Eastern European" },
-      //   { value: "European", text: "European" },
-      //   { value: "French", text: "French" },
-      //   { value: "German", text: "German" },
-      //   { value: "Greek", text: "Greek" },
-      //   { value: "Indian", text: "Indian" },
-      //   { value: "Irish", text: "Irish" },
-      //   { value: "Italian", text: "Italian" },
-      //   { value: "Japanese", text: "Japanese" },
-      //   { value: "Jewish", text: "Jewish" },
-      //   { value: "Korean", text: "Korean" },
-      //   { value: "Latin American", text: "Latin American" },
-      //   { value: "Mediterranean", text: "Mediterranean" },
-      //   { value: "Mexican", text: "Mexican" },
-      //   { value: "Middle Eastern", text: "Middle Eastern" },
-      //   { value: "Nordic", text: "Nordic" },
-      //   { value: "Southern", text: "Southern" },
-      //   { value: "Spanish", text: "Spanish" },
-      //   { value: "Thai", text: "Thai" },
-      //   { value: "Vietnamese", text: "Vietnamese" },
-      // ],
       cuisines: [
         "African",
         "American",
@@ -470,20 +441,6 @@ export default {
         { value: 10, text: "10" },
         { value: 15, text: "15" },
       ],
-      // diets: [
-      //   { value: "", text: "Choose Your Diet" },
-      //   { value: "Gluten Free", text: "Gluten Free" },
-      //   { value: "Ketogenic", text: "Ketogenic" },
-      //   { value: "Vegetarian", text: "Vegetarian" },
-      //   { value: "Lacto-Vegetarian", text: "Lacto-Vegetarian" },
-      //   { value: "Ovo-Vegetarian", text: "Ovo-Vegetarian" },
-      //   { value: "Vegan", text: "Vegan" },
-      //   { value: "Pescetarian", text: "Pescetarian" },
-      //   { value: "Paleo", text: "Paleo" },
-      //   { value: "Primal", text: "Primal" },
-      //   { value: "Low FODMAP", text: "Low FODMAP" },
-      //   { value: "Whole30", text: "Whole30" },
-      // ],
       diets: [
         "Choose Your Diet",
         "Gluten Free",
@@ -498,21 +455,6 @@ export default {
         "Low FODMAP",
         "Whole30",
       ],
-      // intolerances: [
-      //   { value: "", text: "Choose Your Intolerances" },
-      //   { value: "Dairy", text: "Dairy" },
-      //   { value: "Egg", text: "Egg" },
-      //   { value: "Gluten", text: "Gluten" },
-      //   { value: "Grain", text: "Grain" },
-      //   { value: "Peanut", text: "Peanut" },
-      //   { value: "Seafood", text: "Seafood" },
-      //   { value: "Sesame", text: "Sesame" },
-      //   { value: "Shellfish", text: "Shellfish" },
-      //   { value: "Soy", text: "Soy" },
-      //   { value: "Sulfite", text: "Sulfite" },
-      //   { value: "Tree Nut", text: "Tree Nut" },
-      //   { value: "Wheat", text: "Wheat" },
-      // ],
       intolerances: [
         "Choose Your Intolerances",
         "Dairy",
@@ -659,11 +601,11 @@ export default {
       // console.log(this.recipesToSort);
       let searchedRecipes2 = await this.chunkArray(this.recipesToSort, 3);
       // console.log(searchedRecipes2);
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaa', this.recipesToSort)
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaa", this.recipesToSort);
       const finalList = [];
       // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
       this.recipes = searchedRecipes2;
-      console.log('bbbbbbbbbbbbb', finalList)
+      console.log("bbbbbbbbbbbbb", finalList);
       this.rerender();
     },
     async searchRecipe() {
@@ -697,7 +639,7 @@ export default {
         searchedRecipes.popularity = searchedRecipes.aggregateLikes;
         let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
         let favorites = JSON.parse(sessionStorage.getItem("favorites"));
-        console.log(lastSeen);
+        // console.log(lastSeen);
         let newRecipes = [];
         searchedRecipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
@@ -712,11 +654,11 @@ export default {
         // console.log(this.recipesToSort);
         let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
         // console.log(searchedRecipes2);
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaa', this.recipesToSort[0])
+        // console.log("aaaaaaaaaaaaaaaaaaaaaaaa", this.recipesToSort[0]);
         const finalList = [];
         // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
         this.recipes = searchedRecipes;
-        console.log('bbbbbbbbbbbbb', finalList)
+        // console.log("bbbbbbbbbbbbb", finalList);
         if (this.$root.store.username != undefined) {
           sessionStorage.setItem(
             "searchResults",
@@ -859,8 +801,8 @@ export default {
 .multiple-choice-container {
   width: 25%;
 }
-.row{
-  display: inline-flex !important
+.row {
+  display: inline-flex !important;
 }
 .btn-sm {
   text-overflow: ellipsis;

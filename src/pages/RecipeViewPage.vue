@@ -116,12 +116,19 @@ export default {
             "recipesInMeal",
             JSON.stringify(numOfRecipesInMeal)
           );
-          this.$forceUpdate();
+          let newMeal = JSON.parse(sessionStorage.getItem("mealRecipes"));
+          let newRecipe = await this.axios.post(
+            this.$root.store.server_domain + "/recipes/previewDetails",
+            { recipeIdList: [this.recipe.id] }
+          );
+          newMeal.push(newRecipe.data);
+          sessionStorage.setItem("mealRecipes", JSON.stringify(newMeal));
         }
         if (showResponseModal) {
           this.message = response.data;
           this.modalShow = true;
         }
+        // this.$forceUpdate();
       }
     },
   },
@@ -136,6 +143,7 @@ export default {
         if (userName == undefined) {
           userName = "guest";
         }
+
         response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",
