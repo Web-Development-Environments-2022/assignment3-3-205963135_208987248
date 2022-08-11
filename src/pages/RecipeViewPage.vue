@@ -97,7 +97,8 @@ export default {
       this.addToMeal(false);
     },
     async addToMeal(showResponseModal) {
-      this.$root.store.server_domain = "http://127.0.0.1:3000";
+      // this.$root.store.server_domain = "https://127.0.0.1:3000";
+      this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
       if (this.$root.store.username != undefined) {
         let userName = this.$root.store.username;
         let recipeId = this.recipe.id;
@@ -117,12 +118,19 @@ export default {
             "recipesInMeal",
             JSON.stringify(numOfRecipesInMeal)
           );
-          this.$forceUpdate();
+          let newMeal = JSON.parse(sessionStorage.getItem("mealRecipes"));
+          let newRecipe = await this.axios.post(
+            this.$root.store.server_domain + "/recipes/previewDetails",
+            { recipeIdList: [this.recipe.id] }
+          );
+          newMeal.push(newRecipe.data);
+          sessionStorage.setItem("mealRecipes", JSON.stringify(newMeal));
         }
         if (showResponseModal) {
           this.message = response.data;
           this.modalShow = true;
         }
+        // this.$forceUpdate();
       }
     },
   },
@@ -132,11 +140,13 @@ export default {
       // response = this.$route.params.response;
 
       try {
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "http://dm-recipes.cs.bgu.ac.il:3000";
         let userName = this.$root.store.username;
         if (userName == undefined) {
           userName = "guest";
         }
+        
         response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",

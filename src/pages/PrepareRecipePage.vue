@@ -53,7 +53,10 @@ export default {
         instruction.checked != undefined ? instruction.checked : false;
       newInstructions.push(instruction);
     });
+    newInstructions.totalInstructions = newInstructions.instructions.length;
+    newInstructions.finishedInstructions = 0;
     this.recipe._instructions = newInstructions;
+    
     let curInstructions = JSON.parse(sessionStorage.getItem("curInstructions"));
     // console.log(this.recipe);
     if (curInstructions == undefined) {
