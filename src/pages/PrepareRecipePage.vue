@@ -47,51 +47,73 @@ export default {
     Instructions,
   },
   created() {
-    this.recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
-    let newInstructions = [];
-    this.recipe._instructions.forEach((instruction) => {
-      instruction.checked =
-        instruction.checked != undefined ? instruction.checked : false;
-      newInstructions.push(instruction);
-    });
-    newInstructions.totalInstructions = newInstructions.instructions.length;
-    newInstructions.finishedInstructions = 0;
-    this.recipe._instructions = newInstructions;
-
-    let curInstructions = JSON.parse(sessionStorage.getItem("curInstructions"));
-    // console.log(this.recipe);
-    if (curInstructions == undefined) {
-      sessionStorage.setItem(
-        "curInstructions",
-        JSON.stringify([
-          { instructions: this.recipe._instructions, recipeId: this.recipe.id },
-        ])
-      );
-    } else {
-      const instructionIndex = curInstructions.findIndex(
-        (o) => o.recipeId == this.recipe.id
-      );
-      if (instructionIndex == -1) {
-        curInstructions.push({
-          instructions: this.recipe._instructions,
-          recipeId: this.recipe.id,
-        });
-        sessionStorage.setItem(
-          "curInstructions",
-          JSON.stringify(curInstructions)
-        );
-      }
-    }
+    this.updateRecipeAndInstructions();
   },
   mounted() {
-    this.recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
+    this.updateRecipeAndInstructions();
   },
   data() {
     return {
-      recipe: { ingredients: [] },
+      recipe: { ingredients: [], recipeId: undefined },
     };
   },
   methods: {
+    updateRecipeAndInstructions() {
+      try {
+        this.recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
+        let newInstructions = [];
+        let counter = 0;
+        this.recipe._instructions.forEach((instruction) => {
+          instruction.checked =
+            instruction.checked != undefined ? instruction.checked : false;
+          newInstructions.push(instruction);
+          if (instruction.checked) {
+            counter++;
+          }
+        });
+        // newInstructions.totalInstructions = newInstructions.length;
+        // newInstructions.finishedInstructions = counter;
+        this.recipe._instructions = newInstructions;
+        sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
+
+        let curInstructions = JSON.parse(
+          sessionStorage.getItem("curInstructions")
+        );
+        // console.log(this.recipe);
+        // console.log(curInstructions);
+        if (curInstructions == undefined) {
+          sessionStorage.setItem(
+            "curInstructions",
+            JSON.stringify([
+              {
+                instructions: this.recipe._instructions,
+                recipeId: this.recipe.id,
+                totalInstructions: newInstructions.length,
+                finishedInstructions: counter,
+              },
+            ])
+          );
+        } else {
+          const instructionIndex = curInstructions.findIndex(
+            (o) => o.recipeId == this.recipe.id
+          );
+          if (instructionIndex == -1) {
+            curInstructions.push({
+              instructions: this.recipe._instructions,
+              recipeId: this.recipe.id,
+              totalInstructions: newInstructions.length,
+              finishedInstructions: counter,
+            });
+            sessionStorage.setItem(
+              "curInstructions",
+              JSON.stringify(curInstructions)
+            );
+          }
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
     doubleIngredients() {
       // console.log(this.recipe);
       let newIngredients = [];
@@ -99,13 +121,17 @@ export default {
         let newIngredient = JSON.parse(JSON.stringify(ingredient));
         newIngredient.amount = newIngredient.amount * 2;
         newIngredient.original =
-          newIngredient.amount + " " + newIngredient.originalName;
+          newIngredient.amount +
+          " " +
+          newIngredient.unit +
+          " " +
+          newIngredient.originalName;
         newIngredients.push(newIngredient);
         // console.log(newIngredient);
       });
       this.recipe.ingredients = newIngredients;
       this.recipe.servings *= 2;
-      this.$root.store.curRecipe = this.recipe;
+      // this.$root.store.curRecipe = this.recipe;
     },
   },
 };

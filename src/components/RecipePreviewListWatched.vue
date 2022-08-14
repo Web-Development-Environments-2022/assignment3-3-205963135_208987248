@@ -5,7 +5,7 @@
       <slot></slot>
     </h3>
     <b-row class="recipes-container">
-      <b-col v-for="r in recipes" :key="r.id">
+      <b-col v-for="(r, index) in recipes" :key="r.id">
         <RecipePreview
           class="recipePreview"
           :recipe="r"
@@ -16,6 +16,7 @@
           :aggregateLikes="r.aggregateLikes"
           :isFavorite="r.isFavorite"
           :isLastseen="true"
+          :index="index + 1"
         />
       </b-col>
     </b-row>
@@ -60,7 +61,7 @@ export default {
         let favorites = JSON.parse(sessionStorage.getItem("favorites"));
         // console.log(favorites);
         let newRecipes = [];
-        console.log(this.recipes);
+        // console.log(this.recipes);
         this.recipes.forEach((recipe) => {
           let newRecipe = JSON.parse(JSON.stringify(recipe));
           // console.log(newRecipe);

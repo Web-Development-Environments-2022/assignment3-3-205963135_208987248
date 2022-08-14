@@ -5,7 +5,7 @@
       <slot></slot>
     </h3> -->
     <b-row class="recipes-container">
-      <b-col v-for="r in recipes" :key="r.id">
+      <b-col v-for="(r, index) in recipes" :key="r.id">
         <RecipePreview
           class="recipePreview"
           :recipe="r"
@@ -16,6 +16,7 @@
           :aggregateLikes="r.aggregateLikes"
           :isFavorite="r.isFavorite"
           :isLastseen="r.isLastseen"
+          :index="index + 1"
         />
       </b-col>
     </b-row>
@@ -78,7 +79,7 @@ export default {
         // console.log(response);
         const resultsRecipes = response.data;
         this.recipes = resultsRecipes;
-        // console.log(this.recipes);
+        console.log(this.recipes);
         // this.recipes = [
         //   {
         //     id: 661188,

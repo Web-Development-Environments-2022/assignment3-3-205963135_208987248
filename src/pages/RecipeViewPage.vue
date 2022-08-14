@@ -92,44 +92,58 @@ export default {
     setCurRecipe() {
       // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
-      this.$forceUpdate();
+      // this.$forceUpdate();
       this.addToMeal(false);
     },
     async addToMeal(showResponseModal) {
-      // this.$root.store.server_domain = "https://127.0.0.1:3000";
-      this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
-      if (this.$root.store.username != undefined) {
-        let userName = this.$root.store.username;
-        let recipeId = this.recipe.id;
-        const response = await this.axios.post(
-          this.$root.store.server_domain + "/recipes/addmeal",
-          {
-            recipeId: recipeId,
-            userName: userName,
+      try {
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        if (this.$root.store.username != undefined) {
+          let userName = this.$root.store.username;
+          let recipeId = this.recipe.id;
+          // console.log("here");
+          const response = await this.axios.post(
+            this.$root.store.server_domain + "/recipes/addmeal",
+            {
+              recipeId: recipeId,
+              userName: userName,
+            }
+          );
+          // console.log(response);
+          if (response.data == "Recipe was added to meal successfully") {
+            let numOfRecipesInMeal = JSON.parse(
+              sessionStorage.getItem("recipesInMeal")
+            );
+            numOfRecipesInMeal += 1;
+            sessionStorage.setItem(
+              "recipesInMeal",
+              JSON.stringify(numOfRecipesInMeal)
+            );
+            let newMeal = JSON.parse(sessionStorage.getItem("mealRecipes"));
+            let newRecipe = await this.axios.post(
+              this.$root.store.server_domain + "/recipes/previewDetails",
+              { recipeIdList: [this.recipe.id] }
+            );
+            newMeal.push(newRecipe.data[0]);
+            sessionStorage.setItem("mealRecipes", JSON.stringify(newMeal));
+            let meal = await this.axios.post(
+              this.$root.store.server_domain + "/recipes/meal",
+              { userName: this.$root.store.username }
+            );
+            sessionStorage.setItem(
+              "mealRecipesInstructionLength",
+              JSON.stringify(meal.data)
+            );
           }
-        );
-        if (response.data == "Recipe was added to meal successfully") {
-          let numOfRecipesInMeal = JSON.parse(
-            sessionStorage.getItem("recipesInMeal")
-          );
-          numOfRecipesInMeal += 1;
-          sessionStorage.setItem(
-            "recipesInMeal",
-            JSON.stringify(numOfRecipesInMeal)
-          );
-          let newMeal = JSON.parse(sessionStorage.getItem("mealRecipes"));
-          let newRecipe = await this.axios.post(
-            this.$root.store.server_domain + "/recipes/previewDetails",
-            { recipeIdList: [this.recipe.id] }
-          );
-          newMeal.push(newRecipe.data);
-          sessionStorage.setItem("mealRecipes", JSON.stringify(newMeal));
+          if (showResponseModal) {
+            this.message = response.data;
+            this.modalShow = true;
+          }
+          // this.$forceUpdate();
         }
-        if (showResponseModal) {
-          this.message = response.data;
-          this.modalShow = true;
-        }
-        // this.$forceUpdate();
+      } catch (error) {
+        console.log(error);
       }
     },
   },

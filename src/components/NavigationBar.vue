@@ -582,9 +582,9 @@ a:hover {
   width: 40px;
 }
 
-.meal:hover {
+/* .meal:hover {
   opacity: 0.7;
-}
+} */
 
 .meal .badge {
   position: absolute;

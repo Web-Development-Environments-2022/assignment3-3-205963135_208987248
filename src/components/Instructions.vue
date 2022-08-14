@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import { yellow } from "color-name";
-
 export default {
   name: "Instructions",
   props: {
@@ -39,79 +37,91 @@ export default {
     },
   },
   mounted() {
-    updateInstruction();
+    this.updateInstruction();
   },
   updated() {
-    updateInstruction();
+    this.updateInstruction();
   },
   methods: {
     updateInstruction() {
-      let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
-      let recipeId = recipe.id;
-      let curInstructions = JSON.parse(
-        sessionStorage.getItem("curInstructions")
-      );
-      let newInstructions = curInstructions.find(
-        (element) => element.recipeId == recipeId
-      );
-      // console.log("here");
-      // console.log(newInstructions);
-      if (newInstructions != undefined) {
-        // console.log("here1");
-        newInstructions = newInstructions.instructions;
-        newInstructions.forEach((instruction) => {
-          if (instruction.checked) {
-            // console.log("here2");
-            document.getElementById(instruction.number).checked = true;
-            console.log(document.getElementById("step" + instruction.number));
-            document.getElementById(
-              "step" + instruction.number
-            ).style.background = "yellow";
-          } else {
-            document.getElementById(
-              "step" + instruction.number
-            ).style.background = "transparent";
+      try {
+        // let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
+        // let recipeId = recipe.id;
+        let curInstructions = JSON.parse(
+          sessionStorage.getItem("curInstructions")
+        );
+        if (curInstructions != undefined) {
+          let newInstructions = curInstructions.find(
+            (element) => element.recipeId == this.recipeId
+          );
+          // console.log("here");
+          // console.log(newInstructions);
+          if (newInstructions != undefined) {
+            // console.log("here1");
+            newInstructions = newInstructions.instructions;
+            newInstructions.forEach((instruction) => {
+              if (instruction.checked) {
+                // console.log("here2");
+                document.getElementById(instruction.number).checked = true;
+                // console.log(document.getElementById("step" + instruction.number));
+                document.getElementById(
+                  "step" + instruction.number
+                ).style.background = "yellow";
+              } else {
+                document.getElementById(
+                  "step" + instruction.number
+                ).style.background = "transparent";
+              }
+            });
           }
-        });
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
     onChange(instruction) {
-      // console.log(instruction);
-      instruction.checked = !instruction.checked;
-      let curInstructions = JSON.parse(
-        sessionStorage.getItem("curInstructions")
-      );
-      // console.log(curInstructions);
-      let oldInstructions = curInstructions.find(
-        (element) => element.recipeId == this.recipeId
-      );
-      // console.log(oldInstructions);
-      let index = instruction.number - 1;
-      oldInstructions.instructions[index] = instruction;
-      // console.log(oldInstructions);
-      const instructionIndex = curInstructions.findIndex(
-        (o) => o.recipeId == this.recipeId
-      );
-      if (instruction.checked) {
-        oldInstructions.finishedInstructions += 1;
-      } else {
-        oldInstructions.finishedInstructions -= 1;
-      }
-      // console.log(instructionIndex);
-      if (instructionIndex > -1) {
-        curInstructions[instructionIndex] = oldInstructions;
-      }
-      // console.log(curInstructions);
-      sessionStorage.setItem(
-        "curInstructions",
-        JSON.stringify(curInstructions)
-      );
-      if (instruction.checked) {
-        document.getElementById("step" + instruction.number).style.background =
-          "yellow";
-      } else {
-        document.getElementById("step" + instruction.number).style.background =
-          "transparent";
+      try {
+        // console.log(instruction);
+        instruction.checked = !instruction.checked;
+        let curInstructions = JSON.parse(
+          sessionStorage.getItem("curInstructions")
+        );
+        // console.log(curInstructions);
+        let oldInstructions = curInstructions.find(
+          (element) => element.recipeId == this.recipeId
+        );
+        // console.log(oldInstructions);
+        let index = instruction.number - 1;
+        oldInstructions.instructions[index] = instruction;
+        // console.log(oldInstructions);
+        const instructionIndex = curInstructions.findIndex(
+          (o) => o.recipeId == this.recipeId
+        );
+        if (instruction.checked) {
+          oldInstructions.finishedInstructions += 1;
+        } else {
+          oldInstructions.finishedInstructions -= 1;
+        }
+        // console.log(instructionIndex);
+        if (instructionIndex > -1) {
+          curInstructions[instructionIndex] = oldInstructions;
+        }
+        // console.log(curInstructions);
+        sessionStorage.setItem(
+          "curInstructions",
+          JSON.stringify(curInstructions)
+        );
+        if (instruction.checked) {
+          document.getElementById(
+            "step" + instruction.number
+          ).style.background = "yellow";
+        } else {
+          document.getElementById(
+            "step" + instruction.number
+          ).style.background = "transparent";
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
   },

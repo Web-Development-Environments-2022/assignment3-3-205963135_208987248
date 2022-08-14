@@ -27,7 +27,6 @@
           }"
           disabled
         ></RecipePreviewListWatched>
-
       </div>
       <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
@@ -51,10 +50,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.title_top{
+.title_top {
   text-align: center;
-
 }
 .title {
   // text-align: center;
@@ -63,8 +60,7 @@ export default {
 .RandomRecipes {
   margin: 30px 0 30px;
   // text-align:left;
-  margin-left: 100px;
-
+  // margin-left: 100px;
 }
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */

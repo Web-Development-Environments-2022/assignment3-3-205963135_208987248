@@ -347,7 +347,7 @@
       </h4>
     </b-container>
 
-    <b-container fluid class="p-4 bg-light all_recipes">
+    <b-container fluid class="p-4 all_recipes">
       <b-row class="row" v-for="(r, index1) in recipes.flat()" :key="index1">
         <RecipePreview
           class="recipePreview"
@@ -610,7 +610,8 @@ export default {
     },
     async searchRecipe() {
       try {
-        this.$root.store.server_domain = "http://127.0.0.1:3000";
+        // this.$root.store.server_domain = "http://127.0.0.1:3000";
+        this.$root.store.server_domain = "http://dm-recipes.cs.bgu.ac.il:3000";
         let cuisinesFilters = JSON.parse(JSON.stringify(this.valueCuisine));
         let dietFilers = JSON.parse(JSON.stringify(this.valueDiet));
         let intoleranceFilters = JSON.parse(

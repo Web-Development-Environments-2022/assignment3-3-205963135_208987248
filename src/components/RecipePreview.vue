@@ -1,57 +1,62 @@
 <template>
-<b-container>
-  <div class="recipe-container">
-    <router-link
-      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-      class="recipe-preview"
-    >
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </router-link>
-    <div class="recipe-footer">
-      <h5 :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </h5>
-      <ul class="recipe-overview">
-        <li>{{ this.recipe.readyInMinutes }} minutes</li>
-        <li>
-          {{
-            this.recipe.aggregateLikes == undefined
-              ? this.recipe.popularity
-              : this.recipe.aggregateLikes
-          }}
-          likes
-        </li>
-        <tamplate v-if="recipe.vegan">
-          <img src="@/assets/vegan.png" width="30" height="30" id="icon" />
-        </tamplate>
-        <tamplate v-if="recipe.vegetarian">
-          <img src="@/assets/vegetarian.png" width="30" height="30" id="icon" />
-        </tamplate>
-        <tamplate v-if="recipe.glutenFree">
-          <img
-            src="@/assets/gluten-free.png"
-            width="30"
-            height="30"
-            id="icon"
-          />
-        </tamplate>
-      </ul>
-      <iconBar
-        :isFavorite="isFavorite"
-        :isLastseen="isLastseen"
-        :recipe="recipe"
-      ></iconBar>
-      <div class="recipe-index">{{index}}</div>
-      <!-- <v-app>
+  <b-container>
+    <div class="recipe-container">
+      <router-link
+        :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+        class="recipe-preview"
+      >
+        <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+      </router-link>
+      <div class="recipe-footer">
+        <h5 :title="recipe.title" class="recipe-title">
+          {{ recipe.title }}
+        </h5>
+        <ul class="recipe-overview">
+          <li>{{ this.recipe.readyInMinutes }} minutes</li>
+          <li>
+            {{
+              this.recipe.aggregateLikes == undefined
+                ? this.recipe.popularity
+                : this.recipe.aggregateLikes
+            }}
+            likes
+          </li>
+          <tamplate v-if="recipe.vegan">
+            <img src="@/assets/vegan.png" width="30" height="30" id="icon" />
+          </tamplate>
+          <tamplate v-if="recipe.vegetarian">
+            <img
+              src="@/assets/vegetarian.png"
+              width="30"
+              height="30"
+              id="icon"
+            />
+          </tamplate>
+          <tamplate v-if="recipe.glutenFree">
+            <img
+              src="@/assets/gluten-free.png"
+              width="30"
+              height="30"
+              id="icon"
+            />
+          </tamplate>
+        </ul>
+        <iconBar
+          :isFavorite="isFavorite"
+          :isLastseen="isLastseen"
+          :recipe="recipe"
+        ></iconBar>
+        <div class="recipe-index">{{ index }}</div>
+        <!-- <v-app>
         <v-btn fab depressed small dark color="red">
           <v-icon>favorite</v-icon>
         </v-btn></v-app
       > -->
-      <!-- <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
+        <!-- <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
         <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
       </router-link> -->
+      </div>
     </div>
-  </div>
   </b-container>
 </template>
 
@@ -117,7 +122,7 @@ export default {
     index: {
       type: Number,
       required: true,
-    }
+    },
   },
 };
 </script>
@@ -128,7 +133,7 @@ export default {
   border-radius: 10px;
   border-style: ridge;
   width: 26rem;
-  height: 29rem;
+  height: 32rem;
 }
 
 .recipe-image {
@@ -165,7 +170,7 @@ export default {
 
 .recipe-index {
   text-align: center;
-  margin-top: -24px;
+  margin-top: -35px;
   font-size: larger;
   font-weight: 400;
 }
