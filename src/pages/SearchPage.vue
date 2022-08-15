@@ -598,20 +598,14 @@ export default {
           return recipe2.aggregateLikes - recipe1.aggregateLikes;
         });
       }
-      // console.log(this.recipesToSort);
       let searchedRecipes2 = await this.chunkArray(this.recipesToSort, 3);
-      // console.log(searchedRecipes2);
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaa", this.recipesToSort);
-      const finalList = [];
-      // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
       this.recipes = searchedRecipes2;
-      console.log("bbbbbbbbbbbbb", finalList);
       this.rerender();
     },
     async searchRecipe() {
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "http://dm-recipes.cs.bgu.ac.il:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let cuisinesFilters = JSON.parse(JSON.stringify(this.valueCuisine));
         let dietFilers = JSON.parse(JSON.stringify(this.valueDiet));
         let intoleranceFilters = JSON.parse(
@@ -632,40 +626,34 @@ export default {
           }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
+        // console.log(response);
         this.valueCuisine = [];
         this.valueDiet = [];
         this.valueIntolerance = [];
         let searchedRecipes = response.data;
-        // console.log(searchedRecipes);
         searchedRecipes.popularity = searchedRecipes.aggregateLikes;
-        let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
-        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
-        // console.log(lastSeen);
-        let newRecipes = [];
-        searchedRecipes.forEach((recipe) => {
-          let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
-          newRecipes.push(newRecipe);
-          // console.log(newRecipe);
-        });
-        searchedRecipes = newRecipes;
-        // console.log(searchedRecipes);
-        this.recipesToSort = searchedRecipes;
-        // console.log(this.recipesToSort);
-        let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
-        // console.log(searchedRecipes2);
-        // console.log("aaaaaaaaaaaaaaaaaaaaaaaa", this.recipesToSort[0]);
-        const finalList = [];
-        // this.recipesToSort.forEach(recipeBundle => recipeBundle.forEach(recipe => finalList.push(recipe)));
-        this.recipes = searchedRecipes;
-        // console.log("bbbbbbbbbbbbb", finalList);
         if (this.$root.store.username != undefined) {
-          sessionStorage.setItem(
-            "searchResults",
-            JSON.stringify(searchedRecipes2)
+          let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
+          let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+          let newRecipes = [];
+          searchedRecipes.forEach((recipe) => {
+            let newRecipe = JSON.parse(JSON.stringify(recipe));
+            newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+            newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
+            newRecipes.push(newRecipe);
+          });
+          searchedRecipes = newRecipes;
+          this.recipesToSort = searchedRecipes;
+          let searchedRecipes2 = await this.chunkArray(searchedRecipes, 3);
+          this.recipes = searchedRecipes;
+            sessionStorage.setItem(
+              "searchResults",
+              JSON.stringify(searchedRecipes2)
           );
           sessionStorage.setItem("searchText", this.searchText);
+        }
+        else{
+          this.recipes = response.data;
         }
         this.search_cond = true;
       } catch (error) {

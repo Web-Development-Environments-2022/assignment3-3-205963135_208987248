@@ -80,7 +80,7 @@ export default {
       this.recipe.isFavorite = true;
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let lastSeen = await this.axios.get(
           this.$root.store.server_domain + "/users/allwatched"
         );

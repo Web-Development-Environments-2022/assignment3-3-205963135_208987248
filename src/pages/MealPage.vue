@@ -142,7 +142,7 @@ export default {
     async deleteFromMeal(recipe) {
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let recipeNewOrder = [];
         let index = 0;
         let newRecipes = [];
@@ -185,7 +185,7 @@ export default {
     async onSubmit() {
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         this.showModal = false;
         let newOrderList = this.newOrder.split(",");
         let newOrderListInt = [];
@@ -225,7 +225,7 @@ export default {
     },
     async clearAllRecipes() {
       // this.$root.store.server_domain = "http://127.0.0.1:3000";
-      this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+      this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
       const response = await this.axios.post(
         this.$root.store.server_domain + "/recipes/deletemealrecipes",
         {
@@ -266,6 +266,9 @@ export default {
 }
 .meal {
   color: black !important;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 .recipe_name {
   margin-top: 30px;

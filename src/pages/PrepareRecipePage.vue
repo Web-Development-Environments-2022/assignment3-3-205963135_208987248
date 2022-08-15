@@ -28,7 +28,7 @@
           >Double Ingredients</b-button
         >
         <Instructions
-          class="instructions"
+          class="instructions_prepare"
           :instructions="recipe._instructions"
           :prepared="true"
           :recipeId="recipe.id"
@@ -171,11 +171,11 @@ export default {
   display: flex;
   justify-content: center;
 }
-.instructions {
+.instructions_prepare {
   /* display: flex; */
   margin-left: 500px;
   position: relative;
-  top: -620px !important;
+  top: -550px !important;
 }
 /* a {
   color: #ffffff;

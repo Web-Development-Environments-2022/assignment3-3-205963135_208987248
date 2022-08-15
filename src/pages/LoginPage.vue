@@ -96,7 +96,7 @@ export default {
     async Login() {
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Login",
           this.$root.store.server_domain + "/login",
@@ -170,7 +170,7 @@ export default {
         this.$router.push("/");
       } catch (err) {
         console.log(err);
-        this.form.submitError = err.response.data.message;
+        // this.form.submitError = err.response.data.message;
       }
     },
     onLogin() {

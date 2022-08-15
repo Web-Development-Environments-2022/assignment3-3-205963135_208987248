@@ -53,7 +53,7 @@ export default {
       try {
         // console.log("Here");
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let response;
         if (this.listType == "RandomRecipes") {
           response = await this.axios.get(
@@ -79,7 +79,7 @@ export default {
         // console.log(response);
         const resultsRecipes = response.data;
         this.recipes = resultsRecipes;
-        console.log(this.recipes);
+        // console.log(this.recipes);
         // this.recipes = [
         //   {
         //     id: 661188,
@@ -132,17 +132,20 @@ export default {
         //     glutenFree: false,
         //   },
         // ];
-        let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
-        let favorites = JSON.parse(sessionStorage.getItem("favorites"));
-        let newRecipes = [];
-        this.recipes.forEach((recipe) => {
-          let newRecipe = JSON.parse(JSON.stringify(recipe));
-          newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
-          newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
-          newRecipes.push(newRecipe);
-        });
-        this.recipes = newRecipes;
-        // console.log(this.recipes);
+        if (this.$root.store.username != undefined) {
+          let lastSeen = JSON.parse(sessionStorage.getItem("watchedRecipes"));
+          let favorites = JSON.parse(sessionStorage.getItem("favorites"));
+          let newRecipes = [];
+          this.recipes.forEach((recipe) => {
+            let newRecipe = JSON.parse(JSON.stringify(recipe));
+            newRecipe.isFavorite = favorites.includes(newRecipe.id.toString());
+            newRecipe.isLastseen = lastSeen.includes(newRecipe.id.toString());
+            newRecipes.push(newRecipe);
+          });
+          this.recipes = newRecipes;
+          // console.log(this.recipes);
+        }
+        
       } catch (error) {
         console.log(error);
       }

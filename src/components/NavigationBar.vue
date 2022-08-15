@@ -15,6 +15,13 @@
           >
         </b-nav-item>
         <b-nav-item>
+          <b-button pill variant="outline-secondary"
+            ><router-link :to="{ name: 'myfamilyrecipes' }"
+                >My Family Recipes</router-link
+              ></b-button
+          >
+        </b-nav-item>
+        <b-nav-item>
           <b-button
             pill
             variant="outline-secondary"
@@ -102,11 +109,11 @@
                 ><p>My Favorite Recipes</p></router-link
               ></b-dropdown-item
             >
-            <b-dropdown-item href="#"
+            <!-- <b-dropdown-item href="#"
               ><router-link :to="{ name: 'myfamilyrecipes' }"
                 ><p>My Family Recipes</p></router-link
               ></b-dropdown-item
-            >
+            > -->
             <b-dropdown-item href="#"
               ><router-link :to="{ name: 'myrecipes' }"
                 ><p>My Recipes</p></router-link
@@ -114,7 +121,7 @@
             >
           </b-dropdown>
 
-          <a href="#" class="meal">
+          <a href="#" class="meal_nav">
             <router-link :to="{ name: 'meal' }"
               ><img src="../assets/meal.png" alt=""
             /></router-link>
@@ -267,7 +274,7 @@
             </b-form>
 
             <b-form
-              class="Instructions"
+              class="Instructions_nav"
               @submit="onSubmit"
               @reset="onReset"
               v-if="show"
@@ -378,15 +385,16 @@ export default {
       });
     },
     onSubmit() {
-      let instructions = [];
+      let instructions = {"name": this.form.title, "steps":[]};
       let ingredients = [];
       let instructionsString = "";
       for (let i = 0; i < this.form.instructions.length; i++) {
-        instructions.push({ step: this.form.instructions[i].value });
+        instructions["steps"].push({"number": i + 1, "step": this.form.instructions[i].value });
         instructionsString += this.form.instructions[i].value + ". ";
       }
       for (let i = 0; i < this.form.ingredients.length; i++) {
-        ingredients.push({ original: this.form.ingredients[i].value });
+        let ingredientsList = this.form.ingredients[i].value.split(" ");
+        ingredients.push({"amount": ingredientsList[0], "original": this.form.ingredients[i].value, "originalName": ingredientsList[2],  "unit": ingredientsList[1] });
       }
       let formData = {
         glutenFree: this.form.glutenFree,
@@ -413,6 +421,7 @@ export default {
             console.log(error);
           }
         );
+        this.show = false;
       // event.preventDefault();
       // alert(JSON.stringify(this.form));
     },
@@ -548,7 +557,7 @@ a:hover {
 .bold_text {
   font-weight: bold;
 }
-.Instructions {
+.Instructions_nav {
   margin-top: 20px;
 }
 .two_btn {
@@ -568,7 +577,7 @@ a:hover {
   font-weight: bold;
 
 } */
-.meal {
+.meal_nav {
   color: white;
   text-decoration: none;
   position: relative;
@@ -578,7 +587,7 @@ a:hover {
   transition: 0.2s ease;
 }
 
-.meal img {
+.meal_nav img {
   width: 40px;
 }
 
@@ -586,7 +595,7 @@ a:hover {
   opacity: 0.7;
 } */
 
-.meal .badge {
+.meal_nav .badge {
   position: absolute;
   top: -10px;
   right: -10px;

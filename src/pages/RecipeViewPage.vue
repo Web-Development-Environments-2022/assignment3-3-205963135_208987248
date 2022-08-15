@@ -53,7 +53,7 @@
             </ol>
           </div> -->
             <Instructions
-              class="instructions"
+              class="instructions_preview"
               :Instructions="this.recipe._instructions"
               :prepared="false"
               :recipeId="recipe.id"
@@ -98,7 +98,7 @@ export default {
     async addToMeal(showResponseModal) {
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il:443";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         if (this.$root.store.username != undefined) {
           let userName = this.$root.store.username;
           let recipeId = this.recipe.id;
@@ -154,12 +154,12 @@ export default {
 
       try {
         // this.$root.store.server_domain = "http://127.0.0.1:3000";
-        this.$root.store.server_domain = "http://dm-recipes.cs.bgu.ac.il:3000";
+        this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let userName = this.$root.store.username;
         if (userName == undefined) {
           userName = "guest";
         }
-
+        // console.log("here");
         response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",
@@ -171,7 +171,9 @@ export default {
           //   params: { id: this.$route.params.recipeId }
           // }
         );
+        // console.log("here2");
         if (this.$root.store.username != undefined) {
+          // console.log("here3");
           let lastSeen = await this.axios.get(
             this.$root.store.server_domain + "/users/allwatched"
           );
@@ -204,7 +206,7 @@ export default {
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log(error);
-        console.log("error.response.status", error.response.status);
+        // console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
@@ -274,7 +276,7 @@ export default {
   width: 450px;
   margin-left: 50px;
 }
-.instructions {
+.instructions_preview {
   /* display: flex; */
   margin-left: 600px;
   position: relative;
