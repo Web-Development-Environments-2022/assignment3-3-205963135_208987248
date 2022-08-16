@@ -139,7 +139,7 @@ export default {
   outline-style: dotted;
   /* height: 100%; */
   width: 600px !important;
-  margin-top: 100px;
+  margin-top: 45%;
 }
 
 .wrapped {
