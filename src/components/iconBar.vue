@@ -111,7 +111,6 @@ export default {
           });
           newLastSearch.push(newRecipeList);
         });
-        console.log(newLastSearch);
         sessionStorage.setItem("searchResults", JSON.stringify(newLastSearch));
       } catch (err) {
         console.log(err);

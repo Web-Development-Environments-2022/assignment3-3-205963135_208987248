@@ -33,12 +33,19 @@ export default {
   methods: {
     doubleIngredients() {
       let newIngredients = [];
-      this.ingredients.forEach((ingredient) => {
+      this.recipe.ingredients.forEach((ingredient) => {
         let newIngredient = JSON.parse(JSON.stringify(ingredient));
-        newIngredient.original = newIngredient.original * 2;
+        newIngredient.amount = newIngredient.amount * 2;
+        newIngredient.original =
+          newIngredient.amount +
+          " " +
+          newIngredient.unit +
+          " " +
+          newIngredient.originalName;
         newIngredients.push(newIngredient);
       });
-      this.ingredients = newIngredients;
+      this.recipe.ingredients = newIngredients;
+      this.recipe.servings *= 2;
     },
   },
 };

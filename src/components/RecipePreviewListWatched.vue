@@ -75,9 +75,6 @@ export default {
 .container {
   min-height: 400px;
 }
-.title {
-  margin-left: 100px;
-}
 .recipes-container {
   position: relative;
   display: flex;

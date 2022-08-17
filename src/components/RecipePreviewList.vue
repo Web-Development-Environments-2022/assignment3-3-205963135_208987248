@@ -118,9 +118,6 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-.title {
-  margin-left: 100px;
-}
 .more_btn {
   margin-left: 170px;
   margin-top: 50px;
