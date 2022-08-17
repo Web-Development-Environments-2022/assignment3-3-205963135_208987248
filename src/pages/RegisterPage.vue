@@ -6,7 +6,6 @@
       width="350"
       height="200"
     />
-    <!-- <h1 class="title">Register</h1> -->
     <div class="my_form">
       <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
         <b-form-group
@@ -28,7 +27,7 @@
             Username length should be between 3-8 characters long
           </b-form-invalid-feedback>
           <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-            Username alpha
+            Username must contains only letters
           </b-form-invalid-feedback>
         </b-form-group>
 
@@ -44,6 +43,9 @@
             type="text"
             :state="validateState('firstname')"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+            must insert firsname before submitting
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -58,7 +60,11 @@
             type="text"
             :state="validateState('lastname')"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+            must insert lastname before submitting
+          </b-form-invalid-feedback>
         </b-form-group>
+
         <b-form-group
           id="input-group-email"
           label-cols-sm="3"
@@ -71,6 +77,12 @@
             type="text"
             :state="validateState('email')"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!$v.form.email.required">
+            must insert email address to register
+          </b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="!$v.form.email.email">
+            This is not a valid email address
+          </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
@@ -170,10 +182,6 @@
     >
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -244,9 +252,7 @@ export default {
     },
   },
   mounted() {
-    // console.log("mounted");
     this.countries.push(...countries);
-    // console.log($v);
   },
   methods: {
     validateState(param) {
@@ -255,10 +261,8 @@ export default {
     },
     async Register() {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/Register",
 
           {
@@ -271,19 +275,16 @@ export default {
           }
         );
         this.$router.push("/login");
-        // console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
-      // console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
       this.Register();
     },
     onReset() {
@@ -306,9 +307,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
-  // margin-top: 100px;
   border-radius: 10px;
-  // outline-style: dotted;
 }
 .title {
   text-align: center;
@@ -319,8 +318,6 @@ export default {
   margin-bottom: 40px;
   margin-left: 550px;
   margin-top: 150px;
-  // right: 80px;
-  // left:80px;
 }
 .my_form {
   max-width: 500px;
@@ -328,7 +325,6 @@ export default {
   margin-top: 100px;
   border-radius: 10px;
   border-style: double;
-  // outline-style: dotted  ;
 }
 .btn_container {
   display: contents;

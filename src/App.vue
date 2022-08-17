@@ -5,7 +5,6 @@
       'background-image': 'url(' + require('./assets/background.png') + ')',
     }"
   >
-    <!-- <div id="app"> -->
     <NavigationBar></NavigationBar>
   </div>
 </template>
@@ -30,6 +29,5 @@ export default {
   color: #2c3e50;
   min-height: 100vh;
   font-size:large;
-  // background-image: "@/assets/back1.jpg"
 }
 </style>

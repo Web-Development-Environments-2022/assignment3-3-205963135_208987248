@@ -15,7 +15,6 @@
         </span>
       </li>
     </ol>
-    <!-- <button @click="func">click</button> -->
   </div>
 </template>
 
@@ -45,8 +44,6 @@ export default {
   methods: {
     updateInstruction() {
       try {
-        // let recipe = JSON.parse(sessionStorage.getItem("curRecipe"));
-        // let recipeId = recipe.id;
         let curInstructions = JSON.parse(
           sessionStorage.getItem("curInstructions")
         );
@@ -54,16 +51,11 @@ export default {
           let newInstructions = curInstructions.find(
             (element) => element.recipeId == this.recipeId
           );
-          // console.log("here");
-          // console.log(newInstructions);
           if (newInstructions != undefined) {
-            // console.log("here1");
             newInstructions = newInstructions.instructions;
             newInstructions.forEach((instruction) => {
               if (instruction.checked) {
-                // console.log("here2");
                 document.getElementById(instruction.number).checked = true;
-                // console.log(document.getElementById("step" + instruction.number));
                 document.getElementById(
                   "step" + instruction.number
                 ).style.background = "yellow";
@@ -81,19 +73,15 @@ export default {
     },
     onChange(instruction) {
       try {
-        // console.log(instruction);
         instruction.checked = !instruction.checked;
         let curInstructions = JSON.parse(
           sessionStorage.getItem("curInstructions")
         );
-        // console.log(curInstructions);
         let oldInstructions = curInstructions.find(
           (element) => element.recipeId == this.recipeId
         );
-        // console.log(oldInstructions);
         let index = instruction.number - 1;
         oldInstructions.instructions[index] = instruction;
-        // console.log(oldInstructions);
         const instructionIndex = curInstructions.findIndex(
           (o) => o.recipeId == this.recipeId
         );
@@ -102,11 +90,9 @@ export default {
         } else {
           oldInstructions.finishedInstructions -= 1;
         }
-        // console.log(instructionIndex);
         if (instructionIndex > -1) {
           curInstructions[instructionIndex] = oldInstructions;
         }
-        // console.log(curInstructions);
         sessionStorage.setItem(
           "curInstructions",
           JSON.stringify(curInstructions)
@@ -129,21 +115,11 @@ export default {
 </script>
 
 <style>
-/* .headers {
-  text-align: center;
-} */
-
 .instructions {
   padding: 5px;
   border-radius: 10px;
   outline-style: dotted;
-  /* height: 100%; */
   width: 600px !important;
-  margin-top: 45%;
-}
-
-.wrapped {
-  width: 50%;
 }
 .checkbox-form .item:hover input ~ .instruction {
   background-color: yellow;

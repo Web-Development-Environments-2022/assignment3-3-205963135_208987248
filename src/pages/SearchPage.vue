@@ -87,8 +87,6 @@
                 </b-form-tags>
               </b-form-group>
             </div>
-
-            <!-- ================================================================ -->
             <div class="multiple-choice-container">
               <b-form-group label-for="tags-with-dropdown">
                 <b-form-tags
@@ -162,8 +160,6 @@
                 </b-form-tags>
               </b-form-group>
             </div>
-
-            <!-- ================================================================ -->
             <div class="multiple-choice-container">
               <b-form-group label-for="tags-with-dropdown">
                 <b-form-tags
@@ -239,30 +235,6 @@
                 </b-form-tags>
               </b-form-group>
             </div>
-
-            <!-- ================================================================ -->
-            <!-- <b-form-select
-              multiple
-              :select-size="100"
-              class="selector"
-              v-model="form.cuisine"
-              :options="cuisines"
-            ></b-form-select>
-            <b-form-select
-              multiple
-              :select-size="100"
-              class="selector"
-              v-model="form.diet"
-              :options="diets"
-            ></b-form-select>
-            
-            <b-form-select
-              multiple
-              :select-size="100"
-              class="selector"
-              v-model="form.intolerance"
-              :options="intolerances"
-            ></b-form-select> -->
           </div>
 
           <div class="search-container">
@@ -363,24 +335,6 @@
         />
       </b-row>
     </b-container>
-
-    <!-- <b-container fluid class="p-4 bg-light all_recipes">
-      <b-row class="row" v-for="(recipeList, index2) in recipes" :key="index2">
-        <b-col class="col" v-for="(r, index1) in recipeList" :key="index1">
-          <RecipePreview
-            class="recipePreview"
-            :recipe="r"
-            :id="r.id"
-            :title="r.title"
-            :readyInMinutes="r.readyInMinutes"
-            :image="r.image"
-            :aggregateLikes="r.aggregateLikes"
-            :isFavorite="r.isFavorite"
-            :isLastseen="r.isLastseen"
-          />
-        </b-col>
-      </b-row>
-    </b-container> -->
   </div>
 </template>
 
@@ -604,7 +558,6 @@ export default {
     },
     async searchRecipe() {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let cuisinesFilters = JSON.parse(JSON.stringify(this.valueCuisine));
         let dietFilers = JSON.parse(JSON.stringify(this.valueDiet));
@@ -624,9 +577,7 @@ export default {
                 ? intoleranceFilters.join()
                 : "",
           }
-          // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
-        // console.log(response);
         this.valueCuisine = [];
         this.valueDiet = [];
         this.valueIntolerance = [];
@@ -681,9 +632,6 @@ export default {
     text-align: center;
   }
   .hero-header {
-    // margin: 0 0 25px;
-    // line-height: 1;
-    // font-size: 34px;
     text-align: center;
   }
   .search-bar {
@@ -756,7 +704,6 @@ export default {
   padding: 10px;
 }
 .search-container {
-  // display: flex;
   flex-direction: row;
   justify-content: center;
 }
@@ -781,12 +728,7 @@ export default {
 .col {
   margin-bottom: 30px;
   position: relative;
-  // display: inline-flex;
 }
-// .navbarSearch{
-//   width: 200%;
-//   left: 0px
-// }
 .multiple-choice-container {
   width: 25%;
 }

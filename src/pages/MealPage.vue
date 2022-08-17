@@ -26,7 +26,7 @@
             :title="r.title"
             :readyInMinutes="r.readyInMinutes"
             :image="r.image"
-            :aggregateLikes="r.popularity"
+            :aggregateLikes="r.aggregateLikes == undefined ? r.popularity : r.aggregateLikes"
             :isFavorite="r.isFavorite"
             :isLastseen="r.isLastseen"
             :index="index1 + 1"
@@ -84,7 +84,6 @@
         >
       </b-form>
     </b-modal>
-    <!-- </b-container> -->
   </div>
 </template>
 
@@ -141,7 +140,6 @@ export default {
     },
     async deleteFromMeal(recipe) {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let recipeNewOrder = [];
         let index = 0;
@@ -184,7 +182,6 @@ export default {
     },
     async onSubmit() {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         this.showModal = false;
         let newOrderList = this.newOrder.split(",");
@@ -224,7 +221,6 @@ export default {
       }
     },
     async clearAllRecipes() {
-      // this.$root.store.server_domain = "http://127.0.0.1:3000";
       this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
       const response = await this.axios.post(
         this.$root.store.server_domain + "/recipes/deletemealrecipes",
@@ -281,11 +277,8 @@ export default {
 }
 .div-buttons {
   display: flex;
-  margin-left: 200px;
-  gap: 40px;
-  top: -500px !important;
-  margin-top: 31px;
-  margin-bottom: 50px;
+  justify-content: center;
+  gap: 20px;
 }
 .dowm-buttons-div {
   display: flex;

@@ -47,14 +47,6 @@
           :recipe="recipe"
         ></iconBar>
         <div class="recipe-index">{{ index }}</div>
-        <!-- <v-app>
-        <v-btn fab depressed small dark color="red">
-          <v-icon>favorite</v-icon>
-        </v-btn></v-app
-      > -->
-        <!-- <router-link :to="{ name: 'recipe', params: { recipeId: recipe.id } }">
-        <b-button id="recipe_link" variant="warning">Go to recipe</b-button>
-      </router-link> -->
       </div>
     </div>
   </b-container>
@@ -68,6 +60,7 @@ export default {
     iconBar,
   },
   mounted() {
+    // console.log(this.recipe);
     this.axios
       .get(this.recipe.image, {
         headers: { "Access-Control-Allow-Origin": "*" },
@@ -76,7 +69,6 @@ export default {
         this.image_load = true;
       })
       .catch((err) => console.log(err));
-    // console.log(this.recipe);
   },
   data() {
     return {
@@ -139,8 +131,6 @@ export default {
 .recipe-image {
   width: 25.8rem;
   height: 14rem;
-
-  /* width: 100%; */
   border-radius: 10px 10px 0 0;
 }
 
@@ -154,11 +144,6 @@ export default {
 }
 
 .recipe-title {
-  /* white-space: nowrap; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 250px; 
-  overflow-wrap: anywhere; */
   word-wrap: break-word;
 }
 
@@ -167,7 +152,6 @@ export default {
   padding: 0;
   margin: 0;
 }
-
 .recipe-index {
   text-align: center;
   margin-top: -35px;
@@ -175,86 +159,7 @@ export default {
   font-weight: 400;
 }
 
-/* #recipe_link {
-  margin-left: 75px;
-  margin-top: 20px;
-} */
 #icon {
   margin-left: 50px;
 }
-
-/* .recipe-preview {
-  display: inline-block;
-  width: 90%;
-  height: 100%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
-  width: 100%;
-  height: 200px;
-  position: relative;
-}
-
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
-  width: 98%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-}
-
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
-  text-align: center;
-} */
 </style>

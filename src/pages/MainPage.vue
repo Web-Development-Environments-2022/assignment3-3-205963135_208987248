@@ -17,7 +17,6 @@
           tag="button"
           >You need to Login to vue this</router-link
         >
-        <!-- {{ !$root.store.username }} -->
         <RecipePreviewListWatched
           title="Last Viewed Recipes"
           :class="{
@@ -28,11 +27,6 @@
           disabled
         ></RecipePreviewListWatched>
       </div>
-      <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
     </div>
   </div>
 </template>
@@ -54,16 +48,13 @@ export default {
   text-align: center;
 }
 .title {
-  // text-align: center;
   margin-top: 20px;
 }
 .RandomRecipes {
   margin: 30px 0 30px;
-  // text-align:left;
-  // margin-left: 100px;
 }
 .blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  -webkit-filter: blur(5px);
   filter: blur(2px);
 }
 ::v-deep .blur .recipe-preview {
@@ -76,7 +67,6 @@ export default {
 .column {
   flex: 50%;
 }
-
 .login_first_btn {
   margin-left: 120px;
   margin-top: 50px;

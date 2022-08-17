@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <img class="welcome" src="@/assets/welcome.png" width="500" height="250" />
-    <!-- <h1 class="title">Login</h1> -->
 
     <b-form class="my_form" @submit.prevent="onLogin">
       <b-form-group
@@ -59,9 +58,6 @@
     >
       Login failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -95,22 +91,14 @@ export default {
     },
     async Login() {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
           this.$root.store.server_domain + "/login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
-
           {
             username: this.form.username,
             password: this.form.password,
           }
         );
-
-        // console.log(response);
-        // this.$root.loggedIn = true;
 
         this.$root.store.login(this.form.username);
         let lastSeen = await this.axios.get(
@@ -119,12 +107,10 @@ export default {
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
-        // console.log(this.$root.store.login);
         let meal = await this.axios.post(
           this.$root.store.server_domain + "/recipes/meal",
           { userName: this.form.username }
         );
-        // console.log(meal);
         sessionStorage.setItem(
           "recipesInMeal",
           JSON.stringify(meal.data.length)
@@ -138,7 +124,6 @@ export default {
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
         });
-        // console.log(lastSeen.data.watched);
         sessionStorage.setItem(
           "watchedRecipes",
           JSON.stringify(lastSeen.data.watched)
@@ -165,23 +150,18 @@ export default {
           }
           newMealRecipes.push(recipe);
         });
-        // console.log(newMealRecipes);
         sessionStorage.setItem("mealRecipes", JSON.stringify(newMealRecipes));
         this.$router.push("/");
       } catch (err) {
         console.log(err);
-        // this.form.submitError = err.response.data.message;
       }
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("login method go");
-
       this.Login();
     },
   },
@@ -190,19 +170,14 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 500px;
-  // margin-top: 100px;
   border-radius: 10px;
-  // outline-style: dotted;
 }
 .title {
   text-align: center;
 }
 .welcome {
-  // display: flex;
   margin-bottom: 40px;
   left: 0%;
-  // right: 80px;
-  // left:80px;
 }
 .login_btn {
   margin-top: 40px;

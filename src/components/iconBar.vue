@@ -17,7 +17,6 @@
           />
         </b-col>
         <b-col v-else>
-          <!-- <button v-on:click="addToFavorite()">Dire salut</button> -->
           <img
             id="logoNotFavorite"
             src="../assets/heart-empty.png"
@@ -79,7 +78,6 @@ export default {
     async addToFavorite() {
       this.recipe.isFavorite = true;
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let lastSeen = await this.axios.get(
           this.$root.store.server_domain + "/users/allwatched"
@@ -87,15 +85,15 @@ export default {
         let favorites = await this.axios.get(
           this.$root.store.server_domain + "/users/favorites"
         );
-        // console.log(favorites);
         let favoritesIds = [];
         favorites.data.forEach((recipe) => {
           favoritesIds.push(recipe.id.toString());
         });
-        // console.log("before if");
         if (!favoritesIds.includes(this.recipe.id.toString())) {
           favoritesIds.push(this.recipe.id.toString());
-          // console.log("in the if");
+          await this.axios.post(
+            this.$root.store.server_domain + "/users/favorites",{"recipeId": this.recipe.id.toString()}
+          );
         }
         sessionStorage.setItem("favorites", JSON.stringify(favoritesIds));
         let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
@@ -115,10 +113,7 @@ export default {
         });
         console.log(newLastSearch);
         sessionStorage.setItem("searchResults", JSON.stringify(newLastSearch));
-        // console.log("after change favorite list");
-        // console.log(response);
       } catch (err) {
-        // console.log("error.response.status", err.response.status);
         console.log(err);
       }
     },

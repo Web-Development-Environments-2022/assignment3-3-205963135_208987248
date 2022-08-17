@@ -38,12 +38,10 @@
   </div>
 </template>
 <script>
-// import Ingredients from "../components/Ingredients.vue";
 import Instructions from "../components/Instructions.vue";
 export default {
   name: "PrepareRecipePage",
   components: {
-    // Ingredients,
     Instructions,
   },
   created() {
@@ -71,16 +69,12 @@ export default {
             counter++;
           }
         });
-        // newInstructions.totalInstructions = newInstructions.length;
-        // newInstructions.finishedInstructions = counter;
         this.recipe._instructions = newInstructions;
         sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
 
         let curInstructions = JSON.parse(
           sessionStorage.getItem("curInstructions")
         );
-        // console.log(this.recipe);
-        // console.log(curInstructions);
         if (curInstructions == undefined) {
           sessionStorage.setItem(
             "curInstructions",
@@ -115,7 +109,6 @@ export default {
       }
     },
     doubleIngredients() {
-      // console.log(this.recipe);
       let newIngredients = [];
       this.recipe.ingredients.forEach((ingredient) => {
         let newIngredient = JSON.parse(JSON.stringify(ingredient));
@@ -127,11 +120,9 @@ export default {
           " " +
           newIngredient.originalName;
         newIngredients.push(newIngredient);
-        // console.log(newIngredient);
       });
       this.recipe.ingredients = newIngredients;
       this.recipe.servings *= 2;
-      // this.$root.store.curRecipe = this.recipe;
     },
   },
 };
@@ -144,13 +135,9 @@ export default {
   margin-bottom: 50px;
 }
 .all_btn_prapare {
-  /* margin-left: 50px !important; */
   color: rgb(255, 255, 255) !important;
   font-weight: bold !important;
   margin-top: 25px;
-}
-.wrapped {
-  width: 50%;
 }
 .mb-3 {
   background-color: rgba(240, 149, 14, 0.418);
@@ -158,33 +145,20 @@ export default {
   border-radius: 10px;
   height: 85px;
   width: 200px;
-  /* margin-left: 50px; */
 }
 .ingredients {
   background-color: rgba(255, 228, 196, 0.418);
   padding: 5px;
   border-radius: 10px;
   width: 450px;
-  /* margin-left: 50px; */
 }
 .prepare {
   display: flex;
   justify-content: center;
 }
 .instructions_prepare {
-  /* display: flex; */
   margin-left: 500px;
   position: relative;
   top: -550px !important;
 }
-/* a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-}
-a:hover {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-} */
 </style>

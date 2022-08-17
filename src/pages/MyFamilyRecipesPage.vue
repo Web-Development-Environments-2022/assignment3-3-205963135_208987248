@@ -6,6 +6,7 @@
       listType="MyFamilyRecipes"
       class="RandomRecipes center"
     />
+    <p class="matan">All the recipes writen by Grandpa Matan Zachor. He makes those recipes every weekend and write them by himself!</p>
   </div>
 </template>
 
@@ -31,11 +32,14 @@ export default {
   text-align: center;
 }
 .blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  -webkit-filter: blur(5px);
   filter: blur(2px);
 }
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+.matan{
+  font-weight: bold;
 }
 </style>

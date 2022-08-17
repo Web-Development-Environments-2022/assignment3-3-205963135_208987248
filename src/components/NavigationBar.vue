@@ -14,13 +14,13 @@
             ></b-button
           >
         </b-nav-item>
-        <b-nav-item>
+        <!-- <b-nav-item>
           <b-button pill variant="outline-secondary"
             ><router-link :to="{ name: 'myfamilyrecipes' }"
                 >My Family Recipes</router-link
               ></b-button
           >
-        </b-nav-item>
+        </b-nav-item> -->
         <b-nav-item>
           <b-button
             pill
@@ -84,7 +84,6 @@
       </div>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <!-- {{ !$root.store.username }} -->
         <span v-if="!$root.store.username">
           <h7 class="hello">Hello Guest</h7>
           <b-button class="reg_btn" pill variant="outline-secondary"
@@ -109,11 +108,11 @@
                 ><p>My Favorite Recipes</p></router-link
               ></b-dropdown-item
             >
-            <!-- <b-dropdown-item href="#"
+            <b-dropdown-item href="#"
               ><router-link :to="{ name: 'myfamilyrecipes' }"
                 ><p>My Family Recipes</p></router-link
               ></b-dropdown-item
-            > -->
+            >
             <b-dropdown-item href="#"
               ><router-link :to="{ name: 'myrecipes' }"
                 ><p>My Recipes</p></router-link
@@ -320,13 +319,11 @@
               >
             </b-form>
           </b-modal>
-          <!-- <b-button pill variant="outline-secondary" @click="openModal">Create New Recipe</b-button> -->
           <b-button pill variant="outline-secondary" @click="Logout"
             ><a>Logout</a></b-button
           >
         </span>
       </b-navbar-nav>
-      <!-- </b-collapse> -->
     </b-navbar>
     <router-view />
   </div>
@@ -354,13 +351,6 @@ export default {
       numOfRecipesInMeal: undefined,
     };
   },
-  // created() {
-  //   if (this.$root.store.username != undefined) {
-  //     this.numOfRecipesInMeal = JSON.parse(
-  //       sessionStorage.getItem("recipesInMeal")
-  //     );
-  //   }
-  // },
   mounted() {
     if (this.$root.store.username != undefined) {
       this.numOfRecipesInMeal = JSON.parse(
@@ -422,8 +412,6 @@ export default {
           }
         );
         this.show = false;
-      // event.preventDefault();
-      // alert(JSON.stringify(this.form));
     },
     onReset(event) {
       event.preventDefault();
@@ -482,7 +470,6 @@ export default {
 </script>
 
 <style scoped>
-/* @import "@/scss/form-style.scss"; */
 #nav p {
   color: black;
 }
@@ -572,11 +559,6 @@ a:hover {
 .submit {
   margin-top: 20px;
 }
-/* ::v-deep .b-navbar .b-navbar-nav .b-dropdown .text {
-  color: azure!important;
-  font-weight: bold;
-
-} */
 .meal_nav {
   color: white;
   text-decoration: none;
@@ -591,10 +573,6 @@ a:hover {
   width: 40px;
 }
 
-/* .meal:hover {
-  opacity: 0.7;
-} */
-
 .meal_nav .badge {
   position: absolute;
   top: -10px;
@@ -603,5 +581,12 @@ a:hover {
   border-radius: 50%;
   background: red;
   color: white;
+}
+.ml-auto{
+  display: flex;
+  min-width: 600px;
+  gap: 20px;
+  justify-content: flex-end;
+  list-style: none;
 }
 </style>

@@ -3,12 +3,12 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <!-- <b-img :src="recipe.image" class="center" v-bind="mainProps" rounded="circle" alt="Circle image"></b-img> -->
         <img :src="recipe.image" class="center" border-radius="50%" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
           <div class="wrapped">
+            <div class="left-container-ingredients">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
@@ -25,6 +25,7 @@
                 </li>
               </ul>
             </div>
+            <div class="buttons-container-ingredients">
             <b-button
               class="all_btn_recipe"
               pill
@@ -43,15 +44,8 @@
               :disabled="!this.$root.store.username"
               >Add to Meal</b-button
             >
-
-            <!-- <div class="wrapped instructions">
-            <h4 class="headers">Instructions:</h4>
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
-              </li>
-            </ol>
-          </div> -->
+            </div>
+            </div>
             <Instructions
               class="instructions_preview"
               :Instructions="this.recipe._instructions"
@@ -62,23 +56,15 @@
           <b-modal id="my-modal" v-model="modalShow">{{ message }}</b-modal>
         </div>
       </div>
-
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
 
 <script>
-// import Ingredients from "../components/Ingredients.vue";
 import Instructions from "../components/Instructions.vue";
 export default {
   name: "RecipeDetails",
   components: {
-    // Ingredients,
     Instructions,
   },
   data() {
@@ -90,19 +76,15 @@ export default {
   },
   methods: {
     setCurRecipe() {
-      // this.$root.store.curRecipe = this.recipe;
       sessionStorage.setItem("curRecipe", JSON.stringify(this.recipe));
-      // this.$forceUpdate();
       this.addToMeal(false);
     },
     async addToMeal(showResponseModal) {
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         if (this.$root.store.username != undefined) {
           let userName = this.$root.store.username;
           let recipeId = this.recipe.id;
-          // console.log("here");
           const response = await this.axios.post(
             this.$root.store.server_domain + "/recipes/addmeal",
             {
@@ -110,7 +92,6 @@ export default {
               userName: userName,
             }
           );
-          // console.log(response);
           if (response.data == "Recipe was added to meal successfully") {
             let numOfRecipesInMeal = JSON.parse(
               sessionStorage.getItem("recipesInMeal")
@@ -140,7 +121,6 @@ export default {
             this.message = response.data;
             this.modalShow = true;
           }
-          // this.$forceUpdate();
         }
       } catch (error) {
         console.log(error);
@@ -150,30 +130,21 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
 
       try {
-        // this.$root.store.server_domain = "http://127.0.0.1:3000";
         this.$root.store.server_domain = "https://dm-recipes.cs.bgu.ac.il";
         let userName = this.$root.store.username;
         if (userName == undefined) {
           userName = "guest";
         }
-        // console.log("here");
         response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/recipes/details",
           {
             userName: userName,
             recipeId: this.$route.params.recipeId,
           }
-          // {
-          //   params: { id: this.$route.params.recipeId }
-          // }
         );
-        // console.log("here2");
         if (this.$root.store.username != undefined) {
-          // console.log("here3");
           let lastSeen = await this.axios.get(
             this.$root.store.server_domain + "/users/allwatched"
           );
@@ -182,7 +153,6 @@ export default {
             JSON.stringify(lastSeen.data.watched)
           );
           let lastSearch = JSON.parse(sessionStorage.getItem("searchResults"));
-          // console.log(response.data);
           if (lastSearch != undefined) {
             let newLastSearch = [];
             lastSearch.forEach((recipeList) => {
@@ -195,18 +165,15 @@ export default {
               });
               newLastSearch.push(newRecipeList);
             });
-            // console.log(newLastSearch);
             sessionStorage.setItem(
               "searchResults",
               JSON.stringify(newLastSearch)
             );
           }
         }
-        // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log(error);
-        // console.log("error.response.status", error.response.status);
         this.$router.replace("/NotFound");
         return;
       }
@@ -243,7 +210,6 @@ export default {
       };
 
       this.recipe = _recipe;
-      // console.log(this.recipe);
     } catch (error) {
       console.log(error);
     }
@@ -256,7 +222,8 @@ export default {
   display: flex;
 }
 .wrapped {
-  width: 50%;
+  display: flex;
+  gap: 50px;
 }
 .center {
   display: block;
@@ -268,7 +235,6 @@ export default {
 .recipe-header {
   text-align: center;
 }
-
 .ingredients {
   background-color: rgba(255, 228, 196, 0.418);
   padding: 5px;
@@ -277,10 +243,7 @@ export default {
   margin-left: 50px;
 }
 .instructions_preview {
-  /* display: flex; */
-  margin-left: 600px;
-  position: relative;
-  top: -550px !important;
+  display: block;
 }
 .headers {
   text-align: center;
@@ -296,14 +259,11 @@ export default {
 
 .all_btn_recipe {
   margin-left: 100px;
-  /* position: relative; */
-  /* top: -225px; */
   margin-top: 25px;
 }
 
 .all_btn_meal {
   margin-left: 80px;
-  /* position: relative; */
   top: -225px;
   font-weight: bold;
   margin-top: 25px;
